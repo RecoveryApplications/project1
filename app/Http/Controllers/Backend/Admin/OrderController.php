@@ -15,6 +15,7 @@ use App\Traits\UploadImageTrait;
 use Illuminate\Support\Facades\DB;
 use LaravelShipStation\ShipStation;
 use App\Http\Controllers\Controller;
+use App\Models\Wallet;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use LaravelShipStation\Models\Order;
@@ -598,6 +599,111 @@ class OrderController extends Controller
                 $cartSale->delivery_status = 3;  // 3 => Rejected
                 $cartSale->save();
                 return redirect()->back()->with('success', 'The process has successfully');
+            } else {
+                return redirect()->route('super_admin.products-index')->with('danger', 'This record is not exists');
+            }
+        } catch (\Throwable $th) {
+            $function_name =  $route->getActionName();
+            $check_old_errors = new SupportTicket();
+
+            $check_old_errors = $check_old_errors->select('*')->where([
+                'error_location' => $th->getFile(),
+                'error_description' => $th->getMessage(),
+
+                'function_name' => $function_name,
+                'error_line' => $th->getLine(),
+            ])->get();
+            if ($check_old_errors->count() == 0) {
+
+                $new_error_ticket = SupportTicket::create([
+                    'error_location' => $th->getFile(),
+                    'error_description' => $th->getMessage(),
+
+                    'function_name' => $function_name,
+                    'error_line' =>  $th->getLine(),
+                ]);
+                $end_error_ticket = $new_error_ticket;
+            } else {
+
+                $end_error_ticket = $check_old_errors->first();
+            }
+
+            return view('errors.support_tickets', compact('th', 'function_name', 'end_error_ticket'));
+        }
+    }
+
+    public function acceptPay(Route $route, $id)
+    {
+        try {
+            $cartSale = CartSale::find($id);
+            if ($cartSale) {
+                if ($cartSale->payment_status = 'Pending') {
+
+                    $subTotal = $cartSale->sub_total;
+                    $total = $cartSale->total;
+                    $totalTax = $subTotal + $cartSale->tax;
+                    $totalShipping = $cartSale->shipping;
+                    $sale_percentage = $cartSale->sale_percentage;
+                    $walletTotal = $total - ($totalTax + $totalShipping + $sale_percentage);
+
+                    $wallet = Wallet::find($cartSale->user_id);
+                    if ($wallet) {
+                        $old_ballane = $wallet->ballance;
+                        $wallet->ballance = $old_ballane + $walletTotal;
+                        $wallet->save();
+                    } else {
+                        Wallet::create([
+                            'user_id' => $cartSale->user_id,
+                            'ballance' => $walletTotal
+                        ]);
+                    }
+                    $cartSale->payment_status = 2;
+                    $cartSale->save();
+                    return redirect()->back()->with('success', 'The process has successfully');
+                }
+            } else {
+                return redirect()->route('super_admin.products-index')->with('danger', 'This record is not exists');
+            }
+        } catch (\Throwable $th) {
+            $function_name =  $route->getActionName();
+            $check_old_errors = new SupportTicket();
+
+            $check_old_errors = $check_old_errors->select('*')->where([
+                'error_location' => $th->getFile(),
+                'error_description' => $th->getMessage(),
+
+                'function_name' => $function_name,
+                'error_line' => $th->getLine(),
+            ])->get();
+            if ($check_old_errors->count() == 0) {
+
+                $new_error_ticket = SupportTicket::create([
+                    'error_location' => $th->getFile(),
+                    'error_description' => $th->getMessage(),
+
+                    'function_name' => $function_name,
+                    'error_line' =>  $th->getLine(),
+                ]);
+                $end_error_ticket = $new_error_ticket;
+            } else {
+
+                $end_error_ticket = $check_old_errors->first();
+            }
+
+            return view('errors.support_tickets', compact('th', 'function_name', 'end_error_ticket'));
+        }
+    }
+
+    public function rejectPay(Route $route, $id)
+    {
+        try {
+            $cartSale = CartSale::find($id);
+            if ($cartSale) {
+                if ($cartSale->payment_status = 'Pending') {
+                    $cartSale->payment_status = 3;
+                    $cartSale->save();
+                    return redirect()->back()->with('success', 'The process has successfully');
+                }
             } else {
                 return redirect()->route('super_admin.products-index')->with('danger', 'This record is not exists');
             }

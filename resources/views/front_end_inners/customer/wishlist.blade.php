@@ -1,8 +1,19 @@
 @extends('front_end_inners.app_front_end')
 
+@php
+    $image_url = asset('images/Wishlist.png')
+@endphp
+@push('styles')
+    <style>
+        .inner-banner1 {
+            background: url({{ $image_url }}) no-repeat scroll center center;
+            padding: 60px 0;
+        }
+    </style>
+@endpush
 @section('content')
     <!-- Bread Crumb STRAT -->
-    <div class="banner inner-banner1 ">
+    <div class="banner inner-banner1">
         <div class="container">
             <section class="banner-detail center-xs">
                 <h1 class="banner-title">Wishlist</h1>
@@ -38,7 +49,7 @@
                                         @php
                                             $product_slug = $item->product->slug_en;
                                             $product_price = $item->product->on_sale_price_status == 'Active' ? $item->product->on_sale_price : $item->product->sale_price;
-                                            
+
                                             // // dd($public_customer_carts);
                                             // if ($item->property_type == 2) {
                                             //     $product_name = $item->cart_product->name_en;
@@ -48,7 +59,7 @@
                                             //     $product_slug = $item->cart_product->product->slug_en;
                                             // }
                                             // $product_price = $item->cart_product->on_sale_price_status == 'Active' ? $item->cart_product->on_sale_price : $item->cart_product->sale_price;
-                                            
+
                                         @endphp
                                         <tr>
                                             <td>

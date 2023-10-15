@@ -7,8 +7,7 @@
                         <div class="footer-static-block"> <span class="opener plus"></span>
                             <div class="f-logo">
                                 <a href="index.html" class="">
-                                    <img src="{{ asset('front_end_style/assets/images/logo.png') }}"
-                                        alt="FamilyDrop">
+                                    <img src="{{ asset('front_end_style/assets/images/logo.png') }}" alt="FamilyDrop">
                                 </a>
                             </div>
                             <div class="footer-block-contant">
@@ -47,15 +46,14 @@
                         <div class="footer-static-block"> <span class="opener plus"></span>
                             <h3 class="title">address<span></span></h3>
                             <ul class="footer-block-contant address-footer">
-                                <li class="item"> <i class="fa fa-map-marker"> </i>
-                                    <p>150-A Appolo aprtment, opp. Hopewell Junction, <br>Allen st Road, new
-                                        york-405001.</p>
+
+                                <li class="item">
+                                    <i class="fa fa-envelope"> </i>
+                                    <p> <a href="#">{{ $public_contact_us['email'] }} </a> </p>
                                 </li>
-                                <li class="item"> <i class="fa fa-envelope"> </i>
-                                    <p> <a href="#">infoservices@FamilyDrop.com </a> </p>
-                                </li>
-                                <li class="item"> <i class="fa fa-phone"> </i>
-                                    <p>(+91) 9834567890</p>
+                                <li class="item">
+                                    <i class="fa fa-phone"> </i>
+                                    <p>{{ $public_contact_us['phone'] }}</p>
                                 </li>
                             </ul>
                         </div>
@@ -65,11 +63,20 @@
             <hr>
             <div class="footer-bottom ">
                 <div class="row mtb-30">
-                    <div class="col-lg-6 ">
+                    <div class="col-lg-4 ">
                         <div class="copy-right ">© 2023 All Rights Reserved.
                         </div>
                     </div>
-                    <div class="col-lg-6 ">
+                    <div class="col-lg-8">
+                        <div class="site-link">
+                            <ul class="flex-wrap d-flex justify-content-center ">
+                                <li><a href="{{ route('aboutUs') }}">About Us</a></li>
+                                <li><a href="{{ route('contactUs') }}">Contact Us</a></li>
+                                <li><a href="{{ route('shop') }}">Shop </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {{-- <div class="col-lg-6 ">
                         <div class="footer_social pt-xs-15 center-sm">
                             <ul class="social-icon">
                                 <li>
@@ -86,7 +93,7 @@
                                         </i></a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <hr>
                 {{-- <div class="row align-center mtb-30 ">

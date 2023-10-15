@@ -1,6 +1,24 @@
 @extends('front_end_inners.app_front_end', ['title' => 'الصفحة الرئيسية'])
 
 
+@php
+    $image_url = asset('images/Userprofile.png')
+@endphp
+@push('styles')
+    <style>
+        .input-text.qty {
+            width: 100% !important;
+            border-radius: 20px !important;
+            max-width: 80px !important;
+        }
+
+        .inner-banner1 {
+            background: url({{ $image_url }}) no-repeat scroll center center;
+            padding: 60px 0;
+        }
+    </style>
+@endpush
+
 @section('content')
     <!-- Bread Crumb STRAT -->
     <div class="banner inner-banner1 ">
@@ -47,6 +65,13 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="heading-part heading-bg mb-30">
+                                    <h3 class="p-2 m-0 text-white rounded heading bg-secondary">Wallet : <small>{{ auth('customer')->user()->wallet->ballance  ?? 0 }} $</small> </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="heading-part heading-bg mb-30">
                                     <h2 class="m-0 heading">Account Dashboard</h2>
                                 </div>
                             </div>
@@ -58,8 +83,7 @@
                                         <h3 class="sub-heading">Hello, {{ auth('customer')->user()->name_en }}</h3>
                                     </div>
                                     <p>
-                                        From your account dashboard. you can easily check &amp; view your recent orders,
-                                        manage your shipping and billing addresses and edit your password and account
+                                        From your account dashboard. you can easily check &amp; view your recent orders and edit your password and account
                                         details.
                                     </p>
                                 </div>

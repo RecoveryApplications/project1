@@ -1,16 +1,26 @@
 @extends('front_end_inners.app_front_end')
 
-
+@php
+    $image_url = asset('images/Shop.png')
+@endphp
+@push('styles')
+    <style>
+        .inner-banner1 {
+            background: url({{ $image_url }}) no-repeat scroll center center;
+            padding: 60px 0;
+        }
+    </style>
+@endpush
 @section('content')
     <!-- Bread Crumb STRAT -->
     <div class="banner inner-banner1 ">
         <div class="container">
             <section class="banner-detail center-xs">
-                <h1 class="banner-title">Women</h1>
+                <h1 class="banner-title">Shop</h1>
                 <div class="bread-crumb right-side float-none-xs">
                     <ul>
-                        <li><a href="index.html">Home</a>/</li>
-                        <li><span>Women</span></li>
+                        <li><a href="{{ route('welcome') }}">Home</a>/</li>
+                        <li><span>Shop</span></li>
                     </ul>
                 </div>
             </section>

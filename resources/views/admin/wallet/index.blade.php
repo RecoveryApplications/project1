@@ -1,8 +1,11 @@
 @extends('admin.layouts.app')
 
-
-
-
+@section('admin_css')
+    {{-- <link href="{{ asset('dashboard_files/assets/plugins/data-tables/datatables.bootstrap4.min.css') }}"
+        rel="stylesheet"> --}}
+    {{-- <link href="{{ asset('dashboard_files/assets/css/sleek.min.css') }}"> --}}
+    {{-- <link href="{{ asset('dashboard_files/assets/css/sleek.css') }}"> --}}
+@endsection
 
 @section('content')
     <div class="content-wrapper">
@@ -32,70 +35,70 @@
             {{-- ============================================== --}}
             <div class="breadcrumb-wrapper breadcrumb-contacts">
                 <div>
-                    <h1> Contact Us Messages</h1>
+                    <h3><i class="mdi mdi-account-multiple"></i> All Wallets</h3>
                     <nav aria-label="breadcrumb">
                         <ol class="p-0 breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('super_admin.dashboard') }}">
-                                    <span class="mdi mdi-home"></span> dashboard
-                                </a>
+                                <a href="{{ route('super_admin.dashboard') }}"> <i class="mdi mdi-home"></i> Dashboard </a>
                             </li>
-                            <li class="breadcrumb-item"><i class="far fa-envelope"></i> Contact Us Messages</li>
-
-
+                            <li class="breadcrumb-item" aria-current="page"><i class="mdi mdi-account-multiple"></i> All
+                                Wallets</li>
                         </ol>
                     </nav>
                 </div>
             </div>
+
             {{-- ============================================== --}}
             {{-- =================== Body ===================== --}}
             {{-- ============================================== --}}
             <div class="card card-default">
-                <div class="card-header card-header-border-bottom">
-                    <h2> Contact Us Messages : </h2>
-                </div>
                 <div class="card-body">
                     <table id="hoverable-data-table" class="table table-hover table-striped">
                         <thead>
                             <tr>
-                                <th>Full Name </th>
-                                <th>Email</th>
-                                <th>Subject</th>
-                                <th>Message</th>
-                                <th>Control</th>
+                                {{-- <th>#</th> --}}
+                                <th><i class="mdi mdi-account"></i> Name EN</th>
+                                <th><i class="mdi mdi-email"></i> Email</th>
+                                <th><i class="mdi mdi-phone"></i> Phone</th>
+                                <th><i class="mdi mdi-account-question"></i> Wallet Ballance</th>
+                                <th><i class="mdi mdi-settings mdi-spin"></i> Control</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($requests->count() > 0)
-                                @foreach ($requests as $index => $request)
-                                    <tr>
-                                        <td>{!! isset($request->full_name) ? $request->full_name : "<span style='color:red;'>Undefined</span>" !!} </td>
-                                        <td>{!! isset($request->email) ? $request->email : "<span style='color:red;'>Undefined</span>" !!} </td>
-                                        <td>{!! isset($request->subject) ? $request->subject : "<span style='color:red;'>Undefined</span>" !!} </td>
-                                        <td>
-                                            {{ Str::limit($request->message, 50) ?? "<span style='color:red;'>Undefined</span>" }}
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('super_admin.contact_us-showrequest', $request->id) }}"
-                                                class="p-1 mb-1 btn btn-sm btn-danger">
-                                                <i class="fa fa-eye" title="Destroy"></i>
+                            @forelse ($customers as $customer)
+                                <tr>
+                                    <td>
+                                        {{ $customer->name_en }}
+                                    </td>
+                                    <td>
+                                        {{ $customer->email }}
+                                    </td>
+                                    <td>
+                                        {{ $customer->phone }}
+                                    </td>
+                                    <td>
+                                        {{ $customer->wallet->ballance ?? 0 }} $
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('super_admin.wallet-pay-out' , $customer->id) }}" title="Pay" class="mb-1 process btn btn-sm btn-success">
+                                            pay out
+                                        </a>
+                                    </td>
+                                </tr>
 
-                                            </a>
-                                            <a href="{{ route('super_admin.contact_us-destroyrequest', $request->id) }}"
-                                                class="p-1 mb-1 confirm btn btn-sm btn-primary">
-                                                <i class="fa fa-trash" title="Destroy"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">No Wallets</td>
+                                </tr>
+                            @endforelse
+
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </div>
     </div>
-
 @endsection
 
 @section('admin_javascript')
@@ -113,5 +116,4 @@
     </script>
     <script src="{{ asset('dashboard_files/assets/plugins/data-tables/jquery.datatables.min.js') }}"></script>
     <script src="{{ asset('dashboard_files/assets/plugins/data-tables/datatables.bootstrap4.min.js') }}"></script>
-
-@stop
+@endsection

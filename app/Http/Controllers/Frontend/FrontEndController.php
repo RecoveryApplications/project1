@@ -482,7 +482,7 @@ class FrontEndController extends Controller
     function productList(Route $route, $type = null, $id = null)
     {
         try {
-            $lang=Config::get('app.locale');
+            $lang = Config::get('app.locale');
             $active_brands = Brand::where('status', 1)->whereHas('mainCategory', function ($q) {
                 $q->where('status', 1);
             })->orderBy('created_at', 'asc')->get();
@@ -494,7 +494,7 @@ class FrontEndController extends Controller
             if ($type != null) {
                 if ($type == "main") {
                     if ($id != null) {
-                        $category = MainCategory::where('slug_'.$lang,$id)->get()->first();
+                        $category = MainCategory::where('slug_' . $lang, $id)->get()->first();
                         if ($category) {
                             $products = Product::where([
                                 'main_category_id' => $category->id,
@@ -518,7 +518,7 @@ class FrontEndController extends Controller
                     }
                 } else if ($type == "sub") {
                     if ($id != null) {
-                        $category = Category::where('slug_'.$lang,$id)->get()->first();
+                        $category = Category::where('slug_' . $lang, $id)->get()->first();
                         if ($category) {
                             $products = Product::where([
                                 'sub_category_id' => $category->id,
@@ -551,7 +551,7 @@ class FrontEndController extends Controller
                     'status' => 1
                 ])->with('firstProperty')->orderBy('created_at', 'asc')->paginate(50);
                 $seo_operation = SeoOperation::where('page_name', 'Shop')->get()->first();
-                return view('front_end_inners.product_list', compact('products', 'colors', 'sizes', 'active_brands', 'weightArray','seo_operation'));
+                return view('front_end_inners.product_list', compact('products', 'colors', 'sizes', 'active_brands', 'weightArray', 'seo_operation'));
             }
         } catch (\Throwable $th) {
             $function_name =  $route->getActionName();
@@ -742,9 +742,9 @@ class FrontEndController extends Controller
 
     function productDetails($aliasname)
     {
-        $lang=Config::get('app.locale');
+        $lang = Config::get('app.locale');
 
-        $product = Product::where('slug_'.$lang,$aliasname)->get()->first();
+        $product = Product::where('slug_' . $lang, $aliasname)->get()->first();
 
         // return $product;
         if ($product) {
@@ -873,14 +873,12 @@ class FrontEndController extends Controller
 
     public function contactUsRequest(Route $route, Request $request)
     {
+        $request->validate([
+            'full_name' => 'required',
+            'email' => 'required|email:rfc,dns',
+            'phone' => 'required',
+        ]);
         try {
-            $request->validate([
-                // 'firstname' => 'required',
-                // 'email' => 'required|email:rfc,dns',
-                // 'phonenumber' => 'required',
-                // 'address' => 'required'
-            ]);
-
             ContactUsRequest::create([
                 'full_name' => $request->full_name,
                 'email' => $request->email,
@@ -1000,8 +998,7 @@ class FrontEndController extends Controller
                     }
                     return response()->json(['status' => true, 'output' => $output]);
                 }
-            }
-             else {
+            } else {
                 $products = Product::where([
                     'status' => 1
                 ])->with('firstProperty')->orderBy('created_at', 'asc')->paginate(50);
@@ -1152,8 +1149,8 @@ class FrontEndController extends Controller
             <div class="img-wrapper">';
 
 
-                    if (isset($product->image) && file_exists($product->image))
-                         $output .= '
+        if (isset($product->image) && file_exists($product->image))
+            $output .= '
                             <div class="front">
                                 <a href="' . route("productDetails", $product->id) . '">
                                 <img src="' . asset($product->image) . '"
@@ -1165,8 +1162,8 @@ class FrontEndController extends Controller
                                         class="img-fluid blur-up lazyload bg-img"
                                         alt=""></a>
                             </div>';
-                    elseif (isset($product->image_url) && $product->image_url != null)
-                         $output .= '
+        elseif (isset($product->image_url) && $product->image_url != null)
+            $output .= '
                             <div class="front">
                                 <a href="' . route("productDetails", $product->id) . '">
                                 <img src="' . asset($product->image_url) . '"
@@ -1178,8 +1175,8 @@ class FrontEndController extends Controller
                                         class="img-fluid blur-up lazyload bg-img"
                                         alt=""></a>
                             </div>';
-                    else{
-                         $output .= '
+        else {
+            $output .= '
                             <div class="front">
                                 <a href="' . route("productDetails", $product->id) . '">
                                 <img src="' . asset('front_end_style/assets/images/product-image/6_2.jpg') . '"
@@ -1191,60 +1188,60 @@ class FrontEndController extends Controller
                                         class="img-fluid blur-up lazyload bg-img"
                                         alt=""></a>
                             </div>';
-                            }
-                            $output .= '<div class="cart-info cart-wrap">
+        }
+        $output .= '<div class="cart-info cart-wrap">
                                 <a class="add_on_cartbtn"
-                                data-product_id="'.$product->id .'"';
+                                data-product_id="' . $product->id . '"';
 
-                                if(isset($product->firstProperty) ){
-                                    $output .= 'data-prop_type="'. 1 .'"';
-                                }else{
-                                    $output .= 'data-prop_type="'. 2 .'"';
-                                }
-                                if(isset($product->firstProperty)){
-                                    $output .= 'data-property_id="'. $product->firstProperty->id .'"';
-                                }else{
-                                    $output .= 'data-property_id="'. 2 .'"';
-                                }
-                                // $output .= 'data-prop_type="'.isset($product->firstProperty) ? 1 : 2 .'"';
-                                // $output .= 'data-property_id="'.isset($product->firstProperty) ? $product->firstProperty->id : 2 .'"';
-                                $output .= 'data-bs-toggle="modal" data-bs-target="#addtocart" title="Add to cart">
+        if (isset($product->firstProperty)) {
+            $output .= 'data-prop_type="' . 1 . '"';
+        } else {
+            $output .= 'data-prop_type="' . 2 . '"';
+        }
+        if (isset($product->firstProperty)) {
+            $output .= 'data-property_id="' . $product->firstProperty->id . '"';
+        } else {
+            $output .= 'data-property_id="' . 2 . '"';
+        }
+        // $output .= 'data-prop_type="'.isset($product->firstProperty) ? 1 : 2 .'"';
+        // $output .= 'data-property_id="'.isset($product->firstProperty) ? $product->firstProperty->id : 2 .'"';
+        $output .= 'data-bs-toggle="modal" data-bs-target="#addtocart" title="Add to cart">
                                 <i class="ti-shopping-cart"></i> </a>';
 
 
 
 
-                                if (auth('customer')->user()){
-                                    $output .= ' <a class="wishlist wishlistV2" href="javascript:void(0)"  wishlist_id="'.encrypt($product->id) .'" title="Add to Wishlist">
+        if (auth('customer')->user()) {
+            $output .= ' <a class="wishlist wishlistV2" href="javascript:void(0)"  wishlist_id="' . encrypt($product->id) . '" title="Add to Wishlist">
                                         <i class="ti-heart" aria-hidden="true"></i>
                                     </a>';
-                                }else{
-                                }
-                                $output .= '<a href="#" class="quickview" data-link-action="quickview"
+        } else {
+        }
+        $output .= '<a href="#" class="quickview" data-link-action="quickview"
                                                     data-bs-toggle="modal" data-bs-target="#quick-view"
-                                                    data-id="'.$product->id.'"
+                                                    data-id="' . $product->id . '"
                                                     title="Quick View"><i class="ti-search" aria-hidden="true"></i></a>';
 
-                                $output .= '
+        $output .= '
                             </div>
             </div>';
-            $output .= '  <div class="product-detail">
+        $output .= '  <div class="product-detail">
                 <div class="rating"><i class="fa fa-star"></i> <i
                         class="fa fa-star"></i> <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                 </div>
                 <a href="product-page(no-sidebar).html">
-                    <h6>'.$product->name.'</h6>
+                    <h6>' . $product->name . '</h6>
                 </a>
-                <p>'.$product->sub_description.'</p>
+                <p>' . $product->sub_description . '</p>
                 <h4>';
-                    if(isset($product->on_sale_price_status) && $product->on_sale_price_status == 'Active')
-                    $output .= '<span class="new-price">$ '.$product->on_sale_price.'</span>
-                    <span class="old-price">$'.$product->sale_price.'</span>';
-                else
-                $output .= ' <span class="new-price">$'.$product->sale_price.'</span>';
+        if (isset($product->on_sale_price_status) && $product->on_sale_price_status == 'Active')
+            $output .= '<span class="new-price">$ ' . $product->on_sale_price . '</span>
+                    <span class="old-price">$' . $product->sale_price . '</span>';
+        else
+            $output .= ' <span class="new-price">$' . $product->sale_price . '</span>';
 
-                $output .= ' </h4>
+        $output .= ' </h4>
                 <ul class="color-variant">
                     <li class="bg-light0"></li>
                     <li class="bg-light1"></li>
@@ -2041,129 +2038,124 @@ class FrontEndController extends Controller
     {
 
 
+        $endTotal = 0;
+
+        if (Auth::guard('customer')->check()) {
+            $public_customer_carts = CartTemp::where(['user_id' => Auth::guard('customer')->user()->id, 'user_type' => 'Customer'])->get();
             $endTotal = 0;
+            foreach ($public_customer_carts as $public_customer_cart) {
+                $sub_total = 0;
 
-            if (Auth::guard('customer')->check()) {
-                $public_customer_carts = CartTemp::where(['user_id' => Auth::guard('customer')->user()->id, 'user_type' => 'Customer'])->get();
-                $endTotal = 0;
-                foreach ($public_customer_carts as $public_customer_cart) {
-                    $sub_total = 0;
+                $public_customer_cart->cart_product = Product::find($public_customer_cart->product_id);
 
-                    $public_customer_cart->cart_product = Product::find($public_customer_cart->product_id);
+                if (isset($public_customer_cart->cart_product->activeOffer)) {
+                    $offer = $public_customer_cart->cart_product->activeOffer;
+                    $offer_price = $offer->price;
+                    $offer_quantity = $offer->quantity_user;
 
-                    if(isset($public_customer_cart->cart_product->activeOffer)){
-                        $offer = $public_customer_cart->cart_product->activeOffer;
-                        $offer_price = $offer->price;
-                        $offer_quantity = $offer->quantity_user;
-
-                        if($public_customer_cart->quantity <= $offer_quantity){
-                            $cart_total = $public_customer_cart->quantity * $offer_price;
-                        }else{
-                            $cart_total = ($offer_quantity * $offer_price) + (($public_customer_cart->quantity - $offer_quantity) * $public_customer_cart->cart_product->sale_price);
-                        }
-                        $endTotal += $cart_total;
-                        $sub_total = $cart_total;
-
-                    }else{
-                        if($public_customer_cart->cart_product->on_sale_price_status == 'Active'){
-                            $endTotal += $public_customer_cart->quantity * $public_customer_cart->cart_product->on_sale_price;
-                            $sub_total = $public_customer_cart->quantity * $public_customer_cart->cart_product->on_sale_price;
-                        }else{
-                            $endTotal += $public_customer_cart->quantity * $public_customer_cart->cart_product->sale_price;
-                            $sub_total = $public_customer_cart->quantity * $public_customer_cart->cart_product->sale_price;
-                        }
-
-                        // return $endTotal;
+                    if ($public_customer_cart->quantity <= $offer_quantity) {
+                        $cart_total = $public_customer_cart->quantity * $offer_price;
+                    } else {
+                        $cart_total = ($offer_quantity * $offer_price) + (($public_customer_cart->quantity - $offer_quantity) * $public_customer_cart->cart_product->sale_price);
+                    }
+                    $endTotal += $cart_total;
+                    $sub_total = $cart_total;
+                } else {
+                    if ($public_customer_cart->cart_product->on_sale_price_status == 'Active') {
+                        $endTotal += $public_customer_cart->quantity * $public_customer_cart->cart_product->on_sale_price;
+                        $sub_total = $public_customer_cart->quantity * $public_customer_cart->cart_product->on_sale_price;
+                    } else {
+                        $endTotal += $public_customer_cart->quantity * $public_customer_cart->cart_product->sale_price;
+                        $sub_total = $public_customer_cart->quantity * $public_customer_cart->cart_product->sale_price;
                     }
 
-                    $public_customer_cart->sub_total = $sub_total;
-                }
-                $public_customer_carts->endTotal = $endTotal;
-                $public_customer_carts_count = $public_customer_carts->count();
-
-                $public_customer_carts_count = count($public_customer_carts ?? []);
-
-                $output = '';
-
-                foreach ($public_customer_carts as $public_customer_cart){
                     // return $endTotal;
-                    $output .= ' <tr>
+                }
+
+                $public_customer_cart->sub_total = $sub_total;
+            }
+            $public_customer_carts->endTotal = $endTotal;
+            $public_customer_carts_count = $public_customer_carts->count();
+
+            $public_customer_carts_count = count($public_customer_carts ?? []);
+
+            $output = '';
+
+            foreach ($public_customer_carts as $public_customer_cart) {
+                // return $endTotal;
+                $output .= ' <tr>
                         <td>
                             <a href="#">';
-                                if (isset($public_customer_cart->cart_product->image) && file_exists($public_customer_cart->cart_product->image)){
-                                    $output .= '<img src="'.asset($public_customer_cart->cart_product->image).'" alt="">';
-                                }elseif(isset($public_customer_cart->cart_product->image_url)){
-                                    $output .= '<img src="'.$public_customer_cart->cart_product->image_url.'" alt="">';
-                                }else{
-                                    $output .= '<img src="'.asset('front_end_style/assets/images/pro3/2.jpg').'" alt="">';
-                                }
-                                $output .= '</a>
+                if (isset($public_customer_cart->cart_product->image) && file_exists($public_customer_cart->cart_product->image)) {
+                    $output .= '<img src="' . asset($public_customer_cart->cart_product->image) . '" alt="">';
+                } elseif (isset($public_customer_cart->cart_product->image_url)) {
+                    $output .= '<img src="' . $public_customer_cart->cart_product->image_url . '" alt="">';
+                } else {
+                    $output .= '<img src="' . asset('front_end_style/assets/images/pro3/2.jpg') . '" alt="">';
+                }
+                $output .= '</a>
                         </td>
                         <td>
-                            <h4 class="td-color">'.$public_customer_cart->cart_product->name.'</h4>
+                            <h4 class="td-color">' . $public_customer_cart->cart_product->name . '</h4>
                         </td>
                         <td>';
-                            if($public_customer_cart->cart_product->on_sale_price_status == 'Active'){
-                                $output .= '<h2>'.$public_customer_cart->cart_product->on_sale_price.'</h2>';
-                            }else{
-                                $output .= '<h2>'.$public_customer_cart->cart_product->sale_price.'</h2>';
-                            }
+                if ($public_customer_cart->cart_product->on_sale_price_status == 'Active') {
+                    $output .= '<h2>' . $public_customer_cart->cart_product->on_sale_price . '</h2>';
+                } else {
+                    $output .= '<h2>' . $public_customer_cart->cart_product->sale_price . '</h2>';
+                }
 
-                            $output .= '</td>
+                $output .= '</td>
                         <td>
                             <div class="qty-box">
                                 <div class="input-group"><span class="input-group-prepend"><button type="button"
                                             class="btn quantity-left-minus quantity_cart"
-                                            data-product_id="'.$public_customer_cart->cart_product->id.'"
-                                            data-prop_type="'.$public_customer_cart->property_type.'"';
-                                            if(isset($public_customer_cart->cart_product->firstProperty)){
+                                            data-product_id="' . $public_customer_cart->cart_product->id . '"
+                                            data-prop_type="' . $public_customer_cart->property_type . '"';
+                if (isset($public_customer_cart->cart_product->firstProperty)) {
 
-                                                $output .= ' data-property_id="'.$public_customer_cart->cart_product->firstProperty->id.'"';
-
-                                            }else{
-                                                $output .= ' data-property_id="'. 2 .'"';
-
-                                            }
-                                            $output .= '  data-type="minus" data-field=""><i
+                    $output .= ' data-property_id="' . $public_customer_cart->cart_product->firstProperty->id . '"';
+                } else {
+                    $output .= ' data-property_id="' . 2 . '"';
+                }
+                $output .= '  data-type="minus" data-field=""><i
                                                 class="ti-angle-left"></i></button> </span>
                                     <input type="text" name="quantity" min="0"
-                                        max="'.$public_customer_cart->cart_product->quantity_available.'"
-                                        class="form-control input-number" value="'.$public_customer_cart->quantity.'">';
-                                        $output .= ' <span class="input-group-prepend"><button type="button"
+                                        max="' . $public_customer_cart->cart_product->quantity_available . '"
+                                        class="form-control input-number" value="' . $public_customer_cart->quantity . '">';
+                $output .= ' <span class="input-group-prepend"><button type="button"
                                             class="btn quantity-right-plus quantity_cart"
-                                            data-product_id="'.$public_customer_cart->cart_product->id.'"
-                                            data-prop_type="'.$public_customer_cart->property_type.'"';
+                                            data-product_id="' . $public_customer_cart->cart_product->id . '"
+                                            data-prop_type="' . $public_customer_cart->property_type . '"';
 
-                                            // $output .= ;
-                                            if(isset($public_customer_cart->cart_product->firstProperty)){
+                // $output .= ;
+                if (isset($public_customer_cart->cart_product->firstProperty)) {
 
-                                                $output .= ' data-property_id="'.$public_customer_cart->cart_product->firstProperty->id.'"';
-
-                                            }else{
-                                                $output .= ' data-property_id="'. 2 .'"';
-
-                                            }
+                    $output .= ' data-property_id="' . $public_customer_cart->cart_product->firstProperty->id . '"';
+                } else {
+                    $output .= ' data-property_id="' . 2 . '"';
+                }
 
 
-                                            $output .= ' data-type="plus" data-field=""><i
+                $output .= ' data-type="plus" data-field=""><i
                                                 class="ti-angle-right"></i></button></span>
                                 </div>
                             </div>
                         </td>
-                        <td><a class="icon deleteCartItem" data-cart-id="'.$public_customer_cart->id.'"><i class="ti-close"></i></a></td>
+                        <td><a class="icon deleteCartItem" data-cart-id="' . $public_customer_cart->id . '"><i class="ti-close"></i></a></td>
                         <td>';
-                        if($public_customer_cart->cart_product->on_sale_price_status == 'Active'){
-                            $output .= '<h2 class="td-color">'.$public_customer_cart->cart_product->on_sale_price * $public_customer_cart->quantity.'</h2>';
-                        }else{
-                            $output .= '<h2 class="td-color">'.$public_customer_cart->cart_product->on_sale_price *$public_customer_cart->quantity.'</h2>';
-                        }
-                            $output .= '</td>
-                    </tr>';
+                if ($public_customer_cart->cart_product->on_sale_price_status == 'Active') {
+                    $output .= '<h2 class="td-color">' . $public_customer_cart->cart_product->on_sale_price * $public_customer_cart->quantity . '</h2>';
+                } else {
+                    $output .= '<h2 class="td-color">' . $public_customer_cart->cart_product->on_sale_price * $public_customer_cart->quantity . '</h2>';
                 }
-
-
-                    return response()->json(['status' => true, 'output' => $output,'end_total'=>$endTotal]);
+                $output .= '</td>
+                    </tr>';
             }
+
+
+            return response()->json(['status' => true, 'output' => $output, 'end_total' => $endTotal]);
+        }
     }
 
     function addToCartAjax(Request $request)
@@ -2312,10 +2304,10 @@ class FrontEndController extends Controller
                 <h4 class="fs-6">';
             if (auth('customer')->user()) {
                 if (isset($public_customer_carts) && $public_customer_carts->count() > 0) {
-                    $output .= trans('front_end.home_YOUR_CART').'(' .  $public_customer_carts->count();
+                    $output .= trans('front_end.home_YOUR_CART') . '(' .  $public_customer_carts->count();
                 }
             }
-            $output .=  trans('front_end.home_ITEMS').' )</h4>
+            $output .=  trans('front_end.home_ITEMS') . ' )</h4>
             </div>
             <div class="minicart-content">
                 <ul class="clearfix">';
@@ -2338,15 +2330,15 @@ class FrontEndController extends Controller
 
                         $output .= '<div class="priceRow rlt_price">
                         <div class="product-price">';
-                        if ($public_customer_cart->cart_product->on_sale_price_status == 'Active'){
-                            $output .= '<span class="money">'. $public_customer_cart->quantity.'x ' ;
-                            $output .= trans('front_end.home_SAR').'
+                        if ($public_customer_cart->cart_product->on_sale_price_status == 'Active') {
+                            $output .= '<span class="money">' . $public_customer_cart->quantity . 'x ';
+                            $output .= trans('front_end.home_SAR') . '
 
-                                '. $public_customer_cart->cart_product->on_sale_price .'</span>';
-                        }else{
-                            $output .= '<span class="money">'. $public_customer_cart->quantity.''.'x ';
-                            $output .=   trans('front_end.home_SAR').'
-                                '. $public_customer_cart->cart_product->sale_price .'</span>';
+                                ' . $public_customer_cart->cart_product->on_sale_price . '</span>';
+                        } else {
+                            $output .= '<span class="money">' . $public_customer_cart->quantity . '' . 'x ';
+                            $output .=   trans('front_end.home_SAR') . '
+                                ' . $public_customer_cart->cart_product->sale_price . '</span>';
                         }
                         $output .= '
 
@@ -2355,7 +2347,7 @@ class FrontEndController extends Controller
                                     </div>
                                 </div>
                                 <div class="text-center qtyDetail">
-                                            <a href="#" class="remove deleteCartItem" data-cart-id="'.$public_customer_cart->id.'"><i class="fa fa-close" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"></i></a>
+                                            <a href="#" class="remove deleteCartItem" data-cart-id="' . $public_customer_cart->id . '"><i class="fa fa-close" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"></i></a>
                                         </div>
 
                             </li>
@@ -2367,15 +2359,15 @@ class FrontEndController extends Controller
             <div class="minicart-bottom">
 
                 <div class="subtotal">
-                    <span>'.trans('front_end.home_TOTAL').'</span>
+                    <span>' . trans('front_end.home_TOTAL') . '</span>
                     <span class="product-price">';
                     $output .=  $endTotal;
-                    $output .= trans('front_end.home_SAR').'  </span>
+                    $output .= trans('front_end.home_SAR') . '  </span>
                 </div>
                 <a href="' . route('customer.checkoutPage') . '" class="p-2 my-2 rounded w-100 btn btn-outline proceed-to-checkout">';
-                $output .= trans('front_end.home_Proceed_to_Checkout').'</a>
+                    $output .= trans('front_end.home_Proceed_to_Checkout') . '</a>
                 <a href="cart-style1.html" class="rounded w-100 btn btn-solid btn-xs cart-btn">';
-                $output .=trans('front_end.home_view_cart').'</a>
+                    $output .= trans('front_end.home_view_cart') . '</a>
             </div>';
 
 
@@ -2458,7 +2450,7 @@ class FrontEndController extends Controller
                                     </div>
                                 </div>
                                 <div class="text-center qtyDetail">
-                                            <a href="#" class="remove deleteCartItem" data-cart-id="'.$public_customer_cart->id.'"><i class="fa fa-close" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"></i></a>
+                                            <a href="#" class="remove deleteCartItem" data-cart-id="' . $public_customer_cart->id . '"><i class="fa fa-close" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"></i></a>
                                         </div>
 
                             </li>
@@ -2485,6 +2477,4 @@ class FrontEndController extends Controller
             }
         }
     }
-
-
 }

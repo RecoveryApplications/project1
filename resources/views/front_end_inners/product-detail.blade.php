@@ -24,21 +24,7 @@
 @endpush
 
 @section('content')
-    <!-- Bread Crumb STRAT -->
-    <div class="banner inner-banner1 ">
-        <div class="container">
-            <section class="banner-detail center-xs">
-                <h1 class="banner-title">Women</h1>
-                <div class="bread-crumb right-side float-none-xs">
-                    <ul>
-                        <li><a href="index.html">Home</a>/</li>
-                        <li><span>Women</span></li>
-                    </ul>
-                </div>
-            </section>
-        </div>
-    </div>
-    <!-- Bread Crumb END -->
+
     <!-- CONTAIN START -->
     <section class="pt-70">
         <div class="container">
@@ -47,37 +33,41 @@
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-5 col-md-5 mb-xs-30">
-                            <section class="splide" aria-labelledby="carousel-heading">
-                                <div class="splide__track">
-                                    <ul class="splide__list">
-                                        @foreach ($product->productImages as $image)
+                            @if ($product->productImages->count())
+                                <section class="splide" aria-labelledby="carousel-heading">
+                                    <div class="splide__track">
+                                        <ul class="splide__list">
+                                            @foreach ($product->productImages as $image)
+                                                <li class="splide__slide">
+                                                    <img src="{{ asset($image->image) }}" alt="FamilyDrop">
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </section>
+                                <section id="thumbnail-carousel" class="splide"
+                                    aria-label="The carousel with thumbnails. Selecting a thumbnail will change the Beautiful Gallery carousel.">
+                                    <div class="splide__track">
+                                        <ul class="splide__list">
+                                            @foreach ($product->productImages as $image)
+                                                <li class="splide__slide">
+                                                    <img src="{{ asset($image->image) }}" alt="{{ $product->name }}">
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </section>
+                            @else
+                                <section class="splide">
+                                    <div class="splide__track">
+                                        <ul class="splide__list">
                                             <li class="splide__slide">
-                                                <img src="{{ asset($image->image) }}" alt="FamilyDrop">
+                                                <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
                                             </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </section>
-                            <section id="thumbnail-carousel" class="splide"
-                                aria-label="The carousel with thumbnails. Selecting a thumbnail will change the Beautiful Gallery carousel.">
-                                <div class="splide__track">
-                                    <ul class="splide__list">
-                                        @foreach ($product->productImages as $image)
-                                            <li class="splide__slide">
-                                                <img src="{{ asset($image->image) }}" alt="FamilyDrop">
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </section>
-
-                            {{-- <div class="fotorama" data-nav="thumbs" data-allowfullscreen="native">
-                                @foreach ($product->productImages as $image)
-                                    <a href="#">
-                                        <img src="{{ asset($image->image) }}" alt="FamilyDrop">
-                                    </a>
-                                @endforeach
-                            </div> --}}
+                                        </ul>
+                                    </div>
+                                </section>
+                            @endif
                         </div>
                         <div class="col-lg-7 col-md-7">
                             <div class="row">
@@ -150,7 +140,8 @@
                                                                 class="reduced items" type="button"> <i
                                                                     class="fa fa-minus"></i> </button>
                                                             <input type="text" class="input-text qty" title="Qty"
-                                                                value="1" maxlength="8" id="qty" name="quantity">
+                                                                value="1" maxlength="8" id="qty"
+                                                                name="quantity">
                                                             <button
                                                                 onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;"
                                                                 class="increase items" type="button"> <i
@@ -175,11 +166,11 @@
                                                             <span></span> Wishlist
                                                         </a>
                                                     </li>
-                                                    <li class="pro-email-icon"><a href="#"><span></span>Email to
-                                                            Friends</a></li>
+                                                    {{-- <li class="pro-email-icon"><a href="#"><span></span>Email to
+                                                            Friends</a></li> --}}
                                                 </ul>
                                             </div>
-                                            <div class="share-link">
+                                            {{-- <div class="share-link">
                                                 <label>Share This : </label>
                                                 <div class="social-link">
                                                     <ul class="social-icon">
@@ -195,7 +186,7 @@
                                                                     class="fa fa-pinterest"> </i></a></li>
                                                     </ul>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -242,85 +233,8 @@
                                     </li>
                                     <li>
                                         <div @class(['items-Reviews', 'selected' => !$product->description])>
-                                            <div class="comments-area">
-                                                <h4>Comments<span>(2)</span></h4>
-                                                <ul class="comment-list mt-30">
-                                                    <li>
-                                                        <div class="comment-user"> <img
-                                                                src="{{ asset('front_end_style/assets/images/comment-user.jpg') }}"
-                                                                alt="FamilyDrop"> </div>
-                                                        <div class="comment-detail">
-                                                            <div class="user-name">John Doe</div>
-                                                            <div class="post-info">
-                                                                <ul>
-                                                                    <li>Fab 11, 2016</li>
-                                                                    <li><a href="#"><i
-                                                                                class="fa fa-reply"></i>Reply</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <p>Consectetur adipiscing elit integer sit amet augue laoreet
-                                                                maximus nuncac.</p>
-                                                        </div>
-                                                        <ul class="comment-list child-comment">
-                                                            <li>
-                                                                <div class="comment-user"> <img
-                                                                        src="{{ asset('front_end_style/assets/images/comment-user.jpg') }}"
-                                                                        alt="FamilyDrop"> </div>
-                                                                <div class="comment-detail">
-                                                                    <div class="user-name">John Doe</div>
-                                                                    <div class="post-info">
-                                                                        <ul>
-                                                                            <li>Fab 11, 2016</li>
-                                                                            <li><a href="#"><i
-                                                                                        class="fa fa-reply"></i>Reply</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <p>Consectetur adipiscing elit integer sit amet augue
-                                                                        laoreet maximus nuncac.</p>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="comment-user"> <img
-                                                                        src="{{ asset('front_end_style/assets/images/comment-user.jpg') }}"
-                                                                        alt="FamilyDrop"> </div>
-                                                                <div class="comment-detail">
-                                                                    <div class="user-name">John Doe</div>
-                                                                    <div class="post-info">
-                                                                        <ul>
-                                                                            <li>Fab 11, 2016</li>
-                                                                            <li><a href="#"><i
-                                                                                        class="fa fa-reply"></i>Reply</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <p>Consectetur adipiscing elit integer sit amet augue
-                                                                        laoreet maximus nuncac.</p>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <div class="comment-user"> <img
-                                                                src="{{ asset('front_end_style/assets/images/comment-user.jpg') }}"
-                                                                alt="FamilyDrop"> </div>
-                                                        <div class="comment-detail">
-                                                            <div class="user-name">John Doe</div>
-                                                            <div class="post-info">
-                                                                <ul>
-                                                                    <li>Fab 11, 2016</li>
-                                                                    <li><a href="#"><i
-                                                                                class="fa fa-reply"></i>Reply</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <p>Consectetur adipiscing elit integer sit amet augue laoreet
-                                                                maximus nuncac.</p>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                             <div class="main-form mt-30">
-                                                <h4>Leave a comments</h4>
+                                                <h4>Leave a review</h4>
                                                 <form>
                                                     <div class="row mt-30">
                                                         <div class="col-md-4 mb-30">

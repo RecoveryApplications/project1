@@ -17,7 +17,7 @@
                     <div class="right-side header-right-link">
                         <ul>
                             <li class="wishlist-icon">
-                                <a href="{{ route('customer.getWishList')}}">
+                                <a href="{{ route('customer.getWishList') }}">
                                     <span></span>
                                 </a>
                             </li>
@@ -35,7 +35,7 @@
                                                     } else {
                                                         $product_name = $item->cart_product->product->name_en;
                                                     }
-                                                    
+
                                                     $product_price = $item->cart_product->on_sale_price_status == 'Active' ? $item->cart_product->on_sale_price : $item->cart_product->sale_price;
                                                 @endphp
                                                 <li>
@@ -82,7 +82,8 @@
                                     <div class="clearfix"></div>
                                     <div class="mt-20">
                                         <a href="{{ route('cart') }}" class="btn-color btn left-side">Cart</a>
-                                        <a href="{{ route('customer.orderOverview') }}" class="btn-color btn right-side">Checkout</a>
+                                        <a href="{{ route('customer.orderOverview') }}"
+                                            class="btn-color btn right-side">Checkout</a>
                                     </div>
                                 </div>
                             </li>
@@ -130,23 +131,39 @@
                                                 <a href="register.html" title="Register">Register</a>
                                                 <div class="content-dropdown">
                                                     <ul>
-                                                        <li class="login-icon"><a href="login.html" title="Login"><i
-                                                                    class="fa fa-user"></i>
-                                                                Login</a></li>
-                                                        <li class="register-icon"><a href="register.html"
-                                                                title="Register"><i class="fa fa-user-plus"></i>
-                                                                Register</a>
-                                                        </li>
+                                                        @auth('customer')
+                                                            <li class="login-icon">
+                                                                <a href="{{ route('customer.profile') }}" title="Login"><i
+                                                                        class="fa fa-user"></i>
+                                                                    Profile
+                                                                </a>
+                                                            </li>
+                                                        @endauth
+                                                        @guest('customer')
+                                                            <li class="login-icon">
+                                                                <a href="{{ route('customer.login') }}" title="Login"><i
+                                                                        class="fa fa-user"></i>
+                                                                    Login
+                                                                </a>
+                                                            </li>
+                                                            <li class="register-icon">
+                                                                <a href="{{ route('customer.register') }}"
+                                                                    title="Register">
+                                                                    <i class="fa fa-user-plus"></i>
+                                                                    Register
+                                                                </a>
+                                                            </li>
+                                                        @endguest
                                                     </ul>
                                                 </div>
                                             </li>
-                                            <li class="track-icon">
+                                            {{-- <li class="track-icon">
                                                 <a title="Track your order"><span></span> Track your order</a>
                                             </li>
                                             <li class="gift-icon">
                                                 <a href="" title="Gift card"><span></span> Gift
                                                     card</a>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </div>
                                     <ul class="nav navbar-nav ">
@@ -213,7 +230,7 @@
                                                                                             </li>
                                                                                             <li
                                                                                                 class="pro-wishlist-icon">
-                                                                                                <a href="{{ route('customer.getWishList')}}"
+                                                                                                <a href="{{ route('customer.getWishList') }}"
                                                                                                     title="Wishlist"></a>
                                                                                             </li>
                                                                                         </ul>
@@ -256,7 +273,7 @@
                                                                                             </li>
                                                                                             <li
                                                                                                 class="pro-wishlist-icon">
-                                                                                                <a href="{{ route('customer.getWishList')}}"
+                                                                                                <a href="{{ route('customer.getWishList') }}"
                                                                                                     title="Wishlist"></a>
                                                                                             </li>
 
@@ -300,7 +317,7 @@
                                                                                             </li>
                                                                                             <li
                                                                                                 class="pro-wishlist-icon">
-                                                                                                <a href="{{ route('customer.getWishList')}}"
+                                                                                                <a href="{{ route('customer.getWishList') }}"
                                                                                                     title="Wishlist"></a>
                                                                                             </li>
                                                                                         </ul>
@@ -343,7 +360,7 @@
                                                                                             </li>
                                                                                             <li
                                                                                                 class="pro-wishlist-icon">
-                                                                                                <a href="{{ route('customer.getWishList')}}"
+                                                                                                <a href="{{ route('customer.getWishList') }}"
                                                                                                     title="Wishlist"></a>
                                                                                             </li>
                                                                                         </ul>
@@ -386,7 +403,7 @@
                                                                                             </li>
                                                                                             <li
                                                                                                 class="pro-wishlist-icon">
-                                                                                                <a href="{{ route('customer.getWishList')}}"
+                                                                                                <a href="{{ route('customer.getWishList') }}"
                                                                                                     title="Wishlist"></a>
                                                                                             </li>
                                                                                         </ul>
@@ -622,7 +639,8 @@
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="top-link right-side">
-                                                        <div class="help-num">Need Help? : 03 233 455 55</div>
+                                                        <div class="help-num">Need Help? :
+                                                            {{ $public_contact_us['phone'] }}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -668,7 +686,7 @@
                 <div class="col-xl-4 col-lg-3 col-lgmd-20per">
                     <div class="right-side float-left-xs header-right-link">
                         <div class="right-side">
-                            <div class="help-num">Need Help? : 03 233 455 55</div>
+                            <div class="help-num">Need Help? : {{ $public_contact_us['phone'] }}</div>
                         </div>
                     </div>
                 </div>

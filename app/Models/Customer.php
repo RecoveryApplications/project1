@@ -92,6 +92,10 @@ class Customer extends Authenticatable
         return $this->hasMany(CartSale::class,'user_id')->with('cartOperations');
     }
 
+    public function wallet(){
+        return $this->hasOne(Wallet::class,'customer_id');
+    }
+
 
     // ===================================================================================================================
     // ============================================= Mutator Section =====================================================

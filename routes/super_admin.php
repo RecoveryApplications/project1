@@ -25,8 +25,7 @@ use App\Http\Controllers\Backend\Admin\BlogsController;
 use App\Http\Controllers\Backend\Admin\PublicValuesController;
 use App\Http\Controllers\Backend\Admin\SeoOperationsController;
 use App\Http\Controllers\Backend\Admin\TermAndConditionController;
-
-
+use App\Http\Controllers\Backend\Admin\WalletController;
 // ==================================================================================================================
 // =========================================== Super Admin Routes ===================================================
 // ==================================================================================================================
@@ -120,6 +119,14 @@ Route::prefix('super_admin')->name('super_admin.')->group(function () {
             Route::post('getMainCategories', [SubCategoryController::class, 'getMainCategories'])->name('getMainCategories');
         });
 
+        // Wallet Routes :
+        // ==============================================================================
+        Route::group(['prefix' => 'wallet'], function () {
+            Route::get('/', [WalletController::class, 'index'])->name('wallet-index');
+            Route::get('/pay-out/{id}', [WalletController::class, 'payOut'])->name('wallet-pay-out');
+        });
+
+
 
         // Product Routes :
         // ==============================================================================
@@ -154,8 +161,6 @@ Route::prefix('super_admin')->name('super_admin.')->group(function () {
 
             Route::post('/htmlSearchProduct', [ProductController::class, 'searchProduct'])->name('htmlSearchProduct');
             Route::get('products-export', [ProductController::class, 'productsExport'])->name('products-export');
-
-
         });
 
 
@@ -197,7 +202,6 @@ Route::prefix('super_admin')->name('super_admin.')->group(function () {
             Route::get('activeInactiveSingle/{id}', [BrandController::class, 'activeInactiveSingle'])->name('brands-activeInactiveSingle');
 
             Route::post('/htmlSearchBrand', [BrandController::class, 'searchBrand'])->name('htmlSearchBrand');
-
         });
 
 
@@ -215,7 +219,8 @@ Route::prefix('super_admin')->name('super_admin.')->group(function () {
             Route::get('reject-order/{id}', [OrderController::class, 'rejectOrder'])->name('rejectOrder');
             Route::get('accept-delivery/{id}', [OrderController::class, 'acceptDelivery'])->name('acceptDelivery');
             Route::get('reject-delivery/{id}', [OrderController::class, 'rejectDelivery'])->name('rejectDelivery');
-
+            Route::get('accept-payment/{id}', [OrderController::class, 'acceptPay'])->name('acceptPay');
+            Route::get('reject-payment/{id}', [OrderController::class, 'rejectPay'])->name('rejectPay');
         });
 
 
@@ -264,7 +269,6 @@ Route::prefix('super_admin')->name('super_admin.')->group(function () {
             Route::get('softDeleteRestore/{id}', [BlogsController::class, 'softDeleteRestore'])->name('blogs-softDeleteRestore');
             Route::get('destroy/{id}', [BlogsController::class, 'destroy'])->name('blogs-destroy');
             Route::get('activeInactiveSingle/{id}', [BlogsController::class, 'activeInactiveSingle'])->name('blogs-activeInactiveSingle');
-
         });
 
         Route::group(['prefix' => 'photos'], function () {

@@ -127,6 +127,21 @@
                                                 Not Received
                                             </a>
                                         @endif
+
+                                        {{-- //NOTE - Change The Payment Status --}}
+                                        @if ($cartSale->status == 'Accepted' && $cartSale->delivery_status == 'Received' && $cartSale->payment_status == 'Pendding')
+                                            <h2>
+                                                Change payment status :
+                                            </h2>
+                                            <a href="{{ route('super_admin.acceptPay', $cartSale->id) }}"
+                                                class="btn btn-sm btn-info">
+                                                Paid
+                                            </a>
+                                            <a href="{{ route('super_admin.rejectPay', $cartSale->id) }}"
+                                                class="btn btn-sm btn-danger">
+                                                Not Paid
+                                            </a>
+                                        @endif
                                     </div>
                                     <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Main Order Information :
                                     </h3>

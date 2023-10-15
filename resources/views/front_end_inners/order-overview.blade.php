@@ -25,12 +25,24 @@
     </style>
 @endpush
 
+
+@php
+    $image_url = asset('images/Checkout.png');
+@endphp
+@push('styles')
+    <style>
+        .inner-banner1 {
+            background: url({{ $image_url }}) no-repeat scroll center center;
+            padding: 60px 0;
+        }
+    </style>
+@endpush
 @section('content')
     <!-- Bread Crumb STRAT -->
     <div class="banner inner-banner1 ">
         <div class="container">
             <section class="banner-detail center-xs">
-                <h1 class="banner-title">Checkout</h1>
+                <h1 class="p-1 rounded-lg banner-title bg-danger">Checkout</h1>
                 <div class="bread-crumb right-side float-none-xs">
                     <ul>
                         <li><a href="index.html">Home</a>/</li>

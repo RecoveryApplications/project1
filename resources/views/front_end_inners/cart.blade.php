@@ -1,11 +1,19 @@
 @extends('front_end_inners.app_front_end')
 
+@php
+    $image_url = asset('images/Cart.png')
+@endphp
 @push('styles')
     <style>
         .input-text.qty {
             width: 100% !important;
             border-radius: 20px !important;
             max-width: 80px !important;
+        }
+
+        .inner-banner1 {
+            background: url({{ $image_url }}) no-repeat scroll center center;
+            padding: 60px 0;
         }
     </style>
 @endpush
