@@ -50,12 +50,12 @@ class AppServiceProvider extends ServiceProvider
 
             if (Auth::guard('customer')->check()) {
                 $withlist_count = ProductWishlist::where('customer_id', Auth::guard('customer')->user()->id)->count();
-                $public_customer_carts = CartTemp::where(['user_id' => Auth::guard('customer')->user()->id, 'user_type' => 'Customer'])->get();
+                $public_customer_carts = CartTemp::with('product')->where(['user_id' => Auth::guard('customer')->user()->id, 'user_type' => 'Customer'])->get();
                 $endTotal = 0;
                 foreach ($public_customer_carts as $public_customer_cart) {
                     $sub_total = 0;
                     if ($public_customer_cart->property_type == 1) {
-                        $public_customer_cart->cart_product = ProdSzeClrRelation::find($public_customer_cart->product_id);
+                        $public_customer_cart->cart_product = ProdSzeClrRelation::with('product')->find($public_customer_cart->product_id);
                     } else {
                         $public_customer_cart->cart_product = Product::find($public_customer_cart->product_id);
                     }
@@ -69,34 +69,49 @@ class AppServiceProvider extends ServiceProvider
                     $public_customer_cart->sub_total = $sub_total;
                 }
                 $public_customer_carts->endTotal = $endTotal;
-                $public_customer_carts_count=$public_customer_carts->count();
-
+                $public_customer_carts_count = $public_customer_carts->count();
+                // dd($public_customer_carts, $public_customer_carts_count);
             }
-                $public_customer_carts_count = count($public_customer_carts ?? []);
+            $public_customer_carts_count = count($public_customer_carts ?? []);
 
-                $public_color_values_proparty=PublicValue::where('title','Color')->get();
-                $public_size_values_proparty=PublicValue::where('title','Size')->get();
-                $public_tax_values_proparty=PublicValue::where('title','Tax')->get();
+            $public_color_values_proparty = PublicValue::where('title', 'Color')->get();
+            $public_size_values_proparty = PublicValue::where('title', 'Size')->get();
+            $public_tax_values_proparty = PublicValue::where('title', 'Tax')->first()->values;
+            $public_shipping_price = PublicValue::where('title', 'Shipping')->first()->values;
+            $public_sale_percentage = PublicValue::where('title', 'SalePercentage')->first()->values;
 
-                $public_contact_us = ContactUs::all()->first();
-                $public_about_us = AboutUs::all()->first();
+
+            $public_contact_us = ContactUs::all()->first();
+            $public_about_us = AboutUs::all()->first();
+
+            // Prices
+            $prices = [];
+            $prices['subTotal'] = $endTotal; // without shipping,... etc
+            $prices['shipping'] = $public_shipping_price;
+            $prices['taxPercentage'] = $public_tax_values_proparty;
+            $prices['tax'] = round($endTotal * ($public_tax_values_proparty / 100), 3);
+            $prices['salePercentage'] = $public_sale_percentage;
+            $prices['total'] = $endTotal + $public_shipping_price +  $prices['tax'];
+
             view()->share([
                 'public_user_types' => $public_user_types,
                 'public_products' => $public_products,
                 // 'public_super_categories' => $public_super_categories,
                 'public_main_categories' => $public_main_categories,
                 'public_contact' => $public_contact,
-                'public_customer_carts' => $public_customer_carts ??[] ,
-                'public_customer_carts_count' => $public_customer_carts_count ??0 ,
+                'public_customer_carts' => $public_customer_carts ?? [],
+                'public_customer_carts_count' => $public_customer_carts_count ?? 0,
                 'withlist_count' => $withlist_count,
                 'endTotal' => $endTotal,
                 'public_color_values_proparty' => $public_color_values_proparty,
                 'public_size_values_proparty' => $public_size_values_proparty,
                 'public_tax_values_proparty' => $public_tax_values_proparty,
                 'public_contact_us' => $public_contact_us,
-                'public_about_us' => $public_about_us
+                'public_about_us' => $public_about_us,
+                'public_shipping_price' => $public_shipping_price,
+                'public_sale_percentage' => $public_sale_percentage,
+                'public_prices' => $prices,
             ]);
         });
     }
-
 }

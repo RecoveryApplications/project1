@@ -487,7 +487,7 @@ $(function() {
   $(document).on("ready", function() {
     owlcarousel_slider(); 
     setminheight(); 
-    price_range (); 
+    // price_range (); 
     responsive_dropdown(); 
     description_tab (); 
     custom_tab (); 

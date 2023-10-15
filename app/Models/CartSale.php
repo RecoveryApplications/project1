@@ -29,7 +29,7 @@ class CartSale extends Model
     // Relation With CartOperation Model
     public function cartOperations()
     {
-        return $this->hasMany(CartOperation::class,'cart_sale_id');
+        return $this->hasMany(CartOperation::class,'cart_sale_id')->with(['product']);
     }
 
     // Relation With CartOperation Model
@@ -77,9 +77,9 @@ class CartSale extends Model
         if ($value == 1) {
             return 'Pendding';
         } elseif ($value == 2) {
-            return 'In Progress';
-        } elseif ($value == 3) {
             return 'Received';
+        } elseif ($value == 3) {
+            return 'Not Received';
         }
     }
 }

@@ -3,15 +3,15 @@
         <!-- Page Header Start-->
         <div class="page-main-header">
             <div class="main-header-right row">
-                <div class="main-header-left d-lg-none w-auto">
+                <div class="w-auto main-header-left d-lg-none">
                     <div class="logo-wrapper">
-                        <a href="index.html">
+                        <a href="{{ route('super_admin.dashboard') }}">
                             <img class="blur-up lazyloaded d-block d-lg-none"
                                 src="assets/images/dashboard/multikart-logo-black.png" alt="">
                         </a>
                     </div>
                 </div>
-                <div class="mobile-sidebar w-auto">
+                <div class="w-auto mobile-sidebar">
                     <div class="media-body text-end switch-sm">
                         <label class="switch">
                             <a href="javascript:void(0)">
@@ -41,7 +41,7 @@
                             <a class="txt-dark" href="javascript:void(0)">
                                 <h6>EN</h6>
                             </a>
-                            <ul class="language-dropdown onhover-show-div p-20">
+                            <ul class="p-20 language-dropdown onhover-show-div">
                                 <li>
                                     <a href="javascript:void(0)" data-lng="en">
                                         <i class="flag-icon flag-icon-is"></i>English</a>
@@ -64,7 +64,7 @@
                             <i data-feather="bell"></i>
                             <span class="badge badge-pill badge-primary pull-right notification-badge">3</span>
                             <span class="dot"></span>
-                            <ul class="notification-dropdown onhover-show-div p-0">
+                            <ul class="p-0 notification-dropdown onhover-show-div">
                                 <li>Notification <span class="badge badge-pill badge-primary pull-right">3</span></li>
                                 <li>
                                     <div class="media">
@@ -120,7 +120,7 @@
                                     <span class="main-circle"></span>
                                 </div>
                             </div>
-                            <ul class="profile-dropdown onhover-show-div p-20 profile-dropdown-hover">
+                            <ul class="p-20 profile-dropdown onhover-show-div profile-dropdown-hover">
                                 <li>
                                     <a href="{{ route('super_admin.users-show', [auth()->user()->id,'Super Admin']) }}">
                                         <i data-feather="user"></i>Edit Profile
@@ -163,15 +163,15 @@
             <div>
                 <div class="container p-0">
                     <div class="modal-header p-l-20 p-r-20">
-                        <div class="col-sm-8 p-0">
+                        <div class="p-0 col-sm-8">
                             <h6 class="modal-title font-weight-bold">FRIEND LIST</h6>
                         </div>
-                        <div class="col-sm-4 text-end p-0">
+                        <div class="p-0 col-sm-4 text-end">
                             <i class="me-2" data-feather="settings"></i>
                         </div>
                     </div>
                 </div>
-                <div class="friend-list-search mt-0">
+                <div class="mt-0 friend-list-search">
                     <input type="text" placeholder="search friend">
                     <i class="fa fa-search"></i>
                 </div>

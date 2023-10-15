@@ -12,32 +12,33 @@
                 {{-- ============================================== --}}
                 {{-- ================== Header ==================== --}}
                 {{-- ============================================== --}}
-                 <!-- Container-fluid starts-->
-                    <div class="container-fluid">
-                        <div class="page-header">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="page-header-left">
-                                        <h3>Update Product <span class="text-danger">{{ $property->product->name_en }} Properties</span>
-                                            {{-- <small>Multikart Admin panel</small> --}}
-                                        </h3>
-                                    </div>
+                <!-- Container-fluid starts-->
+                <div class="container-fluid">
+                    <div class="page-header">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="page-header-left">
+                                    <h3>Update Product <span class="text-danger">{{ $property->product->name_en }}
+                                            Properties</span>
+                                        {{-- <small>Multikart Admin panel</small> --}}
+                                    </h3>
                                 </div>
-                                <div class="col-lg-6">
-                                    <ol class="breadcrumb pull-right">
-                                        <li class="breadcrumb-item">
-                                            <a href="index.html">
-                                                <i data-feather="home"></i>
-                                            </a>
-                                        </li>
-                                        {{-- <li class="breadcrumb-item">Coupons </li> --}}
-                                        <li class="breadcrumb-item active">Edit
-                                            Property</li>
-                                    </ol>
-                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <ol class="breadcrumb pull-right">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html">
+                                            <i data-feather="home"></i>
+                                        </a>
+                                    </li>
+                                    {{-- <li class="breadcrumb-item">Coupons </li> --}}
+                                    <li class="breadcrumb-item active">Edit
+                                        Property</li>
+                                </ol>
                             </div>
                         </div>
                     </div>
+                </div>
                 <!-- Container-fluid Ends-->
 
                 {{-- ============================================== --}}
@@ -48,10 +49,20 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card card-default">
-                                    <div class="card-header justify-content-between " >
+                                    <div class="card-header justify-content-between ">
                                         {{-- <h2 style="color:white;"><i class="mdi mdi-star mdi-spin"></i> طلبات سحب الرصيد : </h2> --}}
                                     </div>
                                     <div class="card-body">
+                                        {{-- print errors if exists --}}
+
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                @foreach ($errors->all() as $error)
+                                                    <strong>Error!</strong> {{ $error }}
+                                                @endforeach
+                                            </div>
+                                        @endif
+
                                         <form action="{{ route('super_admin.property-update', [$property->id]) }}"
                                             method="POST" id="updateForm" enctype="multipart/form-data">
                                             @csrf
@@ -61,18 +72,18 @@
                                                 <input type="hidden" id="product_id" name="property_id"
                                                     value="{{ $property->id }}">
 
-                                                    @if (isset($public_color_values_proparty) && $public_color_values_proparty->count() > 0)
+                                                @if (isset($public_color_values_proparty) && $public_color_values_proparty->count() > 0)
                                                     @foreach ($public_color_values_proparty as $key => $public_color)
-                                                        @if($public_color->values==1)
+                                                        @if ($public_color->values == 1)
                                                             {{-- Name AR --}}
-                                                            <div class="col-md-6 mb-3">
-                                                                <label class="text-dark font-weight-medium mb-3"
+                                                            <div class="mb-3 col-md-6">
+                                                                <label class="mb-3 text-dark font-weight-medium"
                                                                     for="validationServer01">
-                                                                    <i class="mdi mdi-account"></i> Color : <strong class="text-danger">
+                                                                    <i class="mdi mdi-account"></i> Color : <strong
+                                                                        class="text-danger">
                                                                         *
                                                                         @error('main_color_id')
-                                                                            (
-                                                                            {{ $message }} )
+                                                                            ({{ $message }})
                                                                         @enderror
                                                                     </strong>
                                                                 </label>
@@ -91,48 +102,45 @@
                                                             </div>
                                                         @else
                                                         @endif
-
                                                     @endforeach
-                                                 @endif
+                                                @endif
 
 
-                                                 @if (isset($public_size_values_proparty) && $public_size_values_proparty->count() > 0)
-                                                @foreach ($public_size_values_proparty as $key => $public_size)
-
-                                                    @if($public_size->values==1)
-                                                        {{-- Name EN --}}
-                                                        <div class="col-md-6 mb-3">
-                                                            <label class="text-dark font-weight-medium mb-3"
-                                                                for="validationServer01">
-                                                                <i class="mdi mdi-account"></i> Size : <strong class="text-danger">
-                                                                    *
-                                                                    @error('main_size_id')
-                                                                        (
-                                                                        {{ $message }} )
-                                                                    @enderror
-                                                                </strong>
-                                                            </label>
-                                                            <div class="input-group">
-                                                                <select name="main_size_id" class="form-control"
-                                                                    id="inlineFormCustomSelectPref">
-                                                                    @if (isset($sizes) && $sizes->count() > 0)
-                                                                        @foreach ($sizes as $size)
-                                                                            <option value="{{ $size->id }}">
-                                                                                {{ $size->name_en }}</option>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </select>
+                                                @if (isset($public_size_values_proparty) && $public_size_values_proparty->count() > 0)
+                                                    @foreach ($public_size_values_proparty as $key => $public_size)
+                                                        @if ($public_size->values == 1)
+                                                            {{-- Name EN --}}
+                                                            <div class="mb-3 col-md-6">
+                                                                <label class="mb-3 text-dark font-weight-medium"
+                                                                    for="validationServer01">
+                                                                    <i class="mdi mdi-account"></i> Size : <strong
+                                                                        class="text-danger">
+                                                                        *
+                                                                        @error('main_size_id')
+                                                                            ({{ $message }})
+                                                                        @enderror
+                                                                    </strong>
+                                                                </label>
+                                                                <div class="input-group">
+                                                                    <select name="main_size_id" class="form-control"
+                                                                        id="inlineFormCustomSelectPref">
+                                                                        @if (isset($sizes) && $sizes->count() > 0)
+                                                                            @foreach ($sizes as $size)
+                                                                                <option value="{{ $size->id }}">
+                                                                                    {{ $size->name_en }}</option>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    @else
-                                                    @endif
-
-                                                @endforeach
+                                                        @else
+                                                        @endif
+                                                    @endforeach
                                                 @endif
 
                                                 {{-- Sale Price --}}
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="text-dark font-weight-medium mb-3"
+                                                <div class="mb-3 col-md-6">
+                                                    <label class="mb-3 text-dark font-weight-medium"
                                                         for="validationServer01">
                                                         <i class="mdi mdi-account"></i> Sale Price : <strong
                                                             class="text-danger"> * @error('sale_price')
@@ -149,8 +157,8 @@
                                                 </div>
 
                                                 {{-- On Sale Price Status --}}
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="text-dark font-weight-medium mb-3"
+                                                <div class="mb-3 col-md-6">
+                                                    <label class="mb-3 text-dark font-weight-medium"
                                                         for="validationServer01">
                                                         <i class="mdi mdi-account-switch"></i> On Sale Price Status :
                                                         <strong class="text-danger"> * @error('on_sale_price_status')
@@ -174,8 +182,8 @@
                                                 </div>
 
                                                 {{-- On Sale Price --}}
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="text-dark font-weight-medium mb-3"
+                                                <div class="mb-3 col-md-6">
+                                                    <label class="mb-3 text-dark font-weight-medium"
                                                         for="validationServer01">
                                                         <i class="mdi mdi-account"></i> On Sale Price : <strong
                                                             class="text-danger"> * @error('on_sale_price')
@@ -192,8 +200,8 @@
                                                 </div>
 
                                                 {{-- Available Quantity --}}
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="text-dark font-weight-medium mb-3"
+                                                <div class="mb-3 col-md-6">
+                                                    <label class="mb-3 text-dark font-weight-medium"
                                                         for="validationServer01">
                                                         <i class="mdi mdi-account"></i> Available Quantity : <strong
                                                             class="text-danger"> * @error('quantity_available')
@@ -210,8 +218,8 @@
                                                 </div>
 
                                                 {{-- Limit Quantity --}}
-                                                {{-- <div class="col-md-6 mb-3">
-                                                    <label class="text-dark font-weight-medium mb-3"
+                                                {{-- <div class="mb-3 col-md-6">
+                                                    <label class="mb-3 text-dark font-weight-medium"
                                                         for="validationServer01">
                                                         <i class="mdi mdi-account"></i> Limit Quantity : <strong class="text-danger"> * @error('quantity_limit') ( {{ $message }} ) @enderror</strong>
                                                     </label>
@@ -224,8 +232,8 @@
                                                     </div>
                                                 </div> --}}
                                                 {{-- Status --}}
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="text-dark font-weight-medium mb-3"
+                                                <div class="mb-3 col-md-6">
+                                                    <label class="mb-3 text-dark font-weight-medium"
                                                         for="validationServer01">
                                                         <i class="mdi mdi-account-switch"></i> Status : <strong
                                                             class="text-danger"> * @error('status')
@@ -249,8 +257,8 @@
                                                 </div>
 
                                                 {{-- Image Filed --}}
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="text-dark font-weight-medium mb-3"
+                                                <div class="mb-3 col-md-6">
+                                                    <label class="mb-3 text-dark font-weight-medium"
                                                         for="validationServer01">
                                                         <i class="mdi mdi-image"></i> Image : <strong class="text-danger">
                                                             @error('image')
@@ -263,8 +271,8 @@
                                                             id="validationServer01" placeholder="Image">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 mb-3">
-                                                    <label class="text-dark font-weight-medium mb-3"
+                                                <div class="mb-3 col-md-6">
+                                                    <label class="mb-3 text-dark font-weight-medium"
                                                         for="validationServer01">
                                                         <i class="mdi mdi-image"></i> Image URL : <strong
                                                             class="text-danger"> @error('image_url')
@@ -280,7 +288,7 @@
                                                 </div>
 
                                                 {{-- Display Image --}}
-                                                <div class="col-md-6 mb-3">
+                                                <div class="mb-3 col-md-6">
                                                     @if (isset($property->image))
                                                         @if ($property->image && file_exists($property->image))
                                                             <img src="{{ asset($property->image) }}" width="100"
@@ -312,127 +320,127 @@
                     </div>
                 </div>
             </div>
-            </div>
         </div>
+    </div>
 
-    @endsection
-    @section('admin_javascript')
-        <script>
-            $(document).ready(function() {
-                super_id = $("#super_category_id").val();
-                if (super_id != "") {
-                    setTimeout(() => {
-                        getMainCategories();
-                    }, 500);
+@endsection
+@section('admin_javascript')
+    <script>
+        $(document).ready(function() {
+            super_id = $("#super_category_id").val();
+            if (super_id != "") {
+                setTimeout(() => {
+                    getMainCategories();
+                }, 500);
+            }
+
+
+            setTimeout(() => {
+                main_id = $("#main_category_id").val();
+                if (main_id !== "") {
+                    getSubCategories();
                 }
 
+            }, 1000);
+        });
 
-                setTimeout(() => {
-                    main_id = $("#main_category_id").val();
-                    if (main_id !== "") {
-                        getSubCategories();
-                    }
+        $(document).on("change", "#super_category_id", function() {
 
-                }, 1000);
-            });
+            getMainCategories();
 
-            $(document).on("change", "#super_category_id", function() {
+        });
 
-                getMainCategories();
+        $(document).on("change", "#main_category_id", function() {
 
-            });
+            getSubCategories();
 
-            $(document).on("change", "#main_category_id", function() {
+        });
 
-                getSubCategories();
+        function getMainCategories() {
 
-            });
+            super_category_id = $("#super_category_id").val();
 
-            function getMainCategories() {
+            formData = new FormData();
+            formData.append('super_category_id', super_category_id);
 
-                super_category_id = $("#super_category_id").val();
-
-                formData = new FormData();
-                formData.append('super_category_id', super_category_id);
-
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'POST',
-                    url: "{{ route('super_admin.getMainCategories') }}",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    success: function(data) {
-                        if (data['status'] == true) {
-                            old_main = $("#old_main").val();
-                            // console.log(old_main);
-                            $("#main_category_id").html('');
-                            html = '<option value="">Select Main Category....</option>';
-                            for (let key = 0; key < data.mainCategories.length; key++) {
-                                // console.log(data.mainCategories[key]['id']);
-                                if (old_main == data.mainCategories[key]['id']) {
-                                    html += '<option value="' + data.mainCategories[key]['id'] + '" selected>' +
-                                        data.mainCategories[key]['name_en'] + '</option>';
-                                } else {
-                                    html += '<option value="' + data.mainCategories[key]['id'] + '">' + data
-                                        .mainCategories[key]['name_en'] + '</option>';
-                                }
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                url: "{{ route('super_admin.getMainCategories') }}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function(data) {
+                    if (data['status'] == true) {
+                        old_main = $("#old_main").val();
+                        // console.log(old_main);
+                        $("#main_category_id").html('');
+                        html = '<option value="">Select Main Category....</option>';
+                        for (let key = 0; key < data.mainCategories.length; key++) {
+                            // console.log(data.mainCategories[key]['id']);
+                            if (old_main == data.mainCategories[key]['id']) {
+                                html += '<option value="' + data.mainCategories[key]['id'] + '" selected>' +
+                                    data.mainCategories[key]['name_en'] + '</option>';
+                            } else {
+                                html += '<option value="' + data.mainCategories[key]['id'] + '">' + data
+                                    .mainCategories[key]['name_en'] + '</option>';
                             }
-                            $("#main_category_id").html(html);
-
                         }
-                    },
-                    error: function(data) {
+                        $("#main_category_id").html(html);
 
                     }
-                });
-            }
+                },
+                error: function(data) {
+
+                }
+            });
+        }
 
 
-            function getSubCategories() {
+        function getSubCategories() {
 
-                main_category_id = $("#main_category_id").val();
+            main_category_id = $("#main_category_id").val();
 
-                formData = new FormData();
-                formData.append('main_category_id', main_category_id);
+            formData = new FormData();
+            formData.append('main_category_id', main_category_id);
 
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'POST',
-                    url: "{{ route('super_admin.getSubCategories') }}",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    success: function(data) {
-                        if (data['status'] == true) {
-                            old_sub = $("#old_sub").val();
-                            // console.log(old_main);
-                            $("#sub_category_id").html('');
-                            html = '<option value="">Select Sub Category....</option>';
-                            for (let key = 0; key < data.subCategories.length; key++) {
-                                // console.log(data.mainCategories[key]['id']);
-                                if (old_sub == data.subCategories[key]['id']) {
-                                    html += '<option value="' + data.subCategories[key]['id'] + '" selected>' + data
-                                        .subCategories[key]['name_en'] + '</option>';
-                                } else {
-                                    html += '<option value="' + data.subCategories[key]['id'] + '">' + data
-                                        .subCategories[key]['name_en'] + '</option>';
-                                }
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                url: "{{ route('super_admin.getSubCategories') }}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function(data) {
+                    if (data['status'] == true) {
+                        old_sub = $("#old_sub").val();
+                        // console.log(old_main);
+                        $("#sub_category_id").html('');
+                        html = '<option value="">Select Sub Category....</option>';
+                        for (let key = 0; key < data.subCategories.length; key++) {
+                            // console.log(data.mainCategories[key]['id']);
+                            if (old_sub == data.subCategories[key]['id']) {
+                                html += '<option value="' + data.subCategories[key]['id'] + '" selected>' + data
+                                    .subCategories[key]['name_en'] + '</option>';
+                            } else {
+                                html += '<option value="' + data.subCategories[key]['id'] + '">' + data
+                                    .subCategories[key]['name_en'] + '</option>';
                             }
-                            $("#sub_category_id").html(html);
-
                         }
-                    },
-                    error: function(data) {
+                        $("#sub_category_id").html(html);
 
                     }
-                });
-            }
-        </script>
-    @endsection
+                },
+                error: function(data) {
+
+                }
+            });
+        }
+    </script>
+@endsection

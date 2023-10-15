@@ -2,1045 +2,775 @@
 
 
 @section('content')
-
-
-
     <!-- Bread Crumb STRAT -->
     <div class="banner inner-banner1 ">
         <div class="container">
-          <section class="banner-detail center-xs">
-            <h1 class="banner-title">Account</h1>
-            <div class="bread-crumb right-side float-none-xs">
-              <ul>
-                <li><a href="index.html">Home</a>/</li>
-                <li><span>Account</span></li>
-              </ul>
-            </div>
-          </section>
+            <section class="banner-detail center-xs">
+                <h1 class="banner-title">Account</h1>
+                <div class="bread-crumb right-side float-none-xs">
+                    <ul>
+                        <li><a href="{{ route('welcome') }}">Home</a>/</li>
+                        <li><span>Account</span></li>
+                    </ul>
+                </div>
+            </section>
         </div>
-      </div>
-      <!-- Bread Crumb END -->
-
-      <!-- CONTAIN START -->
-      <section class="checkout-section ptb-70">
+    </div>
+    <!-- Bread Crumb END -->
+    {{-- @php
+        dd(auth('customer')->user()->cartSales);
+    @endphp --}}
+    <!-- CONTAIN START -->
+    <section class="checkout-section ptb-70">
         <div class="container">
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="account-sidebar account-tab mb-sm-30">
-                <div class="dark-bg tab-title-bg">
-                  <div class="heading-part">
-                    <div class="sub-title"><span></span> My Account</div>
-                  </div>
-                </div>
-                <div class="account-tab-inner">
-                  <ul class="account-tab-stap">
-                    <li id="step1" class="active"> <a href="javascript:void(0)">My Dashboard<i class="fa fa-angle-right"></i> </a> </li>
-                    <li id="step2"> <a href="javascript:void(0)">Account Details<i class="fa fa-angle-right"></i> </a> </li>
-                    <li id="step3"> <a href="javascript:void(0)">My Order List<i class="fa fa-angle-right"></i> </a> </li>
-                    <li id="step4"> <a href="javascript:void(0)">Change Password<i class="fa fa-angle-right"></i> </a> </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-9">
-              <div id="data-step1" class="account-content" data-temp="tabdata">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="heading-part heading-bg mb-30">
-                      <h2 class="heading m-0">Account Dashboard</h2>
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-30">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="heading-part">
-                        <h3 class="sub-heading">Hello, Denial</h3>
-                      </div>
-                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec eros tellus, scelerisque nec, rhoncus eget, laoreet sit amet.<a class="account-link" id="subscribelink" href="#">Click Here</a></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="m-0">
-                  <div class="row">
-                    <div class="col-12 mb-20">
-                      <div class="heading-part">
-                        <h3 class="sub-heading">Account Information</h3>
-                      </div>
-                      <hr>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="cart-total-table address-box commun-table">
-                        <div class="table-responsive">
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <th>Shipping Address</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td><ul>
-                                    <li class="inner-heading"> <b>Denial tom</b> </li>
-                                    <li>
-                                      <p>5-A kadStylexpoi aprtment,opp. vasan eye care,</p>
-                                    </li>
-                                    <li>
-                                      <p>Risalabaar,City Road, deesa-405001.</p>
-                                    </li>
-                                    <li>
-                                      <p>India</p>
-                                    </li>
-                                  </ul></td>
-                              </tr>
-                            </tbody>
-                          </table>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="account-sidebar account-tab mb-sm-30">
+                        <div class="dark-bg tab-title-bg">
+                            <div class="heading-part">
+                                <div class="sub-title"><span></span> My Account</div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="cart-total-table address-box commun-table">
-                        <div class="table-responsive">
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <th>Billing Address</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <ul>
-                                    <li class="inner-heading"> <b>Denial tom</b> </li>
-                                    <li>
-                                      <p>5-A kadStylexpoi aprtment,opp. vasan eye care,</p>
-                                    </li>
-                                    <li>
-                                      <p>Risalabaar,City Road, deesa-405001.</p>
-                                    </li>
-                                    <li>
-                                      <p>India</p>
-                                    </li>
-                                  </ul>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="data-step2" class="account-content" data-temp="tabdata" style="display:none">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="heading-part heading-bg mb-30">
-                      <h2 class="heading m-0">Account Details</h2>
-                    </div>
-                  </div>
-                </div>
-                <div class="m-0">
-                  <form class="main-form full">
-                    <div class="mb-20">
-                      <div class="row">
-                        <div class="col-12 mb-20">
-                          <div class="heading-part">
-                            <h3 class="sub-heading">Shipping Address</h3>
-                          </div>
-                          <hr>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Full Name">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="email" required placeholder="Email Address">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Company">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Contact Number">
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Shipping Address">
-                            <span>Please provide the number and street.</span>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Shipping Landmark">
-                            <span>Please include landmark (e.g : Opposite Bank) as the carrier service may find it easier to locate your address.</span>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box select-dropdown">
-                            <fieldset>
-                              <select name="shippingCountryId" class="option-drop" id="shippingcountryid">
-                                <option selected="" value="">Select Country</option>
-                                <option value="AX">Aland Islands</option>
-                                <option value="AF">Afghanistan</option>
-                                <option value="AL">Albania</option>
-                                <option value="DZ">Algeria</option>
-                                <option value="AS">American Samoa</option>
-                                <option value="AD">Andorra</option>
-                                <option value="AO">Angola</option>
-                                <option value="AI">Anguilla</option>
-                                <option value="AQ">Antarctica</option>
-                                <option value="AG">Antigua and Barbuda</option>
-                                <option value="AR">Argentina</option>
-                                <option value="AM">Armenia</option>
-                                <option value="AW">Aruba</option>
-                                <option value="AU">Australia</option>
-                                <option value="AT">Austria</option>
-                                <option value="AZ">Azerbaijan</option>
-                                <option value="BS">Bahamas</option>
-                                <option value="BH">Bahrain</option>
-                                <option value="BD">Bangladesh</option>
-                                <option value="BB">Barbados</option>
-                                <option value="BY">Belarus</option>
-                                <option value="PW">Belau</option>
-                                <option value="BE">Belgium</option>
-                                <option value="BZ">Belize</option>
-                                <option value="BJ">Benin</option>
-                                <option value="BM">Bermuda</option>
-                                <option value="BT">Bhutan</option>
-                                <option value="BO">Bolivia</option>
-                                <option value="BQ">Bonaire, Saint Eustatius and Saba</option>
-                                <option value="BA">Bosnia and Herzegovina</option>
-                                <option value="BW">Botswana</option>
-                                <option value="BV">Bouvet Island</option>
-                                <option value="BR">Brazil</option>
-                                <option value="IO">British Indian Ocean Territory</option>
-                                <option value="VG">British Virgin Islands</option>
-                                <option value="BN">Brunei</option>
-                                <option value="BG">Bulgaria</option>
-                                <option value="BF">Burkina Faso</option>
-                                <option value="BI">Burundi</option>
-                                <option value="KH">Cambodia</option>
-                                <option value="CM">Cameroon</option>
-                                <option value="CA">Canada</option>
-                                <option value="CV">Cape Verde</option>
-                                <option value="KY">Cayman Islands</option>
-                                <option value="CF">Central African Republic</option>
-                                <option value="TD">Chad</option>
-                                <option value="CL">Chile</option>
-                                <option value="CN">China</option>
-                                <option value="CX">Christmas Island</option>
-                                <option value="CC">Cocos (Keeling) Islands</option>
-                                <option value="CO">Colombia</option>
-                                <option value="KM">Comoros</option>
-                                <option value="CG">Congo (Brazzaville)</option>
-                                <option value="CD">Congo (Kinshasa)</option>
-                                <option value="CK">Cook Islands</option>
-                                <option value="CR">Costa Rica</option>
-                                <option value="HR">Croatia</option>
-                                <option value="CU">Cuba</option>
-                                <option value="CW">Curaçao</option>
-                                <option value="CY">Cyprus</option>
-                                <option value="CZ">Czech Republic</option>
-                                <option value="DK">Denmark</option>
-                                <option value="DJ">Djibouti</option>
-                                <option value="DM">Dominica</option>
-                                <option value="DO">Dominican Republic</option>
-                                <option value="EC">Ecuador</option>
-                                <option value="EG">Egypt</option>
-                                <option value="SV">El Salvador</option>
-                                <option value="GQ">Equatorial Guinea</option>
-                                <option value="ER">Eritrea</option>
-                                <option value="EE">Estonia</option>
-                                <option value="ET">Ethiopia</option>
-                                <option value="FK">Falkland Islands</option>
-                                <option value="FO">Faroe Islands</option>
-                                <option value="FJ">Fiji</option>
-                                <option value="FI">Finland</option>
-                                <option value="FR">France</option>
-                                <option value="GF">French Guiana</option>
-                                <option value="PF">French Polynesia</option>
-                                <option value="TF">French Southern Territories</option>
-                                <option value="GA">Gabon</option>
-                                <option value="GM">Gambia</option>
-                                <option value="GE">Georgia</option>
-                                <option value="DE">Germany</option>
-                                <option value="GH">Ghana</option>
-                                <option value="GI">Gibraltar</option>
-                                <option value="GR">Greece</option>
-                                <option value="GL">Greenland</option>
-                                <option value="GD">Grenada</option>
-                                <option value="GP">Guadeloupe</option>
-                                <option value="GU">Guam</option>
-                                <option value="GT">Guatemala</option>
-                                <option value="GG">Guernsey</option>
-                                <option value="GN">Guinea</option>
-                                <option value="GW">Guinea-Bissau</option>
-                                <option value="GY">Guyana</option>
-                                <option value="HT">Haiti</option>
-                                <option value="HM">Heard Island and McDonald Islands</option>
-                                <option value="HN">Honduras</option>
-                                <option value="HK">Hong Kong</option>
-                                <option value="HU">Hungary</option>
-                                <option value="IS">Iceland</option>
-                                <option value="IN">India</option>
-                                <option value="ID">Indonesia</option>
-                                <option value="IR">Iran</option>
-                                <option value="IQ">Iraq</option>
-                                <option value="IM">Isle of Man</option>
-                                <option value="IL">Israel</option>
-                                <option value="IT">Italy</option>
-                                <option value="CI">Ivory Coast</option>
-                                <option value="JM">Jamaica</option>
-                                <option value="JP">Japan</option>
-                                <option value="JE">Jersey</option>
-                                <option value="JO">Jordan</option>
-                                <option value="KZ">Kazakhstan</option>
-                                <option value="KE">Kenya</option>
-                                <option value="KI">Kiribati</option>
-                                <option value="KW">Kuwait</option>
-                                <option value="KG">Kyrgyzstan</option>
-                                <option value="LA">Laos</option>
-                                <option value="LV">Latvia</option>
-                                <option value="LB">Lebanon</option>
-                                <option value="LS">Lesotho</option>
-                                <option value="LR">Liberia</option>
-                                <option value="LY">Libya</option>
-                                <option value="LI">Liechtenstein</option>
-                                <option value="LT">Lithuania</option>
-                                <option value="LU">Luxembourg</option>
-                                <option value="MO">Macao S.A.R., China</option>
-                                <option value="MK">Macedonia</option>
-                                <option value="MG">Madagascar</option>
-                                <option value="MW">Malawi</option>
-                                <option value="MY">Malaysia</option>
-                                <option value="MV">Maldives</option>
-                                <option value="ML">Mali</option>
-                                <option value="MT">Malta</option>
-                                <option value="MH">Marshall Islands</option>
-                                <option value="MQ">Martinique</option>
-                                <option value="MR">Mauritania</option>
-                                <option value="MU">Mauritius</option>
-                                <option value="YT">Mayotte</option>
-                                <option value="MX">Mexico</option>
-                                <option value="FM">Micronesia</option>
-                                <option value="MD">Moldova</option>
-                                <option value="MC">Monaco</option>
-                                <option value="MN">Mongolia</option>
-                                <option value="ME">Montenegro</option>
-                                <option value="MS">Montserrat</option>
-                                <option value="MA">Morocco</option>
-                                <option value="MZ">Mozambique</option>
-                                <option value="MM">Myanmar</option>
-                                <option value="NA">Namibia</option>
-                                <option value="NR">Nauru</option>
-                                <option value="NP">Nepal</option>
-                                <option value="NL">Netherlands</option>
-                                <option value="AN">Netherlands Antilles</option>
-                                <option value="NC">New Caledonia</option>
-                                <option value="NZ">New Zealand</option>
-                                <option value="NI">Nicaragua</option>
-                                <option value="NE">Niger</option>
-                                <option value="NG">Nigeria</option>
-                                <option value="NU">Niue</option>
-                                <option value="NF">Norfolk Island</option>
-                                <option value="KP">North Korea</option>
-                                <option value="MP">Northern Mariana Islands</option>
-                                <option value="NO">Norway</option>
-                                <option value="OM">Oman</option>
-                                <option value="PK">Pakistan</option>
-                                <option value="PS">Palestinian Territory</option>
-                                <option value="PA">Panama</option>
-                                <option value="PG">Papua New Guinea</option>
-                                <option value="PY">Paraguay</option>
-                                <option value="PE">Peru</option>
-                                <option value="PH">Philippines</option>
-                                <option value="PN">Pitcairn</option>
-                                <option value="PL">Poland</option>
-                                <option value="PT">Portugal</option>
-                                <option value="PR">Puerto Rico</option>
-                                <option value="QA">Qatar</option>
-                                <option value="IE">Republic of Ireland</option>
-                                <option value="RE">Reunion</option>
-                                <option value="RO">Romania</option>
-                                <option value="RU">Russia</option>
-                                <option value="RW">Rwanda</option>
-                                <option value="ST">São Tomé and Príncipe</option>
-                                <option value="BL">Saint Barthélemy</option>
-                                <option value="SH">Saint Helena</option>
-                                <option value="KN">Saint Kitts and Nevis</option>
-                                <option value="LC">Saint Lucia</option>
-                                <option value="SX">Saint Martin (Dutch part)</option>
-                                <option value="MF">Saint Martin (French part)</option>
-                                <option value="PM">Saint Pierre and Miquelon</option>
-                                <option value="VC">Saint Vincent and the Grenadines</option>
-                                <option value="WS">Samoa</option>
-                                <option value="SM">San Marino</option>
-                                <option value="SA">Saudi Arabia</option>
-                                <option value="SN">Senegal</option>
-                                <option value="RS">Serbia</option>
-                                <option value="SC">Seychelles</option>
-                                <option value="SL">Sierra Leone</option>
-                                <option value="SG">Singapore</option>
-                                <option value="SK">Slovakia</option>
-                                <option value="SI">Slovenia</option>
-                                <option value="SB">Solomon Islands</option>
-                                <option value="SO">Somalia</option>
-                                <option value="ZA">South Africa</option>
-                                <option value="GS">South Georgia/Sandwich Islands</option>
-                                <option value="KR">South Korea</option>
-                                <option value="SS">South Sudan</option>
-                                <option value="ES">Spain</option>
-                                <option value="LK">Sri Lanka</option>
-                                <option value="SD">Sudan</option>
-                                <option value="SR">Suriname</option>
-                                <option value="SJ">Svalbard and Jan Mayen</option>
-                                <option value="SZ">Swaziland</option>
-                                <option value="SE">Sweden</option>
-                                <option value="CH">Switzerland</option>
-                                <option value="SY">Syria</option>
-                                <option value="TW">Taiwan</option>
-                                <option value="TJ">Tajikistan</option>
-                                <option value="TZ">Tanzania</option>
-                                <option value="TH">Thailand</option>
-                                <option value="TL">Timor-Leste</option>
-                                <option value="TG">Togo</option>
-                                <option value="TK">Tokelau</option>
-                                <option value="TO">Tonga</option>
-                                <option value="TT">Trinidad and Tobago</option>
-                                <option value="TN">Tunisia</option>
-                                <option value="TR">Turkey</option>
-                                <option value="TM">Turkmenistan</option>
-                                <option value="TC">Turks and Caicos Islands</option>
-                                <option value="TV">Tuvalu</option>
-                                <option value="UG">Uganda</option>
-                                <option value="UA">Ukraine</option>
-                                <option value="AE">United Arab Emirates</option>
-                                <option value="GB">United Kingdom (UK)</option>
-                                <option value="US">United States (US)</option>
-                                <option value="UM">United States (US) Minor Outlying Islands</option>
-                                <option value="VI">United States (US) Virgin Islands</option>
-                                <option value="UY">Uruguay</option>
-                                <option value="UZ">Uzbekistan</option>
-                                <option value="VU">Vanuatu</option>
-                                <option value="VA">Vatican</option>
-                                <option value="VE">Venezuela</option>
-                                <option value="VN">Vietnam</option>
-                                <option value="WF">Wallis and Futuna</option>
-                                <option value="EH">Western Sahara</option>
-                                <option value="YE">Yemen</option>
-                                <option value="ZM">Zambia</option>
-                                <option value="ZW">Zimbabwe</option>
-                              </select>
-                            </fieldset>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box select-dropdown">
-                            <fieldset>
-                              <select name="shippingstateId" class="option-drop" id="shippingstateid">
-                                <option value="">Select a State</option>
-                                <option value="AP">Andhra Pradesh</option>
-                                <option value="AR">Arunachal Pradesh</option>
-                                <option value="AS">Assam</option>
-                                <option value="BR">Bihar</option>
-                                <option value="CT">Chhattisgarh</option>
-                                <option value="GA">Goa</option>
-                                <option value="GJ">Gujarat</option>
-                                <option value="HR">Haryana</option>
-                                <option value="HP">Himachal Pradesh</option>
-                                <option value="JK">Jammu and Kashmir</option>
-                                <option value="JH">Jharkhand</option>
-                                <option value="KA">Karnataka</option>
-                                <option value="KL">Kerala</option>
-                                <option value="MP">Madhya Pradesh</option>
-                                <option value="MH">Maharashtra</option>
-                                <option value="MN">Manipur</option>
-                                <option value="ML">Meghalaya</option>
-                                <option value="MZ">Mizoram</option>
-                                <option value="NL">Nagaland</option>
-                                <option value="OR">Orissa</option>
-                                <option value="PB">Punjab</option>
-                                <option value="RJ">Rajasthan</option>
-                                <option value="SK">Sikkim</option>
-                                <option value="TN">Tamil Nadu</option>
-                                <option value="TS">Telangana</option>
-                                <option value="TR">Tripura</option>
-                                <option value="UK">Uttarakhand</option>
-                                <option value="UP">Uttar Pradesh</option>
-                                <option value="WB">West Bengal</option>
-                                <option value="AN">Andaman and Nicobar Islands</option>
-                                <option value="CH">Chandigarh</option>
-                                <option value="DN">Dadar and Nagar Haveli</option>
-                                <option value="DD">Daman and Diu</option>
-                                <option value="DL">Delhi</option>
-                                <option value="LD">Lakshadeep</option>
-                                <option value="PY">Pondicherry (Puducherry)</option>
-                              </select>
-                            </fieldset>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Select City">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Postcode/zip">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-12 mb-20">
-                          <div class="heading-part">
-                            <h3 class="sub-heading">Billing Address</h3>
-                          </div>
-                          <hr>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Full Name">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Email Address">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Company">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Contact Number">
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Billing Address">
-                            <span>Please provide the number and street.</span>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Billing Landmark">
-                            <span>Please include landmark (e.g : Opposite Bank) as the carrier service may find it easier to locate your address.</span>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box select-dropdown">
-                            <fieldset>
-                              <select name="billingcountryId" class="option-drop" id="billingcountryid">
-                                <option selected="" value="">Select Country</option>
-                                <option value="AX">Aland Islands</option>
-                                <option value="AF">Afghanistan</option>
-                                <option value="AL">Albania</option>
-                                <option value="DZ">Algeria</option>
-                                <option value="AS">American Samoa</option>
-                                <option value="AD">Andorra</option>
-                                <option value="AO">Angola</option>
-                                <option value="AI">Anguilla</option>
-                                <option value="AQ">Antarctica</option>
-                                <option value="AG">Antigua and Barbuda</option>
-                                <option value="AR">Argentina</option>
-                                <option value="AM">Armenia</option>
-                                <option value="AW">Aruba</option>
-                                <option value="AU">Australia</option>
-                                <option value="AT">Austria</option>
-                                <option value="AZ">Azerbaijan</option>
-                                <option value="BS">Bahamas</option>
-                                <option value="BH">Bahrain</option>
-                                <option value="BD">Bangladesh</option>
-                                <option value="BB">Barbados</option>
-                                <option value="BY">Belarus</option>
-                                <option value="PW">Belau</option>
-                                <option value="BE">Belgium</option>
-                                <option value="BZ">Belize</option>
-                                <option value="BJ">Benin</option>
-                                <option value="BM">Bermuda</option>
-                                <option value="BT">Bhutan</option>
-                                <option value="BO">Bolivia</option>
-                                <option value="BQ">Bonaire, Saint Eustatius and Saba</option>
-                                <option value="BA">Bosnia and Herzegovina</option>
-                                <option value="BW">Botswana</option>
-                                <option value="BV">Bouvet Island</option>
-                                <option value="BR">Brazil</option>
-                                <option value="IO">British Indian Ocean Territory</option>
-                                <option value="VG">British Virgin Islands</option>
-                                <option value="BN">Brunei</option>
-                                <option value="BG">Bulgaria</option>
-                                <option value="BF">Burkina Faso</option>
-                                <option value="BI">Burundi</option>
-                                <option value="KH">Cambodia</option>
-                                <option value="CM">Cameroon</option>
-                                <option value="CA">Canada</option>
-                                <option value="CV">Cape Verde</option>
-                                <option value="KY">Cayman Islands</option>
-                                <option value="CF">Central African Republic</option>
-                                <option value="TD">Chad</option>
-                                <option value="CL">Chile</option>
-                                <option value="CN">China</option>
-                                <option value="CX">Christmas Island</option>
-                                <option value="CC">Cocos (Keeling) Islands</option>
-                                <option value="CO">Colombia</option>
-                                <option value="KM">Comoros</option>
-                                <option value="CG">Congo (Brazzaville)</option>
-                                <option value="CD">Congo (Kinshasa)</option>
-                                <option value="CK">Cook Islands</option>
-                                <option value="CR">Costa Rica</option>
-                                <option value="HR">Croatia</option>
-                                <option value="CU">Cuba</option>
-                                <option value="CW">Curaçao</option>
-                                <option value="CY">Cyprus</option>
-                                <option value="CZ">Czech Republic</option>
-                                <option value="DK">Denmark</option>
-                                <option value="DJ">Djibouti</option>
-                                <option value="DM">Dominica</option>
-                                <option value="DO">Dominican Republic</option>
-                                <option value="EC">Ecuador</option>
-                                <option value="EG">Egypt</option>
-                                <option value="SV">El Salvador</option>
-                                <option value="GQ">Equatorial Guinea</option>
-                                <option value="ER">Eritrea</option>
-                                <option value="EE">Estonia</option>
-                                <option value="ET">Ethiopia</option>
-                                <option value="FK">Falkland Islands</option>
-                                <option value="FO">Faroe Islands</option>
-                                <option value="FJ">Fiji</option>
-                                <option value="FI">Finland</option>
-                                <option value="FR">France</option>
-                                <option value="GF">French Guiana</option>
-                                <option value="PF">French Polynesia</option>
-                                <option value="TF">French Southern Territories</option>
-                                <option value="GA">Gabon</option>
-                                <option value="GM">Gambia</option>
-                                <option value="GE">Georgia</option>
-                                <option value="DE">Germany</option>
-                                <option value="GH">Ghana</option>
-                                <option value="GI">Gibraltar</option>
-                                <option value="GR">Greece</option>
-                                <option value="GL">Greenland</option>
-                                <option value="GD">Grenada</option>
-                                <option value="GP">Guadeloupe</option>
-                                <option value="GU">Guam</option>
-                                <option value="GT">Guatemala</option>
-                                <option value="GG">Guernsey</option>
-                                <option value="GN">Guinea</option>
-                                <option value="GW">Guinea-Bissau</option>
-                                <option value="GY">Guyana</option>
-                                <option value="HT">Haiti</option>
-                                <option value="HM">Heard Island and McDonald Islands</option>
-                                <option value="HN">Honduras</option>
-                                <option value="HK">Hong Kong</option>
-                                <option value="HU">Hungary</option>
-                                <option value="IS">Iceland</option>
-                                <option value="IN">India</option>
-                                <option value="ID">Indonesia</option>
-                                <option value="IR">Iran</option>
-                                <option value="IQ">Iraq</option>
-                                <option value="IM">Isle of Man</option>
-                                <option value="IL">Israel</option>
-                                <option value="IT">Italy</option>
-                                <option value="CI">Ivory Coast</option>
-                                <option value="JM">Jamaica</option>
-                                <option value="JP">Japan</option>
-                                <option value="JE">Jersey</option>
-                                <option value="JO">Jordan</option>
-                                <option value="KZ">Kazakhstan</option>
-                                <option value="KE">Kenya</option>
-                                <option value="KI">Kiribati</option>
-                                <option value="KW">Kuwait</option>
-                                <option value="KG">Kyrgyzstan</option>
-                                <option value="LA">Laos</option>
-                                <option value="LV">Latvia</option>
-                                <option value="LB">Lebanon</option>
-                                <option value="LS">Lesotho</option>
-                                <option value="LR">Liberia</option>
-                                <option value="LY">Libya</option>
-                                <option value="LI">Liechtenstein</option>
-                                <option value="LT">Lithuania</option>
-                                <option value="LU">Luxembourg</option>
-                                <option value="MO">Macao S.A.R., China</option>
-                                <option value="MK">Macedonia</option>
-                                <option value="MG">Madagascar</option>
-                                <option value="MW">Malawi</option>
-                                <option value="MY">Malaysia</option>
-                                <option value="MV">Maldives</option>
-                                <option value="ML">Mali</option>
-                                <option value="MT">Malta</option>
-                                <option value="MH">Marshall Islands</option>
-                                <option value="MQ">Martinique</option>
-                                <option value="MR">Mauritania</option>
-                                <option value="MU">Mauritius</option>
-                                <option value="YT">Mayotte</option>
-                                <option value="MX">Mexico</option>
-                                <option value="FM">Micronesia</option>
-                                <option value="MD">Moldova</option>
-                                <option value="MC">Monaco</option>
-                                <option value="MN">Mongolia</option>
-                                <option value="ME">Montenegro</option>
-                                <option value="MS">Montserrat</option>
-                                <option value="MA">Morocco</option>
-                                <option value="MZ">Mozambique</option>
-                                <option value="MM">Myanmar</option>
-                                <option value="NA">Namibia</option>
-                                <option value="NR">Nauru</option>
-                                <option value="NP">Nepal</option>
-                                <option value="NL">Netherlands</option>
-                                <option value="AN">Netherlands Antilles</option>
-                                <option value="NC">New Caledonia</option>
-                                <option value="NZ">New Zealand</option>
-                                <option value="NI">Nicaragua</option>
-                                <option value="NE">Niger</option>
-                                <option value="NG">Nigeria</option>
-                                <option value="NU">Niue</option>
-                                <option value="NF">Norfolk Island</option>
-                                <option value="KP">North Korea</option>
-                                <option value="MP">Northern Mariana Islands</option>
-                                <option value="NO">Norway</option>
-                                <option value="OM">Oman</option>
-                                <option value="PK">Pakistan</option>
-                                <option value="PS">Palestinian Territory</option>
-                                <option value="PA">Panama</option>
-                                <option value="PG">Papua New Guinea</option>
-                                <option value="PY">Paraguay</option>
-                                <option value="PE">Peru</option>
-                                <option value="PH">Philippines</option>
-                                <option value="PN">Pitcairn</option>
-                                <option value="PL">Poland</option>
-                                <option value="PT">Portugal</option>
-                                <option value="PR">Puerto Rico</option>
-                                <option value="QA">Qatar</option>
-                                <option value="IE">Republic of Ireland</option>
-                                <option value="RE">Reunion</option>
-                                <option value="RO">Romania</option>
-                                <option value="RU">Russia</option>
-                                <option value="RW">Rwanda</option>
-                                <option value="ST">São Tomé and Príncipe</option>
-                                <option value="BL">Saint Barthélemy</option>
-                                <option value="SH">Saint Helena</option>
-                                <option value="KN">Saint Kitts and Nevis</option>
-                                <option value="LC">Saint Lucia</option>
-                                <option value="SX">Saint Martin (Dutch part)</option>
-                                <option value="MF">Saint Martin (French part)</option>
-                                <option value="PM">Saint Pierre and Miquelon</option>
-                                <option value="VC">Saint Vincent and the Grenadines</option>
-                                <option value="WS">Samoa</option>
-                                <option value="SM">San Marino</option>
-                                <option value="SA">Saudi Arabia</option>
-                                <option value="SN">Senegal</option>
-                                <option value="RS">Serbia</option>
-                                <option value="SC">Seychelles</option>
-                                <option value="SL">Sierra Leone</option>
-                                <option value="SG">Singapore</option>
-                                <option value="SK">Slovakia</option>
-                                <option value="SI">Slovenia</option>
-                                <option value="SB">Solomon Islands</option>
-                                <option value="SO">Somalia</option>
-                                <option value="ZA">South Africa</option>
-                                <option value="GS">South Georgia/Sandwich Islands</option>
-                                <option value="KR">South Korea</option>
-                                <option value="SS">South Sudan</option>
-                                <option value="ES">Spain</option>
-                                <option value="LK">Sri Lanka</option>
-                                <option value="SD">Sudan</option>
-                                <option value="SR">Suriname</option>
-                                <option value="SJ">Svalbard and Jan Mayen</option>
-                                <option value="SZ">Swaziland</option>
-                                <option value="SE">Sweden</option>
-                                <option value="CH">Switzerland</option>
-                                <option value="SY">Syria</option>
-                                <option value="TW">Taiwan</option>
-                                <option value="TJ">Tajikistan</option>
-                                <option value="TZ">Tanzania</option>
-                                <option value="TH">Thailand</option>
-                                <option value="TL">Timor-Leste</option>
-                                <option value="TG">Togo</option>
-                                <option value="TK">Tokelau</option>
-                                <option value="TO">Tonga</option>
-                                <option value="TT">Trinidad and Tobago</option>
-                                <option value="TN">Tunisia</option>
-                                <option value="TR">Turkey</option>
-                                <option value="TM">Turkmenistan</option>
-                                <option value="TC">Turks and Caicos Islands</option>
-                                <option value="TV">Tuvalu</option>
-                                <option value="UG">Uganda</option>
-                                <option value="UA">Ukraine</option>
-                                <option value="AE">United Arab Emirates</option>
-                                <option value="GB">United Kingdom (UK)</option>
-                                <option value="US">United States (US)</option>
-                                <option value="UM">United States (US) Minor Outlying Islands</option>
-                                <option value="VI">United States (US) Virgin Islands</option>
-                                <option value="UY">Uruguay</option>
-                                <option value="UZ">Uzbekistan</option>
-                                <option value="VU">Vanuatu</option>
-                                <option value="VA">Vatican</option>
-                                <option value="VE">Venezuela</option>
-                                <option value="VN">Vietnam</option>
-                                <option value="WF">Wallis and Futuna</option>
-                                <option value="EH">Western Sahara</option>
-                                <option value="YE">Yemen</option>
-                                <option value="ZM">Zambia</option>
-                                <option value="ZW">Zimbabwe</option>
-                              </select>
-                            </fieldset>
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="input-box select-dropdown">
-                            <fieldset>
-                              <select name="billingstateId" class="option-drop" id="billingstateid">
-                                <option value="">Select a State</option>
-                                <option value="AP">Andhra Pradesh</option>
-                                <option value="AR">Arunachal Pradesh</option>
-                                <option value="AS">Assam</option>
-                                <option value="BR">Bihar</option>
-                                <option value="CT">Chhattisgarh</option>
-                                <option value="GA">Goa</option>
-                                <option value="GJ">Gujarat</option>
-                                <option value="HR">Haryana</option>
-                                <option value="HP">Himachal Pradesh</option>
-                                <option value="JK">Jammu and Kashmir</option>
-                                <option value="JH">Jharkhand</option>
-                                <option value="KA">Karnataka</option>
-                                <option value="KL">Kerala</option>
-                                <option value="MP">Madhya Pradesh</option>
-                                <option value="MH">Maharashtra</option>
-                                <option value="MN">Manipur</option>
-                                <option value="ML">Meghalaya</option>
-                                <option value="MZ">Mizoram</option>
-                                <option value="NL">Nagaland</option>
-                                <option value="OR">Orissa</option>
-                                <option value="PB">Punjab</option>
-                                <option value="RJ">Rajasthan</option>
-                                <option value="SK">Sikkim</option>
-                                <option value="TN">Tamil Nadu</option>
-                                <option value="TS">Telangana</option>
-                                <option value="TR">Tripura</option>
-                                <option value="UK">Uttarakhand</option>
-                                <option value="UP">Uttar Pradesh</option>
-                                <option value="WB">West Bengal</option>
-                                <option value="AN">Andaman and Nicobar Islands</option>
-                                <option value="CH">Chandigarh</option>
-                                <option value="DN">Dadar and Nagar Haveli</option>
-                                <option value="DD">Daman and Diu</option>
-                                <option value="DL">Delhi</option>
-                                <option value="LD">Lakshadeep</option>
-                                <option value="PY">Pondicherry (Puducherry)</option>
-                              </select>
-                            </fieldset>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Select City">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-box">
-                            <input type="text" required placeholder="Postcode/zip">
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="check-box">
-                            <span>
-                              <input type="checkbox" class="checkbox" id="chk-billing-address" name="chk-billing-address">
-                              <label for="chk-billing-address">Use my delivery address as my billing address</label>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                  </form>
-                </div>
-              </div>
-              <div id="data-step3" class="account-content" data-temp="tabdata" style="display:none">
-                <div id="form-print" class="admission-form-wrapper">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="heading-part heading-bg mb-30">
-                        <h2 class="heading m-0">My Orders</h2>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12 mb-xs-30">
-                      <div class="cart-item-table commun-table">
-                        <div class="table-responsive">
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <th colspan="4">
-                                  <ul>
-                                    <li><span>Order placed</span> <span>17 December 2020</span></li>
-                                    <li class="price-box"><span>Total</span> <span class="price">$160.00</span></li>
-                                    <li><span>Order No.</span> <span>#011052</span></li>
-                                  </ul>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <a href="product-page.html">
-                                    <div class="product-image">
-                                      <img alt="Stylexpo" src="{{ asset('front_end_style/assets/images/product/product_1_md.jpg')}}">
-                                    </div>
-                                  </a>
-                                </td>
-                                <td>
-                                  <div class="product-title">
-                                    <a href="product-page.html">Cross Colours Camo Print Tank half mengo</a>
-                                  </div>
-                                  <div class="product-info-stock-sku m-0">
-                                    <div>
-                                      <label>Quantity: </label>
-                                      <span class="info-deta">1</span>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class="base-price price-box">
-                                    <span class="price">$80.00</span>
-                                  </div>
-                                </td>
-                                <td>
-                                  <i title="Remove Item From Cart" data-id="100" class="fa fa-trash cart-remove-item"></i>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <a href="product-page.html">
-                                    <div class="product-image">
-                                      <img alt="Stylexpo" src="{{ asset('front_end_style/assets/images/product/product_2_md.jpg')}}">
-                                    </div>
-                                  </a>
-                                </td>
-                                <td>
-                                  <div class="product-title">
-                                    <a href="product-page.html">Defyant Reversible Dot Shorts</a>
-                                  </div>
-                                  <div class="product-info-stock-sku m-0">
-                                    <div>
-                                      <label>Quantity: </label>
-                                      <span class="info-deta">1</span>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class="base-price price-box">
-                                    <span class="price">$80.00</span>
-                                  </div>
-                                </td>
-                                <td>
-                                  <i title="Remove Item From Cart" data-id="100" class="fa fa-trash cart-remove-item"></i>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="print-btn text-center mt-30">
-                      <button onclick="printDiv('form-print')" class="btn btn-color" type="button">Print</button>
-                    </div>
-                  </div>
-               </div>
-              </div>
-              <div id="data-step4" class="account-content" data-temp="tabdata" style="display:none">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="heading-part heading-bg mb-30">
-                      <h2 class="heading m-0">Change Password</h2>
-                    </div>
-                  </div>
-                </div>
-                <form class="main-form full">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="input-box">
-                        <label for="old-pass">Old-Password</label>
-                        <input type="password" placeholder="Old Password" required id="old-pass">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="input-box">
-                        <label for="login-pass">Password</label>
-                        <input type="password" placeholder="Enter your Password" required id="login-pass">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="input-box">
-                        <label for="re-enter-pass">Re-enter Password</label>
-                        <input type="password" placeholder="Re-enter your Password" required id="re-enter-pass">
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button class="btn-color" type="submit" name="submit">Change Password</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- CONTAINER END -->
+                        <div class="account-tab-inner">
+                            <ul class="account-tab-stap">
+                                <li id="step1" class="active"> <a href="javascript:void(0)">My Dashboard<i
+                                            class="fa fa-angle-right"></i> </a> </li>
+                                <li id="step3"> <a href="javascript:void(0)">My Order List<i
+                                            class="fa fa-angle-right"></i> </a> </li>
 
-      <!-- News Letter Start -->
-      <section>
-        <div class="newsletter">
-          <div class="container">
-            <div class="newsletter-inner center-sm">
-              <div class="row justify-content-center align-items-center">
-                <div class=" col-xl-10 col-md-12">
-                  <div class="newsletter-bg">
-                    <div class="row  align-items-center">
-                      <div class="col-xl-6 col-lg-6">
-                        <div class="d-lg-flex align-items-center">
-                          <div class="newsletter-icon">
-                            <img alt="Stylexpo" src="{{ asset('front_end_style/assets/images/newsletter-icon.png')}}">
-                          </div>
-                          <div class="newsletter-title">
-                            <h2 class="main_title">Subscribe to our newsletter</h2>
-                            <div class="sub-title">Sign up for newsletter and Get upto 50% off</div>
-                          </div>
+                            </ul>
                         </div>
-                      </div>
-                      <div class="col-xl-6 col-lg-6">
-                        <form>
-                          <div class="newsletter-box">
-                            <input type="email" placeholder="Email Here...">
-                            <button title="Subscribe" class="btn-color">Subscribe</button>
-                          </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div id="data-step1" class="account-content" data-temp="tabdata">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="heading-part heading-bg mb-30">
+                                    <h2 class="m-0 heading">Account Dashboard</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-30">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="heading-part">
+                                        <h3 class="sub-heading">Hello, {{ auth('customer')->user()->name_en }}</h3>
+                                    </div>
+                                    <p>
+                                        From your account dashboard. you can easily check &amp; view your recent orders,
+                                        manage your shipping and billing addresses and edit your password and account
+                                        details.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-0">
+                            <div class="row mb-30">
+                                <div class="mb-20 col-12">
+                                    <div class="gap-3 heading-part d-flex align-items-center">
+                                        <h3 class="m-0 sub-heading">Addresses</h3>
+                                        <button class="p-2 ml-3 btn btn-sm btn-success" id="addAddress">+</button>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12">
+                                    <div class="cart-total-table address-box commun-table">
+                                        <form action="{{ route('createAddress.profile') }}" method="post"
+                                            class="p-2 mt-2 card" id="createAddressForm">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="mb-1 col-6">
+                                                    <label for="name" class="form-label" style="font-size: 14px">
+                                                        name*
+                                                    </label>
+                                                    <input type="text" name="name" value="{{ old('name') }}"
+                                                        class="form-control form-control-sm" placeholder="name"
+                                                        id="name" required>
+                                                </div>
+                                                <div class="mb-1 col-6">
+                                                    <label for="email" class="form-label" style="font-size: 14px">
+                                                        email
+                                                    </label>
+                                                    <input type="email" name="email" value="{{ old('email') }}"
+                                                        class="form-control form-control-sm" placeholder="email"
+                                                        id="email">
+                                                </div>
+                                                <div class="mb-1 col-6">
+                                                    <label for="phone" class="form-label" style="font-size: 14px">
+                                                        phone
+                                                    </label>
+                                                    <input type="text" name="phone" value="{{ old('phone') }}"
+                                                        class="form-control form-control-sm" placeholder="phone"
+                                                        id="phone" required>
+                                                </div>
+                                                <div class="mb-1 col-6">
+                                                    <label for="company" class="form-label" style="font-size: 14px">
+                                                        company
+                                                    </label>
+                                                    <input type="text" name="company" value="{{ old('company') }}"
+                                                        class="form-control form-control-sm" placeholder="company"
+                                                        id="company">
+                                                </div>
+                                                <div class="mb-1 col-6">
+                                                    <label for="address" class="form-label" style="font-size: 14px">
+                                                        address*
+                                                    </label>
+                                                    <input type="text" name="address" value="{{ old('address') }}"
+                                                        class="form-control form-control-sm" placeholder="address"
+                                                        id="address" required>
+                                                </div>
+                                                <div class="mb-1 col-6">
+                                                    <label for="apartment" class="form-label" style="font-size: 14px">
+                                                        apartment
+                                                    </label>
+                                                    <input type="text" name="apartment" value="{{ old('apartment') }}"
+                                                        class="form-control form-control-sm" placeholder="apartment"
+                                                        id="apartment">
+                                                </div>
+                                                <div class="mb-1 col-6">
+                                                    <label for="city" class="form-label" style="font-size: 14px">
+                                                        city*
+                                                    </label>
+                                                    <input type="text" name="city" value="{{ old('city') }}"
+                                                        class="form-control form-control-sm" placeholder="city"
+                                                        id="city" required>
+                                                </div>
+                                                <div class="mb-1 col-6">
+                                                    <label for="state" class="form-label" style="font-size: 14px">
+                                                        state*
+                                                    </label>
+                                                    <input type="text" name="state" value="{{ old('state') }}"
+                                                        class="form-control form-control-sm" placeholder="state"
+                                                        id="state" required>
+                                                </div>
+                                                <div class="mb-1 col-6">
+                                                    <label for="country" class="form-label" style="font-size: 14px">
+                                                        country*
+                                                    </label>
+                                                    <input type="text" name="country" value="{{ old('country') }}"
+                                                        class="form-control form-control-sm" placeholder="country"
+                                                        id="country" required>
+                                                </div>
+                                                <div class="mb-1 col-6">
+                                                    <label for="zipcode" class="form-label" style="font-size: 14px">
+                                                        zipcode
+                                                    </label>
+                                                    <input type="text" name="zipcode" value="{{ old('zipcode') }}"
+                                                        class="form-control form-control-sm" placeholder="zipcode"
+                                                        id="zipcode">
+                                                </div>
+                                                <div class="mb-1 col-12">
+                                                    <label for="zipcode" class="form-label" style="font-size: 14px">
+                                                        more info
+                                                    </label>
+                                                    <textarea name="more_info" id="more_info" cols="30" rows="3" class="form-control form-control-sm"
+                                                        placeholder="more info">{{ old('more_info') }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3 text-center">
+                                                <button type="submit" class="p-2 btn btn-sm btn-success">save</button>
+                                            </div>
+                                        </form>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>name</th>
+                                                        <th>email</th>
+                                                        <th>phone</th>
+                                                        <th>company</th>
+                                                        <th>address</th>
+                                                        <th>apartment</th>
+                                                        <th>city</th>
+                                                        <th>state</th>
+                                                        <th>country</th>
+                                                        <th>zipcode</th>
+                                                        <th>more info</th>
+                                                        <th>action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse (auth('customer')->user()->locations as $location)
+                                                        <tr>
+                                                            <td>{{ $location->name ?? '-' }}</td>
+                                                            <td>{{ $location->email ?? '-' }}</td>
+                                                            <td>{{ $location->phone ?? '-' }}</td>
+                                                            <td>{{ $location->company ?? '-' }}</td>
+                                                            <td>{{ $location->address ?? '-' }}</td>
+                                                            <td>{{ $location->apartment ?? '-' }}</td>
+                                                            <td>{{ $location->city ?? '-' }}</td>
+                                                            <td>{{ $location->state ?? '-' }}</td>
+                                                            <td>{{ $location->country ?? '-' }}</td>
+                                                            <td>{{ $location->zipcode ?? '-' }}</td>
+                                                            <td>{{ $location->more_info ?? '-' }}</td>
+                                                            <td class="d-flex align-items-center">
+                                                                <a href="{{ route('address-destroy', $location->id) }}"
+                                                                    class="p-1 text-white btn btn-danger">
+                                                                    <i title="Remove Address" data-id="100"
+                                                                        class="fa fa-trash deleteAddressBtn"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="12" class="text-center">No Addresses</td>
+                                                        </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="my-4 row">
+                                <div class="mb-20 col-12">
+                                    <div class="gap-3 heading-part d-flex align-items-center">
+                                        <h3 class="m-0 sub-heading">Account Inforamtion</h3>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12">
+                                    <div class="cart-total-table address-box commun-table">
+                                        <form
+                                            action="{{ route('customer-update.profile', auth('customer')->user()->id) }}"
+                                            method="post" class="p-2 mt-2 card" id="createAddressForm">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="mb-1 col-6">
+                                                    <label for="name" class="form-label" style="font-size: 14px">
+                                                        Full Name*
+                                                    </label>
+                                                    <input type="text" name="name_en"
+                                                        value="{{ old('name_en', auth('customer')->user()->name_en) }}"
+                                                        class="form-control form-control-sm" id="full name" required>
+                                                </div>
+
+                                                <div class="mb-1 col-6">
+                                                    <label for="username" class="form-label" style="font-size: 14px">
+                                                        User Name*
+                                                    </label>
+                                                    <input type="text" name="username"
+                                                        value="{{ old('username', auth('customer')->user()->username) }}"
+                                                        class="form-control form-control-sm" id="username" required>
+                                                </div>
+
+                                                <div class="mb-1 col-6">
+                                                    <label for="company_name" class="form-label" style="font-size: 14px">
+                                                        Company Name
+                                                    </label>
+                                                    <input type="text" name="company_name"
+                                                        value="{{ old('company_name', auth('customer')->user()->company_name) }}"
+                                                        class="form-control form-control-sm" id="company_name">
+                                                </div>
+
+                                                <div class="mb-1 col-6">
+                                                    <label for="email" class="form-label" style="font-size: 14px">
+                                                        Email*
+                                                    </label>
+                                                    <input type="email" name="email"
+                                                        value="{{ old('email', auth('customer')->user()->email) }}"
+                                                        class="form-control form-control-sm" id="email" disabled
+                                                        required>
+                                                </div>
+
+                                                <div class="mb-1 col-6">
+                                                    <label for="phone" class="form-label" style="font-size: 14px">
+                                                        Phone*
+                                                    </label>
+                                                    <input type="text" name="phone"
+                                                        value="{{ old('phone', auth('customer')->user()->phone) }}"
+                                                        class="form-control form-control-sm" id="phone" required>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="mb-1 col-6">
+                                                    <label for="password" class="form-label" style="font-size: 14px">
+                                                        Password
+                                                    </label>
+                                                    <input type="password" name="password"
+                                                        class="form-control form-control-sm" id="password">
+                                                </div>
+
+                                                <div class="mb-1 col-6">
+                                                    <label for="password_confirmation" class="form-label"
+                                                        style="font-size: 14px">
+                                                        Confirm Password
+                                                    </label>
+                                                    <input type="password" name="password_confirmation"
+                                                        class="form-control form-control-sm" id="password_confirmation">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="mt-3 text-center">
+                                                <button type="submit" class="p-2 btn btn-sm btn-success">Update</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="data-step3" class="account-content" data-temp="tabdata" style="display:none">
+                        <div id="form-print" class="admission-form-wrapper">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="heading-part heading-bg mb-30">
+                                        <h2 class="m-0 heading">My Orders</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-xs-30">
+                                    <div class="cart-item-table commun-table">
+                                        <div class="table-responsive">
+
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Date/Time</th>
+                                                        <th>Items</th>
+                                                        <th>Status</th>
+                                                        <th>Payment</th>
+                                                        <th>Delivery</th>
+                                                        <th>Sub Total</th>
+                                                        <th>Total</th>
+                                                        <th>Show</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse ($cartSales as $cartSale)
+                                                        <tr>
+                                                            <td>
+                                                                {{ $loop->iteration }}
+                                                            </td>
+                                                            <td style="min-width: 200px">
+                                                                {{ date('Y.m.d / h:i A', strtotime($cartSale->created_at)) }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $cartSale->product_count }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $cartSale->status }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $cartSale->payment_status }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $cartSale->delivery_status }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $cartSale->sub_total }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $cartSale->total }}
+                                                            </td>
+                                                            <td><button class="p-1 btn btn-sm btn-secondary show_order"
+                                                                    data-toggle="modal"
+                                                                    data-target="#exampleModalCenter{{ $cartSale->id }}"
+                                                                    data-id="{{ encrypt($cartSale->id) }}"><i
+                                                                        class="ecicon eci-info"></i>show</button></td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="8" class="text-center">No Orders</td>
+                                                        </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {{ $cartSales->links() }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="data-step4" class="account-content" data-temp="tabdata" style="display:none">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="heading-part heading-bg mb-30">
+                                    <h2 class="m-0 heading">Change Password</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="main-form full">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-box">
+                                        <label for="old-pass">Old-Password</label>
+                                        <input type="password" placeholder="Old Password" required id="old-pass">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-box">
+                                        <label for="login-pass">Password</label>
+                                        <input type="password" placeholder="Enter your Password" required
+                                            id="login-pass">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-box">
+                                        <label for="re-enter-pass">Re-enter Password</label>
+                                        <input type="password" placeholder="Re-enter your Password" required
+                                            id="re-enter-pass">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn-color" type="submit" name="submit">Change Password</button>
+                                </div>
+                            </div>
                         </form>
-                      </div>
                     </div>
-                  </div>
+                    @foreach ($cartSales as $cartSale)
+                        <div class="modal fade" id="exampleModalCenter{{ $cartSale->id }}" tabindex="-1"
+                            role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content" style="height: 100% !important; overflow: auto !important;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Order Details</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" id="order_body">
+                                        <div class="tab-pane fade show active" id="tab_1" role="tabpanel"
+                                            aria-labelledby="timeline-tab">
+                                            {{-- ================================================= --}}
+                                            {{-- =========== Main Product Information ============ --}}
+                                            {{-- ================================================= --}}
+                                            <div class="mt-3 media profile-timeline-media">
+                                                <div class="media-body">
+                                                    <h3 class="py-3 text-dark">
+                                                        <i class="mdi mdi-information"></i>
+                                                        Main Order Information :
+                                                    </h3>
+                                                    <table class="table table-hover table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-account"></i> Order ID: <span
+                                                                        style="color:blue;">{!! isset($cartSale->id) ? $cartSale->id : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                                <th><i class="mdi mdi-account"></i> Number Of Product :
+                                                                    <span
+                                                                        style="color:blue;">{!! isset($cartSale->product_count) ? $cartSale->product_count : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-account"></i> Shipping : <span
+                                                                        style="color:blue;">{!! isset($cartSale->shipping)
+                                                                            ? $cartSale->shipping . '<small> $</small>'
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                                <th><i class="mdi mdi-account"></i> Tax : <span
+                                                                        style="color:blue;">{!! isset($cartSale->tax) ? $cartSale->tax . '<small> $</small>' : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-account"></i> Sale percentage : <span
+                                                                        style="color:blue;">{!! isset($cartSale->sale_percentage)
+                                                                            ? $cartSale->sale_percentage . '<small> $</small>'
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-account"></i> Sub Total : <span
+                                                                        style="color:blue;">{!! isset($cartSale->sub_total)
+                                                                            ? $cartSale->sub_total . '<small> $</small>'
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                                <th><i class="mdi mdi-account"></i> Total : <span
+                                                                        style="color:blue;">{!! isset($cartSale->total)
+                                                                            ? $cartSale->total . '<small> $</small>'
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                            {{-- <tr>
+                                                            <th><i class="mdi mdi-email"></i> Promo Code : <span
+                                                                    style="color:blue;">{!! isset($cartSale->promoCode->promo_code) ? $cartSale->promoCode->promo_code : '------' !!}</span></th>
+                                                            <th><i class="mdi mdi-email"></i> Discount : <span
+                                                                    style="color:blue;">{!! isset($cartSale->discount) ? $cartSale->discount . '<small> $</small>' : '------' !!}</span></th>
+                                                        </tr> --}}
+                                                            <tr>
+                                                                <th><i class="mdi mdi-phone"></i> Order Status :
+                                                                    @if (isset($cartSale->status))
+                                                                        @if ($cartSale->status == 'Pendding')
+                                                                            <span
+                                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->status !!}</span>
+                                                                        @elseif($cartSale->status == 'Accepted')
+                                                                            <span
+                                                                                style="color:green;">{!! $cartSale->status !!}</span>
+                                                                        @elseif($cartSale->status == 'Rejected')
+                                                                            <span
+                                                                                style="color:red;">{!! $cartSale->status !!}</span>
+                                                                        @endif
+                                                                    @else
+                                                                        <span style="color:red;">Undefined</span>
+                                                                    @endif
+                                                                </th>
+                                                                <th><i class="mdi mdi-phone"></i> Payment Status :
+                                                                    @if (isset($cartSale->payment_status))
+                                                                        @if ($cartSale->payment_status == 'Pendding')
+                                                                            <span
+                                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->payment_status !!}</span>
+                                                                        @elseif($cartSale->payment_status == 'Accepted')
+                                                                            <span
+                                                                                style="color:green;">{!! $cartSale->payment_status !!}</span>
+                                                                        @elseif($cartSale->payment_status == 'Rejected')
+                                                                            <span
+                                                                                style="color:red;">{!! $cartSale->payment_status !!}</span>
+                                                                        @endif
+                                                                    @else
+                                                                        <span>------</span>
+                                                                    @endif
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-phone"></i> Customer Name : <span
+                                                                        style="color:blue;">{!! isset($cartSale->customer->name_en)
+                                                                            ? $cartSale->customer->name_en
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-phone"></i> Delivery Status :
+                                                                    @if (isset($cartSale->delivery_status))
+                                                                        @if ($cartSale->delivery_status == 'Pendding')
+                                                                            <span
+                                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->delivery_status !!}</span>
+                                                                        @elseif($cartSale->payment_status == 'In Progress')
+                                                                            <span
+                                                                                style="color:green;">{!! $cartSale->delivery_status !!}</span>
+                                                                        @else
+                                                                            <span
+                                                                                style="color:red;">{!! $cartSale->delivery_status !!}</span>
+                                                                        @endif
+                                                                    @else
+                                                                        <span>------</span>
+                                                                    @endif
+                                                                </th>
+                                                                <th><i class="mdi mdi-phone"></i> Shipment Num. :
+                                                                    @if (isset($cartSale->track_number))
+                                                                        <span
+                                                                            style="color:blue;">{!! $cartSale->track_number !!}</span>
+                                                                    @else
+                                                                        <span>------</span>
+                                                                    @endif
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-account-multiple"></i> Customer Email
+                                                                    :
+                                                                    <span
+                                                                        style="color:blue;">{!! isset($cartSale->customer->email) ? $cartSale->customer->email : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                                <th><i class="mdi mdi-phone"></i> Customer Phone : <span
+                                                                        style="color:blue;">{!! isset($cartSale->customer->phone) ? $cartSale->customer->phone : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-clock-outline mdi-spin"></i> Order
+                                                                    Added
+                                                                    Since : <span
+                                                                        style="color:blue;">{!! isset($cartSale->created_at)
+                                                                            ? $cartSale->created_at->diffForHumans()
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                                <th><i class="mdi mdi-clock-outline mdi-spin"></i> Date &
+                                                                    Time
+                                                                    of
+                                                                    Addtion :
+                                                                    <span
+                                                                        style="color:blue;">{!! isset($cartSale->created_at)
+                                                                            ? date('Y.d.m / h:i A', strtotime($cartSale->created_at))
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3 media profile-timeline-media">
+                                                <div class="media-body">
+                                                    <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i>
+                                                        Delivery
+                                                        Information :
+                                                    </h3>
+                                                    <table class="table table-hover table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-account"></i> Name : <span
+                                                                        style="color:blue;">{!! isset($cartSale->location->name) ? $cartSale->location->name : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                                <th><i class="mdi mdi-account"></i> Email : <span
+                                                                        style="color:blue;">{!! isset($cartSale->location->email) ? $cartSale->location->email : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-account"></i> Phone : <span
+                                                                        style="color:blue;">{!! isset($cartSale->location->phone) ? $cartSale->location->phone : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                                <th><i class="mdi mdi-account"></i> Company : <span
+                                                                        style="color:blue;">{!! isset($cartSale->location->company)
+                                                                            ? $cartSale->location->company
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-email"></i> Address : <span
+                                                                        style="color:blue;">{!! isset($cartSale->location->address) ? $cartSale->location->address : '------' !!}</span>
+                                                                </th>
+                                                                <th><i class="mdi mdi-email"></i> Apt/Unit/Suite/etc. :
+                                                                    <span
+                                                                        style="color:blue;">{!! isset($cartSale->location->apartment) ? $cartSale->location->apartment : '------' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-email"></i> City : <span
+                                                                        style="color:blue;">{!! isset($cartSale->location->city) ? $cartSale->location->city : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                                <th><i class="mdi mdi-phone"></i>State :<span
+                                                                        style="color:blue;">{!! isset($cartSale->location->state) ? $cartSale->location->state : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-phone"></i> ZipCode : <span
+                                                                        style="color:blue;">{!! isset($cartSale->location->zipcode)
+                                                                            ? $cartSale->location->zipcode
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                                <th><i class="mdi mdi-phone"></i> Country : <span
+                                                                        style="color:blue;">{!! isset($cartSale->location->country)
+                                                                            ? $cartSale->location->country
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th colspan="2"><i
+                                                                        class="mdi mdi-account-multiple"></i>
+                                                                    More
+                                                                    Info : <span
+                                                                        style="color:blue;">{!! isset($cartSale->location->more_info)
+                                                                            ? $cartSale->location->more_info
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-3 media profile-timeline-media">
+                                                <div class="media-body">
+
+                                                    {{-- ================================================= --}}
+                                                    {{-- ================== Order Details ================ --}}
+                                                    {{-- ================================================= --}}
+                                                    <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Order
+                                                        Details :
+                                                    </h3>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th><span style="color:blue;">Image</th>
+                                                                    <th><span style="color:blue;">Product</th>
+                                                                    <th><span style="color:blue;">Quantity</th>
+                                                                    <th><span style="color:blue;">Unit Price</th>
+                                                                    <th><span style="color:blue;">Out Sale Price</th>
+                                                                    <th><span style="color:blue;">Sub Total</th>
+                                                                    <th><span style="color:blue;">Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($cartSale->cartOperations as $cartOperation)
+                                                                    <tr>
+                                                                        <td>
+                                                                            @if (isset($cartOperation->product->image) &&
+                                                                                    $cartOperation->product->image &&
+                                                                                    file_exists($cartOperation->product->image))
+                                                                                <img src="{{ asset($cartOperation->product->image) }}"
+                                                                                    alt="" width="90">
+                                                                            @elseif (isset($cartOperation->product->image_url) && $cartOperation->product->image_url != null)
+                                                                                <img src="{{ $cartOperation->product->image_url }}"
+                                                                                    alt="" width="90">
+                                                                            @else
+                                                                                <img src="{{ asset('front_end_style/assets/images/logo.png') }}"
+                                                                                    alt="" width="100">
+                                                                            @endif
+                                                                        </td>
+                                                                        <td><a
+                                                                                href="{{ route('super_admin.products-show', $cartOperation->product_id) }}">{!! isset($cartOperation->product->name_en)
+                                                                                    ? $cartOperation->product->name_en
+                                                                                    : '<span style="color: red;">Undefined</span>' !!}</a>
+                                                                        </td>
+                                                                        <td>{{ isset($cartOperation->quantity) ? $cartOperation->quantity : 0 }}
+                                                                        </td>
+                                                                        <td>{!! isset($cartOperation->unit_price)
+                                                                            ? $cartOperation->unit_price . '<small> $</small>'
+                                                                            : '<span style="color: red;">Undefined</span>' !!}</td>
+                                                                        <td>{!! isset($cartOperation->out_sale_price)
+                                                                            ? $cartOperation->out_sale_price . '<small> $</small>'
+                                                                            : '<span style="color: red;">Undefined</span>' !!}</td>
+                                                                        <td>
+                                                                            {{ $cartOperation->sub_total ?? '<span style="color: red;">Undefined</span>' }}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ $cartOperation->total ?? '<span style="color: red;">Undefined</span>' }}
+                                                                        </td>
+
+                                                                        {{-- <td>{!! isset($cartOperation->quantity) && isset($cartOperation->unit_price)
+                                                                            ? $cartOperation->quantity * $cartOperation->unit_price +
+                                                                                ($cartOperation->quantity * $cartOperation->unit_price * 15) / 100 .
+                                                                                '<small> $</small>'
+                                                                            : '<span style="color: red;">Undefined</span>' !!}</td> --}}
+                                                                    </tr>
+                                                                @endforeach
+                                                            <tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </section>
-      <!-- News Letter End -->
-@endsection
-@section('javascript')
-
-
+    </section>
+    <hr>
+    <!-- CONTAINER END -->
 @endsection
 
+@push('scripts')
+    <script>
+        $('#createAddressForm').hide();
+        $('.editAddressForm').hide();
 
+        $('.editAddress').on('click', function() {
+            let id = $(this).attr('id');
+            $(`#updateAddressForm${id}`).slideToggle();
+        });
+
+        $('#addAddress').on('click', function() {
+            $('#createAddressForm').slideToggle();
+        });
+
+        $('.deleteAddressBtn').on('click', function() {
+            // console.log($(this).attr('id'))
+            $(this).next('form').submit();
+        })
+    </script>
+@endpush

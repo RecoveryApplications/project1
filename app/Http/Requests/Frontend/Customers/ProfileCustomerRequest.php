@@ -26,7 +26,7 @@ class ProfileCustomerRequest extends FormRequest
     {
         return [
             'name_en' => 'required',
-            'email' => 'required|email:rfc,dns',
+            'email' => 'email:rfc,dns',
             'phone' => 'required',
             'password' => 'nullable',
             'password_confirmation' => 'nullable',
@@ -37,10 +37,9 @@ class ProfileCustomerRequest extends FormRequest
     public function messages()
     {
         return [
-            'name_en.required' => 'Product name_en is required !!',
-            'email.required' => 'Product Email is required !!',
+            'name_en.required' => 'Customer name_en is required !!',
             'email.email' => 'Enter the correct email !!',
-            'phone.required' => 'Product phone is required !!',
+            'phone.required' => 'Customer phone is required !!',
             'phone.regex' => 'Enter the correct phone !!',
         ];
     }

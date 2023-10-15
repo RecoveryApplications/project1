@@ -28,6 +28,14 @@ class PublicValuesSeeder extends Seeder
             [
                 "title"=>"Tax",
                 "values"=>0
+            ],
+            [
+                "title"=>"Shipping",
+                "values"=>0
+            ],
+            [
+                "title"=>"SalePercentage",
+                "values"=>0
             ]
         ];
         foreach ($array as $arr) {

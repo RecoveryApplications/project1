@@ -472,4 +472,162 @@ class OrderController extends Controller
             return view('errors.support_tickets', compact('th', 'function_name', 'end_error_ticket'));
         }
     }
+
+    // =============================================================================================================
+    // ======================== Change Order status for each : status , delievery , payment ========================
+    // =============================================================================================================
+    public function acceptOrder($id, Route $route)
+    {
+        try {
+            $cartSale = CartSale::find($id);
+            if ($cartSale) {
+                $cartSale->status = 2;  // 2 => Accepted
+                $cartSale->save();
+                return redirect()->back()->with('success', 'The process has successfully');
+            } else {
+                return redirect()->route('super_admin.products-index')->with('danger', 'This record is not exists');
+            }
+        } catch (\Throwable $th) {
+            $function_name =  $route->getActionName();
+            $check_old_errors = new SupportTicket();
+            $check_old_errors = $check_old_errors->select('*')->where([
+                'error_location' => $th->getFile(),
+                'error_description' => $th->getMessage(),
+                'function_name' => $function_name,
+                'error_line' => $th->getLine(),
+            ])->get();
+
+            if ($check_old_errors->count() == 0) {
+                $new_error_ticket = SupportTicket::create([
+                    'error_location' => $th->getFile(),
+                    'error_description' => $th->getMessage(),
+                    'function_name' => $function_name,
+                    'error_line' =>  $th->getLine(),
+                ]);
+                $end_error_ticket = $new_error_ticket;
+            } else {
+                $end_error_ticket = $check_old_errors->first();
+            }
+
+            return view('errors.support_tickets', compact('th', 'function_name', 'end_error_ticket'));
+        }
+    }
+
+    public function rejectOrder($id, Route $route)
+    {
+        try {
+            $cartSale = CartSale::find($id);
+            if ($cartSale) {
+                $cartSale->status = 3;  // 3 => Rejected
+                $cartSale->save();
+                return redirect()->back()->with('success', 'The process has successfully');
+            } else {
+                return redirect()->route('super_admin.products-index')->with('danger', 'This record is not exists');
+            }
+        } catch (\Throwable $th) {
+            $function_name =  $route->getActionName();
+            $check_old_errors = new SupportTicket();
+            $check_old_errors = $check_old_errors->select('*')->where([
+                'error_location' => $th->getFile(),
+                'error_description' => $th->getMessage(),
+                'function_name' => $function_name,
+                'error_line' => $th->getLine(),
+            ])->get();
+            if ($check_old_errors->count() == 0) {
+                $new_error_ticket = SupportTicket::create([
+                    'error_location' => $th->getFile(),
+                    'error_description' => $th->getMessage(),
+                    'function_name' => $function_name,
+                    'error_line' =>  $th->getLine(),
+                ]);
+                $end_error_ticket = $new_error_ticket;
+            } else {
+                $end_error_ticket = $check_old_errors->first();
+            }
+
+            return view('errors.support_tickets', compact('th', 'function_name', 'end_error_ticket'));
+        }
+    }
+
+    public function acceptDelivery($id, Route $route)
+    {
+        try {
+            $cartSale = CartSale::find($id);
+            if ($cartSale) {
+                $cartSale->delivery_status = 2;  // 2 => Received
+                $cartSale->save();
+                return redirect()->back()->with('success', 'The process has successfully');
+            } else {
+                return redirect()->route('super_admin.products-index')->with('danger', 'This record is not exists');
+            }
+        } catch (\Throwable $th) {
+            $function_name =  $route->getActionName();
+            $check_old_errors = new SupportTicket();
+
+            $check_old_errors = $check_old_errors->select('*')->where([
+                'error_location' => $th->getFile(),
+                'error_description' => $th->getMessage(),
+
+                'function_name' => $function_name,
+                'error_line' => $th->getLine(),
+            ])->get();
+            if ($check_old_errors->count() == 0) {
+
+                $new_error_ticket = SupportTicket::create([
+                    'error_location' => $th->getFile(),
+                    'error_description' => $th->getMessage(),
+
+                    'function_name' => $function_name,
+                    'error_line' =>  $th->getLine(),
+                ]);
+                $end_error_ticket = $new_error_ticket;
+            } else {
+
+                $end_error_ticket = $check_old_errors->first();
+            }
+
+            return view('errors.support_tickets', compact('th', 'function_name', 'end_error_ticket'));
+        }
+    }
+
+    public function rejectDelivery($id, Route $route)
+    {
+        try {
+            $cartSale = CartSale::find($id);
+            if ($cartSale) {
+                $cartSale->delivery_status = 3;  // 3 => Rejected
+                $cartSale->save();
+                return redirect()->back()->with('success', 'The process has successfully');
+            } else {
+                return redirect()->route('super_admin.products-index')->with('danger', 'This record is not exists');
+            }
+        } catch (\Throwable $th) {
+            $function_name =  $route->getActionName();
+            $check_old_errors = new SupportTicket();
+
+            $check_old_errors = $check_old_errors->select('*')->where([
+                'error_location' => $th->getFile(),
+                'error_description' => $th->getMessage(),
+
+                'function_name' => $function_name,
+                'error_line' => $th->getLine(),
+            ])->get();
+            if ($check_old_errors->count() == 0) {
+
+                $new_error_ticket = SupportTicket::create([
+                    'error_location' => $th->getFile(),
+                    'error_description' => $th->getMessage(),
+
+                    'function_name' => $function_name,
+                    'error_line' =>  $th->getLine(),
+                ]);
+                $end_error_ticket = $new_error_ticket;
+            } else {
+
+                $end_error_ticket = $check_old_errors->first();
+            }
+
+            return view('errors.support_tickets', compact('th', 'function_name', 'end_error_ticket'));
+        }
+    }
 }

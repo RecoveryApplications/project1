@@ -1,63 +1,14 @@
 <header class="navbar navbar-custom container-full-sm" id="header">
-    <div class="header-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-6">
-                    <div class="top-link top-link-left select-dropdown">
-                        <fieldset>
-                            <select name="speed" class="countr option-drop">
-                                <option selected="selected">English</option>
-                                <option>Frence</option>
-                                <option>German</option>
-                            </select>
-                            <select name="speed" class="currenc option-drop">
-                                <option selected="selected">USD</option>
-                                <option>EURO</option>
-                                <option>POUND</option>
-                            </select>
-                        </fieldset>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="top-right-link right-side">
-                        <ul>
-                            <li class="login-icon content">
-                                <a class="content-link">
-                                    <span class="content-icon"></span>
-                                </a>
-                                <a href="login.html" title="Login">Login</a> or
-                                <a href="register.html" title="Register">Register</a>
-                                <div class="content-dropdown">
-                                    <ul>
-                                        <li class="login-icon"><a href="login.html" title="Login"><i
-                                                    class="fa fa-user"></i> Login</a></li>
-                                        <li class="register-icon"><a href="register.html" title="Register"><i
-                                                    class="fa fa-user-plus"></i> Register</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="track-icon">
-                                <a href="" title="Track your order"><span></span> Track your order</a>
-                            </li>
-                            <li class="gift-icon">
-                                <a href="" title="Gift card"><span></span> Gift card</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="header-middle">
         <div class="container">
             <hr>
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-xl-3 col-md-3 col-6 col-lgmd-20per order-md-1">
                     <div class="header-middle-left">
                         <div class="navbar-header float-none-sm">
                             <a class="navbar-brand page-scroll" href="{{ route('welcome') }}">
-                                <img alt="Stylexpo"
-                                    src="{{ asset('front_end_style/assets/images/logo.png') }}">
+                                <img alt="FamilyDrop" src="{{ asset('front_end_style/assets/images/logo.png') }}"
+                                    style="width: 100px">
                             </a>
                         </div>
                     </div>
@@ -65,148 +16,91 @@
                 <div class="col-xl-3 col-md-3 col-6 col-lgmd-20per order-md-3">
                     <div class="right-side header-right-link">
                         <ul>
-                            <li class="compare-icon">
-                                <a href="compare.html">
-                                    <span></span>
-                                </a>
-                            </li>
                             <li class="wishlist-icon">
-                                <a href="wishlist.html">
+                                <a href="{{ route('customer.getWishList')}}">
                                     <span></span>
                                 </a>
                             </li>
                             <li class="cart-icon">
-                                <a href="#"> <span> <small class="cart-notification">2</small> </span>
+                                <a href="#"> <span> <small
+                                            class="cart-notification">{{ $public_customer_carts_count }}</small> </span>
                                 </a>
                                 <div class="cart-dropdown header-link-dropdown">
-                                    <div style="height: 245px;" data-simplebar
-                                        data-simplebar-auto-hide="false">
+                                    <div style="height: 245px;" data-simplebar data-simplebar-auto-hide="false">
                                         <ul class="cart-list link-dropdown-list">
-                                            <li>
-                                                <a class="close-cart">
-                                                    <i class="fa fa-times-circle"></i>
-                                                </a>
-                                                <div class="media"> <a class="pull-left"> <img
-                                                            alt="Stylexpo"
-                                                            src="{{ asset('front_end_style/assets/images/product/product_1_sm.jpg') }}"></a>
-                                                    <div class="media-body"> <span><a href="#">Black
-                                                                African Print Skirt</a></span>
-                                                        <p class="cart-price">$14.99</p>
-                                                        <div class="product-qty">
-                                                            <label>Qty:</label>
-                                                            <div class="custom-qty">
-                                                                <input type="text" name="qty"
-                                                                    maxlength="8" value="1"
-                                                                    title="Qty" class="input-text qty">
+                                            @forelse ($public_customer_carts as $item)
+                                                @php
+                                                    if ($item->property_type == 2) {
+                                                        $product_name = $item->cart_product->name_en;
+                                                    } else {
+                                                        $product_name = $item->cart_product->product->name_en;
+                                                    }
+                                                    
+                                                    $product_price = $item->cart_product->on_sale_price_status == 'Active' ? $item->cart_product->on_sale_price : $item->cart_product->sale_price;
+                                                @endphp
+                                                <li>
+                                                    <a class="close-cart"
+                                                        href="{{ route('customer.remove-from-cart', $item->id) }}">
+                                                        <i class="fa fa-times-circle"></i>
+                                                    </a>
+                                                    <div class="media"> <a class="pull-left"> <img alt="Stylexpo"
+                                                                src="{{ asset($item->cart_product->image) }}"></a>
+                                                        <div class="media-body"> <span><a href="#">
+                                                                    {{ $product_name }}
+                                                                </a></span>
+                                                            <p class="cart-price">
+                                                                ${{ $product_price }}
+                                                            </p>
+                                                            <div class="product-qty">
+                                                                <label>Qty:</label>
+                                                                <div class="custom-qty">
+                                                                    <input type="text" readonly name="qty"
+                                                                        maxlength="8" value="{{ $item->quantity }}"
+                                                                        title="Qty" class="input-text qty">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <a class="close-cart"><i class="fa fa-times-circle"></i></a>
-                                                <div class="media"> <a class="pull-left"> <img
-                                                            alt="Stylexpo"
-                                                            src="{{ asset('front_end_style/assets/images/product/product_2_sm.jpg') }}"></a>
-                                                    <div class="media-body"> <span><a href="#">Black
-                                                                African Print Skirt</a></span>
-                                                        <p class="cart-price">$14.99</p>
-                                                        <div class="product-qty">
-                                                            <label>Qty:</label>
-                                                            <div class="custom-qty">
-                                                                <input type="text" name="qty"
-                                                                    maxlength="8" value="1"
-                                                                    title="Qty" class="input-text qty">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <a class="close-cart"><i class="fa fa-times-circle"></i></a>
-                                                <div class="media"> <a class="pull-left"> <img
-                                                            alt="Stylexpo"
-                                                            src="{{ asset('front_end_style/assets/images/product/product_3_sm.jpg') }}"></a>
-                                                    <div class="media-body"> <span><a href="#">Black
-                                                                African Print Skirt</a></span>
-                                                        <p class="cart-price">$14.99</p>
-                                                        <div class="product-qty">
-                                                            <label>Qty:</label>
-                                                            <div class="custom-qty">
-                                                                <input type="text" name="qty"
-                                                                    maxlength="8" value="1"
-                                                                    title="Qty" class="input-text qty">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                                </li>
+                                            @empty
+                                                <li>
+                                                    <h5 class="text-center alert alert-danger">
+                                                        No items in the cart <br>
+                                                        <a href="{{ route('shop') }}"
+                                                            style="text-decoration: underline"> >> Go to shopping <<
+                                                                </a>
+                                                    </h5>
+                                                </li>
+                                            @endforelse
                                         </ul>
                                     </div>
                                     <p class="cart-sub-totle">
                                         <span class="pull-left">Cart Subtotal</span>
                                         <span class="pull-right"><strong
-                                                class="price-box">$29.98</strong></span>
+                                                class="price-box">${{ $endTotal }}</strong></span>
                                     </p>
                                     <div class="clearfix"></div>
                                     <div class="mt-20">
-                                        <a href="cart.html" class="btn-color btn left-side">Cart</a>
-                                        <a href="checkout.html" class="btn-color btn right-side">Checkout</a>
+                                        <a href="{{ route('cart') }}" class="btn-color btn left-side">Cart</a>
+                                        <a href="{{ route('customer.orderOverview') }}" class="btn-color btn right-side">Checkout</a>
                                     </div>
                                 </div>
                             </li>
                             <li class="side-toggle">
-                                <button data-target=".navbar-collapse" data-toggle="collapse"
-                                    class="navbar-toggle" type="button"><i class="fa fa-bars"></i></button>
+                                <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle"
+                                    type="button"><i class="fa fa-bars"></i></button>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-xl-6 col-md-6 col-12 col-lgmd-60per order-md-2">
-                    <div class="header-right-part">
-                        <div class="category-dropdown select-dropdown">
-                            <fieldset>
-                                <select id="search-category" class="option-drop" name="search-category">
-                                    <option value="">All Categories</option>
-                                    <option value="20">Electronics</option>
-                                    <option value="26">■ PC</option>
-                                    <option value="43">&nbsp;&nbsp;&nbsp;- Dell Inspiron</option>
-                                    <option value="44">&nbsp;&nbsp;&nbsp;- Hp Notebook</option>
-                                    <option value="47">&nbsp;&nbsp;&nbsp;- Sony Vio</option>
-                                    <option value="55">&nbsp;&nbsp;&nbsp;- Samsung Tablet</option>
-                                    <option value="27">■ Mac</option>
-                                    <option value="48">&nbsp;&nbsp;&nbsp;- Desktop Mac</option>
-                                    <option value="49">&nbsp;&nbsp;&nbsp;- Laptop Mac</option>
-                                    <option value="50">&nbsp;&nbsp;&nbsp;- Samsung Mac</option>
-                                    <option value="38">&nbsp;&nbsp;&nbsp;- Android tablets</option>
-                                    <option value="51">■ Laptops</option>
-                                    <option value="52">&nbsp;&nbsp;&nbsp;- Accer laptop</option>
-                                    <option value="56">&nbsp;&nbsp;&nbsp;- apple ipad</option>
-                                    <option value="53">&nbsp;&nbsp;&nbsp;- HP Laptop</option>
-                                    <option value="54">&nbsp;&nbsp;&nbsp;- DELL Laptop</option>
-                                    <option value="18">jewellery</option>
-                                    <option value="25">Components</option>
-                                    <option value="29">■ Mice and Trackballs</option>
-                                    <option value="28">■ Monitors</option>
-                                    <option value="35">&nbsp;&nbsp;&nbsp;- Desktop</option>
-                                    <option value="36">&nbsp;&nbsp;&nbsp;- LED</option>
-                                    <option value="30">■ Printers</option>
-                                    <option value="31">■ Scanners</option>
-                                    <option value="32">■ Web Cameras</option>
-                                    <option value="57">Books</option>
-                                    <option value="17">Interior</option>
-                                    <option value="24">Fashion</option>
-                                    <option value="33">House Hold</option>
-                                    <option value="34">Accessories</option>
-                                </select>
-                            </fieldset>
-                        </div>
-                        <div class="main-search">
+                    <div class="p-0 header-right-part">
+                        <div class="main-search w-100">
                             <div class="header_search_toggle desktop-view">
                                 <form>
                                     <div class="search-box">
                                         <input class="input-text" type="text"
-                                            placeholder="Search entire store here...">
+                                            placeholder="Search store products here...">
                                         <button class="search-btn"></button>
                                     </div>
                                 </form>
@@ -236,12 +130,12 @@
                                                 <a href="register.html" title="Register">Register</a>
                                                 <div class="content-dropdown">
                                                     <ul>
-                                                        <li class="login-icon"><a href="login.html"
-                                                                title="Login"><i class="fa fa-user"></i>
+                                                        <li class="login-icon"><a href="login.html" title="Login"><i
+                                                                    class="fa fa-user"></i>
                                                                 Login</a></li>
                                                         <li class="register-icon"><a href="register.html"
-                                                                title="Register"><i
-                                                                    class="fa fa-user-plus"></i> Register</a>
+                                                                title="Register"><i class="fa fa-user-plus"></i>
+                                                                Register</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -264,10 +158,12 @@
                                                 <div class="megamenu-inner-top">
                                                     <ul class="sub-menu-level1 d-lg-flex">
                                                         <li class="level2">
-                                                            <a href="{{ route('shop') }}"><span>Kids Fashion</span></a>
+                                                            <a href="{{ route('shop') }}"><span>Kids
+                                                                    Fashion</span></a>
                                                             <ul class="sub-menu-level2 ">
                                                                 <li class="level3"><a
-                                                                        href="{{ route('shop') }}"><span>■</span>Blazer &
+                                                                        href="{{ route('shop') }}"><span>■</span>Blazer
+                                                                        &
                                                                         Coat</a></li>
                                                                 <li class="level3"><a
                                                                         href="{{ route('shop') }}"><span>■</span>Sport
@@ -305,13 +201,11 @@
                                                                                     <img src="{{ asset('front_end_style/assets/images/product/product_1_md.jpg') }}"
                                                                                         alt="Stylexpo">
                                                                                 </a>
-                                                                                <div
-                                                                                    class="product-detail-inner">
+                                                                                <div class="product-detail-inner">
                                                                                     <div
                                                                                         class="detail-inner-left align-center">
                                                                                         <ul>
-                                                                                            <li
-                                                                                                class="pro-cart-icon">
+                                                                                            <li class="pro-cart-icon">
                                                                                                 <form>
                                                                                                     <button
                                                                                                         title="Add to Cart"><span></span></button>
@@ -319,13 +213,8 @@
                                                                                             </li>
                                                                                             <li
                                                                                                 class="pro-wishlist-icon">
-                                                                                                <a href="wishlist.html"
+                                                                                                <a href="{{ route('customer.getWishList')}}"
                                                                                                     title="Wishlist"></a>
-                                                                                            </li>
-                                                                                            <li
-                                                                                                class="pro-compare-icon">
-                                                                                                <a href="compare.html"
-                                                                                                    title="Compare"></a>
                                                                                             </li>
                                                                                         </ul>
                                                                                     </div>
@@ -333,8 +222,7 @@
                                                                             </div>
                                                                             <div class="product-item-details">
                                                                                 <div class="product-item-name">
-                                                                                    <a
-                                                                                        href="product-page.html">Defyant
+                                                                                    <a href="product-page.html">Defyant
                                                                                         Reversible Dot
                                                                                         Shorts</a>
                                                                                 </div>
@@ -345,8 +233,7 @@
                                                                                     class="rating-summary-block right-side">
                                                                                     <div title="53%"
                                                                                         class="rating-result">
-                                                                                        <span
-                                                                                            style="width:53%"></span>
+                                                                                        <span style="width:53%"></span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -357,13 +244,11 @@
                                                                                     <img src="{{ asset('front_end_style/assets/images/product/product_2_md.jpg') }}"
                                                                                         alt="Stylexpo">
                                                                                 </a>
-                                                                                <div
-                                                                                    class="product-detail-inner">
+                                                                                <div class="product-detail-inner">
                                                                                     <div
                                                                                         class="detail-inner-left align-center">
                                                                                         <ul>
-                                                                                            <li
-                                                                                                class="pro-cart-icon">
+                                                                                            <li class="pro-cart-icon">
                                                                                                 <form>
                                                                                                     <button
                                                                                                         title="Add to Cart"><span></span></button>
@@ -371,24 +256,20 @@
                                                                                             </li>
                                                                                             <li
                                                                                                 class="pro-wishlist-icon">
-                                                                                                <a href="wishlist.html"
+                                                                                                <a href="{{ route('customer.getWishList')}}"
                                                                                                     title="Wishlist"></a>
                                                                                             </li>
-                                                                                            <li
-                                                                                                class="pro-compare-icon">
-                                                                                                <a href="compare.html"
-                                                                                                    title="Compare"></a>
-                                                                                            </li>
+
                                                                                         </ul>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="product-item-details">
                                                                                 <div class="product-item-name">
-                                                                                    <a
-                                                                                        href="product-page.html">Defyant
+                                                                                    <a href="product-page.html">Defyant
                                                                                         Reversible Dot
-                                                                                        Shorts</a> </div>
+                                                                                        Shorts</a>
+                                                                                </div>
                                                                                 <div class="price-box"> <span
                                                                                         class="price">$80.00</span>
                                                                                 </div>
@@ -396,8 +277,7 @@
                                                                                     class="rating-summary-block right-side">
                                                                                     <div title="53%"
                                                                                         class="rating-result">
-                                                                                        <span
-                                                                                            style="width:53%"></span>
+                                                                                        <span style="width:53%"></span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -408,13 +288,11 @@
                                                                                     <img src="{{ asset('front_end_style/assets/images/product/product_3_md.jpg') }}"
                                                                                         alt="Stylexpo">
                                                                                 </a>
-                                                                                <div
-                                                                                    class="product-detail-inner">
+                                                                                <div class="product-detail-inner">
                                                                                     <div
                                                                                         class="detail-inner-left align-center">
                                                                                         <ul>
-                                                                                            <li
-                                                                                                class="pro-cart-icon">
+                                                                                            <li class="pro-cart-icon">
                                                                                                 <form>
                                                                                                     <button
                                                                                                         title="Add to Cart"><span></span></button>
@@ -422,13 +300,8 @@
                                                                                             </li>
                                                                                             <li
                                                                                                 class="pro-wishlist-icon">
-                                                                                                <a href="wishlist.html"
+                                                                                                <a href="{{ route('customer.getWishList')}}"
                                                                                                     title="Wishlist"></a>
-                                                                                            </li>
-                                                                                            <li
-                                                                                                class="pro-compare-icon">
-                                                                                                <a href="compare.html"
-                                                                                                    title="Compare"></a>
                                                                                             </li>
                                                                                         </ul>
                                                                                     </div>
@@ -436,10 +309,10 @@
                                                                             </div>
                                                                             <div class="product-item-details">
                                                                                 <div class="product-item-name">
-                                                                                    <a
-                                                                                        href="product-page.html">Defyant
+                                                                                    <a href="product-page.html">Defyant
                                                                                         Reversible Dot
-                                                                                        Shorts</a> </div>
+                                                                                        Shorts</a>
+                                                                                </div>
                                                                                 <div class="price-box"> <span
                                                                                         class="price">$80.00</span>
                                                                                 </div>
@@ -447,8 +320,7 @@
                                                                                     class="rating-summary-block right-side">
                                                                                     <div title="53%"
                                                                                         class="rating-result">
-                                                                                        <span
-                                                                                            style="width:53%"></span>
+                                                                                        <span style="width:53%"></span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -459,13 +331,11 @@
                                                                                     <img src="{{ asset('front_end_style/assets/images/product/product_4_md.jpg') }}"
                                                                                         alt="Stylexpo">
                                                                                 </a>
-                                                                                <div
-                                                                                    class="product-detail-inner">
+                                                                                <div class="product-detail-inner">
                                                                                     <div
                                                                                         class="detail-inner-left align-center">
                                                                                         <ul>
-                                                                                            <li
-                                                                                                class="pro-cart-icon">
+                                                                                            <li class="pro-cart-icon">
                                                                                                 <form>
                                                                                                     <button
                                                                                                         title="Add to Cart"><span></span></button>
@@ -473,13 +343,8 @@
                                                                                             </li>
                                                                                             <li
                                                                                                 class="pro-wishlist-icon">
-                                                                                                <a href="wishlist.html"
+                                                                                                <a href="{{ route('customer.getWishList')}}"
                                                                                                     title="Wishlist"></a>
-                                                                                            </li>
-                                                                                            <li
-                                                                                                class="pro-compare-icon">
-                                                                                                <a href="compare.html"
-                                                                                                    title="Compare"></a>
                                                                                             </li>
                                                                                         </ul>
                                                                                     </div>
@@ -487,10 +352,10 @@
                                                                             </div>
                                                                             <div class="product-item-details">
                                                                                 <div class="product-item-name">
-                                                                                    <a
-                                                                                        href="product-page.html">Defyant
+                                                                                    <a href="product-page.html">Defyant
                                                                                         Reversible Dot
-                                                                                        Shorts</a> </div>
+                                                                                        Shorts</a>
+                                                                                </div>
                                                                                 <div class="price-box"> <span
                                                                                         class="price">$80.00</span>
                                                                                 </div>
@@ -498,8 +363,7 @@
                                                                                     class="rating-summary-block right-side">
                                                                                     <div title="53%"
                                                                                         class="rating-result">
-                                                                                        <span
-                                                                                            style="width:53%"></span>
+                                                                                        <span style="width:53%"></span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -510,13 +374,11 @@
                                                                                     <img src="{{ asset('front_end_style/assets/images/product/product_5_md.jpg') }}"
                                                                                         alt="Stylexpo">
                                                                                 </a>
-                                                                                <div
-                                                                                    class="product-detail-inner">
+                                                                                <div class="product-detail-inner">
                                                                                     <div
                                                                                         class="detail-inner-left align-center">
                                                                                         <ul>
-                                                                                            <li
-                                                                                                class="pro-cart-icon">
+                                                                                            <li class="pro-cart-icon">
                                                                                                 <form>
                                                                                                     <button
                                                                                                         title="Add to Cart"><span></span></button>
@@ -524,13 +386,8 @@
                                                                                             </li>
                                                                                             <li
                                                                                                 class="pro-wishlist-icon">
-                                                                                                <a href="wishlist.html"
+                                                                                                <a href="{{ route('customer.getWishList')}}"
                                                                                                     title="Wishlist"></a>
-                                                                                            </li>
-                                                                                            <li
-                                                                                                class="pro-compare-icon">
-                                                                                                <a href="compare.html"
-                                                                                                    title="Compare"></a>
                                                                                             </li>
                                                                                         </ul>
                                                                                     </div>
@@ -538,10 +395,10 @@
                                                                             </div>
                                                                             <div class="product-item-details">
                                                                                 <div class="product-item-name">
-                                                                                    <a
-                                                                                        href="product-page.html">Defyant
+                                                                                    <a href="product-page.html">Defyant
                                                                                         Reversible Dot
-                                                                                        Shorts</a> </div>
+                                                                                        Shorts</a>
+                                                                                </div>
                                                                                 <div class="price-box"> <span
                                                                                         class="price">$80.00</span>
                                                                                 </div>
@@ -549,8 +406,7 @@
                                                                                     class="rating-summary-block right-side">
                                                                                     <div title="53%"
                                                                                         class="rating-result">
-                                                                                        <span
-                                                                                            style="width:53%"></span>
+                                                                                        <span style="width:53%"></span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -569,8 +425,8 @@
                                         </li>
                                         <li class="level">
                                             <a href="{{ route('shop') }}" class="page-scroll">
-                                                <i class="fa fa-desktop"></i>computers (10)<div
-                                                    class="menu-label"><span class="hot-menu"> Hot </span>
+                                                <i class="fa fa-desktop"></i>computers (10)<div class="menu-label">
+                                                    <span class="hot-menu"> Hot </span>
                                                 </div>
                                             </a>
                                         </li>
@@ -605,10 +461,12 @@
                                                             </ul>
                                                         </li>
                                                         <li class="level2">
-                                                            <a href="{{ route('shop') }}"><span>Women Fashion</span></a>
+                                                            <a href="{{ route('shop') }}"><span>Women
+                                                                    Fashion</span></a>
                                                             <ul class="sub-menu-level2 ">
                                                                 <li class="level3"><a
-                                                                        href="{{ route('shop') }}"><span>■</span>Blazer &
+                                                                        href="{{ route('shop') }}"><span>■</span>Blazer
+                                                                        &
                                                                         Coat</a></li>
                                                                 <li class="level3"><a
                                                                         href="{{ route('shop') }}"><span>■</span>Sport
@@ -639,8 +497,8 @@
                                         </li>
                                         <li class="level">
                                             <a href="{{ route('shop') }}" class="page-scroll">
-                                                <i class="fa fa-shopping-bag"></i>Bags (18)<div
-                                                    class="menu-label"><span class="new-menu"> New </span>
+                                                <i class="fa fa-shopping-bag"></i>Bags (18)<div class="menu-label">
+                                                    <span class="new-menu"> New </span>
                                                 </div>
                                             </a>
                                         </li>
@@ -676,10 +534,12 @@
                                                             </ul>
                                                         </li>
                                                         <li class="level2">
-                                                            <a href="{{ route('shop') }}"><span>Men Clothings</span></a>
+                                                            <a href="{{ route('shop') }}"><span>Men
+                                                                    Clothings</span></a>
                                                             <ul class="sub-menu-level2 ">
                                                                 <li class="level3"><a
-                                                                        href="{{ route('shop') }}"><span>■</span>Blazer &
+                                                                        href="{{ route('shop') }}"><span>■</span>Blazer
+                                                                        &
                                                                         Coat</a></li>
                                                                 <li class="level3"><a
                                                                         href="{{ route('shop') }}"><span>■</span>Sport
@@ -702,7 +562,8 @@
                                                             <a href="{{ route('shop') }}"><span>Juniors kid</span></a>
                                                             <ul class="sub-menu-level2 ">
                                                                 <li class="level3"><a
-                                                                        href="{{ route('shop') }}"><span>■</span>Blazer &
+                                                                        href="{{ route('shop') }}"><span>■</span>Blazer
+                                                                        &
                                                                         Coat</a></li>
                                                                 <li class="level3"><a
                                                                         href="{{ route('shop') }}"><span>■</span>Sport
@@ -746,14 +607,12 @@
                                                 <div class="col-12">
                                                     <div class="top-link top-link-left select-dropdown ">
                                                         <fieldset>
-                                                            <select name="speed"
-                                                                class="country option-drop">
+                                                            <select name="speed" class="country option-drop">
                                                                 <option selected="selected">English</option>
                                                                 <option>Frence</option>
                                                                 <option>German</option>
                                                             </select>
-                                                            <select name="speed"
-                                                                class="currency option-drop">
+                                                            <select name="speed" class="currency option-drop">
                                                                 <option selected="selected">USD</option>
                                                                 <option>EURO</option>
                                                                 <option>POUND</option>
@@ -784,56 +643,22 @@
                                 </div>
                                 <div class="mobilemenu-content">
                                     <ul class="nav navbar-nav" id="menu-main">
-                                        <li class="active">
+                                        <li @class(['active' => request()->routeIs('welcome')]) class="active">
                                             <a href="{{ route('welcome') }}"><span>Home</span></a>
                                         </li>
-                                        <li>
+                                        <li @class(['active' => request()->routeIs('shop')])>
                                             <a href="{{ route('shop') }}"><span>Shop</span></a>
                                         </li>
-                                        <li>
+                                        <li @class(['active' => request()->routeIs('aboutUs')])>
                                             <a href="{{ route('aboutUs') }}"><span>About Us</span></a>
                                         </li>
-                                        <li>
+                                        <li @class(['active' => request()->routeIs('Blogs')])>
                                             <a href="{{ route('Blogs') }}"><span>Blog</span></a>
                                         </li>
-                                        <li>
+                                        <li @class(['active' => request()->routeIs('contactUs')])>
                                             <a href="{{ route('contactUs') }}"><span>Contact</span></a>
                                         </li>
-                                        <li class="level dropdown ">
-                                            <span class="opener plus"></span>
-                                            <a href="#" class="page-scroll"><span>Pages</span></a>
-                                            <div class="megamenu mobile-sub-menu">
-                                                <div class="megamenu-inner-top">
-                                                    <ul class="sub-menu-level1">
-                                                        <li class="level2">
-                                                            <ul class="sub-menu-level2 ">
-                                                                <li class="level3"><a
-                                                                        href="account.html"><span>■</span>Account</a>
-                                                                </li>
-                                                                <li class="level3"><a
-                                                                        href="{{ route('customer.checkoutPage') }}"><span>■</span>Checkout</a>
-                                                                </li>
-                                                                <li class="level3"><a
-                                                                        href="compare.html"><span>■</span>Compare</a>
-                                                                </li>
-                                                                <li class="level3"><a
-                                                                        href="wishlist.html"><span>■</span>Wishlist</a>
-                                                                </li>
-                                                                <li class="level3"><a
-                                                                        href="404.html"><span>■</span>404
-                                                                        Error</a></li>
-                                                                <li class="level3"><a
-                                                                        href="single-blog.html"><span>■</span>Single
-                                                                        Blog</a></li>
-                                                                <li class="level3"><a
-                                                                        href="product-page.html"><span>■</span>Product
-                                                                        Details</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
+
                                     </ul>
                                 </div>
                             </div>

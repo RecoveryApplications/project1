@@ -27,16 +27,18 @@ class AddToCartFormRequest extends FormRequest
     {
         return [
             // 'cart_prop_type'=>'required|numeric',
-            'cart_product_id'=>'required',
-            'cart_product_quantity'=>'required|numeric|min:1'
+            'product_id'=>'required',
+            'quantity'=>'required|numeric|min:1'
         ];
     }
 
     public function messages()
     {
         return [
+            'product_id.required' => 'Product is Required !!',
             'quantity.required' => 'Quantity is Required !!',
             'quantity.numeric' => 'Quantity must be numbers only !!',
+            'quantity.min' => 'Quantity must be at least 1 !!',
         ];
     }
 }

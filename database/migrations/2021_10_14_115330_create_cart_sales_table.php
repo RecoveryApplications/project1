@@ -28,7 +28,7 @@ class CreateCartSalesTable extends Migration
             $table->decimal('total', 10, 3);
             $table->tinyInteger('status')->comment = '1 => Pendding || 2 => Accepted || 3 => Rejected';
             $table->tinyInteger('payment_status')->nullable()->comment = '1 => Pennding || 2 => Accepted || 3 => Rejected';
-            $table->tinyInteger('delivery_status')->nullable()->comment = '1 => Pendding || 2 => In Progress || 3 => Received';
+            $table->tinyInteger('delivery_status')->nullable()->comment = '1 => Pendding || 2 => Received || 3 => Not Received';
             $table->string('track_number')->nullable();
 
             $table->string('email')->nullable();

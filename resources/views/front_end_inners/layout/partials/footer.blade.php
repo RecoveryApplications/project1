@@ -7,8 +7,8 @@
                         <div class="footer-static-block"> <span class="opener plus"></span>
                             <div class="f-logo">
                                 <a href="index.html" class="">
-                                    <img src="{{ asset('front_end_style/assets/images/footer-logo.png') }}"
-                                        alt="Stylexpo">
+                                    <img src="{{ asset('front_end_style/assets/images/logo.png') }}"
+                                        alt="FamilyDrop">
                                 </a>
                             </div>
                             <div class="footer-block-contant">
@@ -52,7 +52,7 @@
                                         york-405001.</p>
                                 </li>
                                 <li class="item"> <i class="fa fa-envelope"> </i>
-                                    <p> <a href="#">infoservices@stylexpo.com </a> </p>
+                                    <p> <a href="#">infoservices@FamilyDrop.com </a> </p>
                                 </li>
                                 <li class="item"> <i class="fa fa-phone"> </i>
                                     <p>(+91) 9834567890</p>
@@ -66,7 +66,7 @@
             <div class="footer-bottom ">
                 <div class="row mtb-30">
                     <div class="col-lg-6 ">
-                        <div class="copy-right ">© 2019 All Rights Reserved. Design By <a href="#">Aaryaweb</a>
+                        <div class="copy-right ">© 2023 All Rights Reserved.
                         </div>
                     </div>
                     <div class="col-lg-6 ">
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <hr>
-                <div class="row align-center mtb-30 ">
+                {{-- <div class="row align-center mtb-30 ">
                     <div class="col-12 ">
                         <div class="site-link">
                             <ul>
@@ -104,18 +104,18 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-                <div class="row align-center">
+                </div> --}}
+                {{-- <div class="row align-center">
                     <div class="col-12 ">
                         <div class="payment">
                             <div class="payment_icon">
                                 <a href="javascript:void(0)"><img
                                         src="{{ asset('front_end_style/assets/images/payment-footer.png') }}"
-                                        alt="Stylexpo"></a>
+                                        alt="FamilyDrop"></a>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

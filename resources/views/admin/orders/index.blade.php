@@ -38,17 +38,17 @@
                 <div>
                     <h3><i class="mdi mdi-account-multiple"></i> All Orders</h3>
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb p-0">
+                        <ol class="p-0 breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('super_admin.dashboard') }}"> <i class="mdi  mdi-home"></i> Dashboard </a>
+                                <a href="{{ route('super_admin.dashboard') }}"> <i class="mdi mdi-home"></i> Dashboard </a>
                             </li>
-                            <li class="breadcrumb-item" aria-current="page"><i class="mdi  mdi-account-multiple"></i> All Orders</li>
+                            <li class="breadcrumb-item" aria-current="page"><i class="mdi mdi-account-multiple"></i> All Orders</li>
                         </ol>
                     </nav>
                 </div>
                 <div>
 
-                    {{-- <a href="{{ route('super_admin.orders-export') }}" class="fa fa-file-excel btn btn-primary mb-1"></i>
+                    {{-- <a href="{{ route('super_admin.orders-export') }}" class="mb-1 fa fa-file-excel btn btn-primary"></i>
                         export </a> --}}
                 </div>
             </div>
@@ -68,6 +68,7 @@
                                 <th>Date/Time</th>
                                 <th>Status</th>
                                 <th>Payment</th>
+                                <th>Sub Total</th>
                                 <th>Total</th>
                                 <th><i class="mdi mdi-settings mdi-spin"></i> Control</th>
                             </tr>
@@ -118,13 +119,15 @@
                                             </td> --}}
                                             {{-- <td>{!! isset($order->sub_total) ? $order->sub_total . '<small> $</small>' : "<span style='color:red;'>Undefined</span>" !!}</td> --}}
                                             {{-- <td>25 <small> SAR</small></td> --}}
+
+                                            <td>{!! isset($order->sub_total) ? $order->sub_total . '<small> $</small>' : "<span style='color:red;'>Undefined</span>" !!}</td>
                                             <td>{!! isset($order->total) ? $order->total . '<small> $</small>' : "<span style='color:red;'>Undefined</span>" !!}</td>
 
                                             <td>
                                                 <a href="{{ route('super_admin.orders-show', [$order->id]) }}" title="Show Order Details" class=" text-primary">
                                                     <i class="fa fa-eye" title="Show"></i></a>
                                                 @if ($order->status == 'Pendding' && $order->payment_status == 'Accepted' && !isset($order->delivery_status))
-                                                    {{-- <a href="{{ route('super_admin.orders-sendToDelivery', [$order->id]) }}" title="Send To Delivery" class="process mb-1 btn btn-sm btn-success"><i class="mdi mdi-send"></i></a> --}}
+                                                    {{-- <a href="{{ route('super_admin.orders-sendToDelivery', [$order->id]) }}" title="Send To Delivery" class="mb-1 process btn btn-sm btn-success"><i class="mdi mdi-send"></i></a> --}}
                                                     <button type="button" class="btn btn-primary btn-sm track_btn" data-toggle="modal" data-target="#exampleModalCenter" data-id="{{$order->id}}">
                                                         <i class="mdi mdi-send"></i>
                                                       </button>
@@ -160,8 +163,8 @@
                 <div class="form-row">
 
                     {{-- Name EN --}}
-                    <div class="col-md-12 mb-3">
-                        <label class="text-dark font-weight-medium mb-3"
+                    <div class="mb-3 col-md-12">
+                        <label class="mb-3 text-dark font-weight-medium"
                             for="validationServer01">
                             <i class="mdi mdi-account"></i> Transfer order to delivery <strong class="text-danger"> * @error('track_number') ( {{ $message }} ) @enderror</strong>
                         </label>

@@ -38,10 +38,6 @@ class Blogs extends Model
 
 
 
-    // Relation With User Table
-    public function user(){
-        return $this->belongsTo(User::class,'user_id');
-    }
 
     public function getSlugAttribute()
     {
@@ -72,5 +68,26 @@ class Blogs extends Model
         }
     }
 
+    public function getDayAttribute(){
+        return date('d',strtotime($this->created_at));
+    }
+
+    public function getMonthAndYearAttribute(){
+        return date('M Y',strtotime($this->created_at));
+    }
+    public function getMonthAndDayAttribute(){
+        return date('M d',strtotime($this->created_at));
+    }
+    public function getYearAttribute(){
+        return date('Y',strtotime($this->created_at));
+    }
+
+
+    // ================================
+    // Relations
+    // ================================
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 
 }

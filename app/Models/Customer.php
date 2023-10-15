@@ -29,6 +29,7 @@ class Customer extends Authenticatable
     protected $fillable = [
         'name_en',
         'username',
+        'company_name',
         'email',
         'phone',
         'password',
@@ -81,6 +82,14 @@ class Customer extends Authenticatable
 
     public function cartTemps(){
         return $this->hasMany(CartTemp::class,'user_id');
+    }
+
+    public function wishlist(){
+        return $this->hasMany(ProductWishlist::class,'customer_id');
+    }
+
+    public function cartSales(){
+        return $this->hasMany(CartSale::class,'user_id')->with('cartOperations');
     }
 
 

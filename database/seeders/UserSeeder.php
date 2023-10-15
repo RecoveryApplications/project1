@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
         Customer::create([
             'name_en' => 'Customer 1',
             'username' => 'customer_1',
-            'email' => 'customer_1@smartzone.com',
+            'email' => 'customer_1@recovery.com',
             'phone' => '0799994999',
             'password' => Hash::make('12345678'),
             'user_status' => 2, // Active
@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
         Customer::create([
             'name_en' => 'Customer 2',
             'username' => 'customer_2',
-            'email' => 'customer_2@smartzone.com',
+            'email' => 'customer_2@recovery.com',
             'phone' => '0799994919',
             'password' => Hash::make('12345678'),
             'user_status' => 2, // Active

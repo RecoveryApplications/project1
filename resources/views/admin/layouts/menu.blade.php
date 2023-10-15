@@ -3,11 +3,11 @@
 
     <!-- Page Sidebar Start-->
     <div class="page-sidebar">
-        <div class="main-header-left d-none d-lg-block">
+        <div class="main-header-left d-none d-lg-block" style="background-color: #3d3c3cfc;">
             <div class="logo-wrapper">
-                <a href="index.html">
-                    <img class="d-none d-lg-block blur-up lazyloaded"
-                        src="{{asset('dashboard_files/assets/images/dashboard/multikart-logo.png')}}" alt="">
+                <a href="{{ route('super_admin.dashboard') }}">
+                    <img class="d-none d-lg-block blur-up lazyloaded" style="width: 120px"
+                        src="{{ asset('front_end_style/assets/images/logo.png') }}" alt="">
                 </a>
             </div>
         </div>
@@ -553,15 +553,15 @@
         <div>
             <div class="container p-0">
                 <div class="modal-header p-l-20 p-r-20">
-                    <div class="col-sm-8 p-0">
+                    <div class="p-0 col-sm-8">
                         <h6 class="modal-title font-weight-bold">FRIEND LIST</h6>
                     </div>
-                    <div class="col-sm-4 text-end p-0">
+                    <div class="p-0 col-sm-4 text-end">
                         <i class="me-2" data-feather="settings"></i>
                     </div>
                 </div>
             </div>
-            <div class="friend-list-search mt-0">
+            <div class="mt-0 friend-list-search">
                 <input type="text" placeholder="search friend">
                 <i class="fa fa-search"></i>
             </div>

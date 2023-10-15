@@ -41,17 +41,17 @@ class CustomerController extends Controller
     // ========================================================================
     // ============== Customer show Login/Register Form Function ==============
     // ========================================================================
-    public function loginRegister(Route $route, $type = null)
+    public function loginRegister(Route $route, $type = 'login')
     {
         try {
             if (Auth::guard('customer')->check()) {
                 return redirect()->intended(route('customer.profile'));
+            }
+
+            if ($type == 'login') {
+                return view('front_end_inners.customer.login');
             } else {
-                // if ($type == 'login') {
-                    return view('front_end_inners.customer.login');
-                // } else {
-                //     return view('front_end_inners.customer.register');
-                // }
+                return view('front_end_inners.customer.register');
             }
         } catch (\Throwable $th) {
             $function_name =  $route->getActionName();
@@ -83,46 +83,46 @@ class CustomerController extends Controller
     // ================================================================
     public function login(CustomerLoginFormRequest $request, Route $route)
     {
+        // dd($request->all());
         try {
-            $rules = [
+            // $rules = [
 
-                'password_login' => ['required']
-            ];
+            //     'password_login' => ['required']
+            // ];
 
-            $messages = [
-                // 'lang.required' => __('validator_api.lang_required'),
-                // 'device_id.required' => __('validator_api.device_id_required'),
-            ];
+            // $messages = [
+            //     // 'lang.required' => __('validator_api.lang_required'),
+            //     // 'device_id.required' => __('validator_api.device_id_required'),
+            // ];
 
-            if (is_numeric($request->email)) {
-            } else {
-                $rules['email_login'] = ['required'];
-            }
+            // if (is_numeric($request->email)) {
+            // } else {
+            //     $rules['email_login'] = ['required'];
+            // }
 
-            $validator = Validator::make($request->all(), $rules, $messages);
+            // $validator = Validator::make($request->all(), $rules, $messages);
 
-            if ($validator->fails()) {
-                return response()->json(['status' => false, 'msg' => $validator->errors()->toArray()]);
-            }
+            // if ($validator->fails()) {
+            //     return response()->json(['status' => false, 'msg' => $validator->errors()->toArray()]);
+            // }
             // Attempt to log the user in
             if (filter_var($request->get('email_login'), FILTER_VALIDATE_EMAIL)) {
-
                 if (Auth::guard('customer')->attempt(['email' => $request->email_login, 'password' => $request->password_login])) {
 
                     return redirect()->intended(route('customer.profile'));
                 } else {
-                    return redirect()->back()->withInput($request->only('username', 'remember'))->with('danger',  trans('front_end.message_The_Username_password_incorrect'));
+                    return redirect()->back()->withInput($request->only('username', 'remember'))->with('danger', "Email or Password is incorrect");
                 }
             } elseif (is_numeric($request->email_login)) {
                 if (Auth::guard('customer')->attempt(['phone' => $request->email_login, 'password' => $request->password_login])) {
 
                     return redirect()->intended(route('customer.profile'));
                 } else {
-                    return redirect()->back()->withInput($request->only('username', 'remember'))->with('danger', trans('front_end.message_The_Username_password_incorrect'));
+                    return redirect()->back()->withInput($request->only('username', 'remember'))->with('danger', "Email or Password is incorrect");
                 }
             }
 
-            return redirect()->back()->withInput($request->only('username', 'remember'))->with('danger', trans('front_end.message_The_Username_password_incorrect'));
+            return redirect()->back()->withInput($request->only('username', 'remember'))->with('danger', "Email or Password is incorrect");
         } catch (\Throwable $th) {
             $function_name =  $route->getActionName();
             $check_old_errors = new SupportTicket();
@@ -153,68 +153,86 @@ class CustomerController extends Controller
 
     public function register(Request $request, Route $route)
     {
+        $request->validate([
+            'name_en' => 'required | max:50',
+            'username' => 'required|max:50',
+            'email' => 'required|email|unique:customers,email',
+            'phone' => 'required|unique:customers,phone',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
         try {
-            $rules = [
 
-                'password' => ['required']
-            ];
+            $data = $request->except(['_token', 'password', 'password_confirmation', 'country_key', 'submit']);
+            $data['password'] = Hash::make($request->password);
+            $data['user_status'] = 2;
+            $data['created_by'] = 1;
+            // Start the transaction
+            $user = Customer::create($data);
 
-            $messages = [
-                // 'lang.required' => __('validator_api.lang_required'),
-                // 'device_id.required' => __('validator_api.device_id_required'),
-            ];
+            Auth::guard('customer')->login($user);
+            return redirect()->back()->with('success',"Registration completed successfully");
 
-            if (is_numeric($request->email)) {
-                $rules['country_key'] = ['required'];
-            } else {
-                $rules['email'] = ['required'];
-            }
+            // $rules = [
+            //     'password' => ['required']
+            // ];
 
-            $validator = Validator::make($request->all(), $rules, $messages);
+            // $messages = [
+            //     // 'lang.required' => __('validator_api.lang_required'),
+            //     // 'device_id.required' => __('validator_api.device_id_required'),
+            // ];
 
-            if ($validator->fails()) {
-                return response()->json(['status' => false, 'msg' => $validator->errors()->toArray()]);
-            }
+            // if (is_numeric($request->email)) {
+            //     $rules['country_key'] = ['required'];
+            // } else {
+            //     $rules['email'] = ['required'];
+            // }
+
+            // $validator = Validator::make($request->all(), $rules, $messages);
+
+            // if ($validator->fails()) {
+            //     return response()->json(['status' => false, 'msg' => $validator->errors()->toArray()]);
+            // }
             // Attempt to log the user in
-            if (filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
+            // if (filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
 
-                $created_data = [
-                    'name_en' => $request->name_en,
-                    'username' => $request->name_en,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'country_key' => '+' . $request->country_key,
-                    'password' => Hash::make($request->password),
-                    'user_status' => 2, // Active
-                    'created_by' => 1,
-                ];
+            //     $created_data = [
+            //         'name_en' => $request->name_en,
+            //         'username' => $request->name_en,
+            //         'email' => $request->email,
+            //         'phone' => $request->phone,
+            //         'country_key' => '+' . $request->country_key,
+            //         'password' => Hash::make($request->password),
+            //         'user_status' => 2, // Active
+            //         'created_by' => 1,
+            //     ];
 
-                // dd($created_data);
-                // Start the transaction
-                $user = Customer::create($created_data);
+            //     // dd($created_data);
+            //     // Start the transaction
+            //     $user = Customer::create($created_data);
 
-                Auth::guard('customer')->login($user);
-                return redirect()->back()->with('success', trans('front_end.message_Registration_completed_successfully'));
-            } elseif (is_numeric($request->email)) {
+            //     Auth::guard('customer')->login($user);
+            //     return redirect()->back()->with('success', trans('front_end.message_Registration_completed_successfully'));
+            // } elseif (is_numeric($request->email)) {
 
-                $created_data = [
-                    'name_en' => $request->name_en,
-                    'username' => $request->name_en,
-                    'phone' => $request->phone,
-                    'email' => $request->email,
-                    'country_key' => '+' . $request->country_key,
-                    'password' => Hash::make($request->password),
-                    'user_status' => 2, // Active
-                    'created_by' => 1,
-                ];
+            //     $created_data = [
+            //         'name_en' => $request->name_en,
+            //         'username' => $request->name_en,
+            //         'phone' => $request->phone,
+            //         'email' => $request->email,
+            //         'country_key' => '+' . $request->country_key,
+            //         'password' => Hash::make($request->password),
+            //         'user_status' => 2, // Active
+            //         'created_by' => 1,
+            //     ];
 
-                // dd($created_data);
-                // Start the transaction
-                $user = Customer::create($created_data);
+            //     // dd($created_data);
+            //     // Start the transaction
+            //     $user = Customer::create($created_data);
 
-                Auth::guard('customer')->login($user);
-                return redirect()->back()->with('success', trans('front_end.message_Registration_completed_successfully'));
-            }
+            //     Auth::guard('customer')->login($user);
+            //     return redirect()->back()->with('success', trans('front_end.message_Registration_completed_successfully'));
+            // }
         } catch (\Throwable $th) {
             $function_name =  $route->getActionName();
             $check_old_errors = new SupportTicket();
@@ -246,12 +264,12 @@ class CustomerController extends Controller
     public function profile()
     {
         // if (Auth::guard('customer')->check()) {
-            $auth= Auth::guard('customer')->user()->profile_photo_path;
-            $user_addresses = Auth::guard('customer')->user()->locations;
-            // return  $user_addresses;
-        $orders = CartSale::where(['user_id' => auth('customer')->user()->id])->get();
+        $auth = Auth::guard('customer')->user()->profile_photo_path;
+        $user_addresses = Auth::guard('customer')->user()->locations;
+        // return  $user_addresses;
+        $cartSales = CartSale::with(['cartOperations'])->where(['user_id' => auth('customer')->user()->id])->orderBy('created_at', 'desc')->paginate(10);
         // return view('front_end_inners.customer.user-profile', compact('orders'));
-        return view('front_end_inners.customer.user-profile',compact('auth','orders','user_addresses'));
+        return view('front_end_inners.customer.user-profile', compact('auth', 'cartSales', 'user_addresses'));
         // } else {
         //     return view('front_end_inners.customer.login_register');
         // }
@@ -322,32 +340,34 @@ class CustomerController extends Controller
         }
     }
 
+    public function orderOverview()
+    {
+        return view('front_end_inners.order-overview');
+    }
 
 
 
-    function addToCart(Route $route, AddToCartFormRequest $request)
+
+    public function addToCart(Route $route, AddToCartFormRequest $request)
     {
         try {
 
             if (!Auth::guard('customer')->check()) {
-                // return redirect()->route('customer.loginRegister', 'login');
-                return $this->addToCartCookies($route, $request);
+                return redirect()->route('customer.login');
+                // return $this->addToCartCookies($route, $request);
             }
+            $data = $request->only(['product_id', 'quantity']);
 
-            // return redirect()->back()->with('danger','sssssssssssssssss');
-            $product_id = decrypt($request->cart_product_id);
-            $quantity = $request->cart_product_quantity;
-            $product = Product::find($product_id);
+            $product = Product::find($data['product_id']);
             $property_type = $product->properties->count() > 0 ? 1 : 2;
             if ($property_type == 1) {
-                $product = ProdSzeClrRelation::find($product_id);
+                $product = ProdSzeClrRelation::find($data['product_id']);
             }
 
             if ($product) {
-                if ($quantity > $product->quantity_available) {
-                    return redirect()->back()->with('danger', 'Out Of Stock !!!');
-                }
-
+                // if ($quantity > $product->quantity_available) {
+                //     return redirect()->back()->with('danger', 'Out Of Stock !!!');
+                // }
                 $old_cart = CartTemp::where([
                     ['user_id', Auth::guard('customer')->user()->id],
                     ['product_id', $product->id],
@@ -356,22 +376,19 @@ class CustomerController extends Controller
 
 
                 if ($old_cart) {
-
+                    // 
                     $old_cart->update([
-                        'quantity' => $quantity
+                        'quantity' => $old_cart->quantity + $data['quantity']
                     ]);
-
                     return redirect()->back()->with('success', 'Cart Updated Successfully');
                 } else {
-
                     CartTemp::create([
                         'user_id' => Auth::guard('customer')->user()->id,
                         'user_type' => 'Customer',
                         'product_id' => $product->id,
                         'property_type' => $property_type,
-                        'quantity' => $quantity
+                        'quantity' => $data['quantity'],
                     ]);
-
                     return redirect()->back()->with('success', 'Added To Cart Successfully');
                 }
             } else {
@@ -402,8 +419,43 @@ class CustomerController extends Controller
         }
     }
 
+    public function removeItemFromCart(Route $route, $id)
+    {
+        try {
+            $cart = CartTemp::find($id);
+            if ($cart) {
+                $cart->delete();
+                return redirect()->back()->with('success', 'Item Removed Successfully');
+            } else {
+                return redirect()->back()->with('danger', 'Item Not Found !!!');
+            }
+        } catch (\Throwable $th) {
+            $function_name =  $route->getActionName();
+            $check_old_errors = new SupportTicket();
+            $check_old_errors = $check_old_errors->select('*')->where([
+                'error_location' => $th->getFile(),
+                'error_description' => $th->getMessage(),
+                'function_name' => $function_name,
+                'error_line' => $th->getLine(),
+            ])->get();
 
-    function addToCartCookies(Route $route, AddToCartFormRequest $request)
+            if ($check_old_errors->count() == 0) {
+                $new_error_ticket = SupportTicket::create([
+                    'error_location' => $th->getFile(),
+                    'error_description' => $th->getMessage(),
+                    'function_name' => $function_name,
+                    'error_line' =>  $th->getLine(),
+                ]);
+                $end_error_ticket = $new_error_ticket;
+            } else {
+                $end_error_ticket = $check_old_errors->first();
+            }
+            return view('errors.support_tickets', compact('th', 'function_name', 'end_error_ticket'));
+        }
+    }
+
+
+    public function addToCartCookies(Route $route, AddToCartFormRequest $request)
     {
         try {
 
@@ -493,7 +545,7 @@ class CustomerController extends Controller
             return view('errors.support_tickets', compact('th', 'function_name', 'end_error_ticket'));
         }
     }
-    function checkoutPage(Route $route)
+    public function checkoutPage(Route $route)
     {
         try {
             if (auth('customer')->user()) {
@@ -535,7 +587,7 @@ class CustomerController extends Controller
         }
     }
 
-     public function checkout(Route $route, Request $request)
+    public function checkout(Route $route, Request $request)
     {
         try {
             $request->validate([
@@ -572,8 +624,9 @@ class CustomerController extends Controller
 
                                 // $discountValue = $total_price->discountValue ?? 0;
                                 // $price_count = $total_price->count();
-                            } else
+                            } else {
                                 return response()->json(['status' => false, 'messages' => 'Error .']);
+                            }
                         } else {
                             return response()->json(['status' => false, 'messages' => trans('api.This_coupon_has_been_used')]);
                         }
@@ -596,7 +649,7 @@ class CustomerController extends Controller
                         'user_id' => $user->id,
                         'location_id' => $request->location_id,
                         'product_count' => $carts->count(),
-                        'discount' => $coupan != null  ? $discountValue : null,
+                        'discount' => $coupan != null ? $discountValue : null,
                         'promo_code_id' => $coupan != null ? $coupan->id : null,
                         'sub_total' => $endTotal,
                         'total' => $endTotal - $discountValue,
@@ -612,10 +665,10 @@ class CustomerController extends Controller
                         $endTotal += $cart->quantity * $cart->product->sale_price;
                         $sub_total = $cart->quantity * $cart->product->sale_price;
 
-                        if($cart->property_type==1){
-                            $proparity=1;
-                        }else{
-                            $proparity=2;
+                        if ($cart->property_type == 1) {
+                            $proparity = 1;
+                        } else {
+                            $proparity = 2;
                         }
 
                         CartOperation::create([
@@ -634,7 +687,7 @@ class CustomerController extends Controller
 
                 return redirect()->back()->with('success', trans('front_end.message_sent_successfully'));
             } else {
-                return $this->returnError( trans('api.Cart_is_empty'));
+                return $this->returnError(trans('api.Cart_is_empty'));
             }
             // return redirect()->back()->with('success', trans('sent_successfully'));
         } catch (\Throwable $th) {
@@ -712,7 +765,7 @@ class CustomerController extends Controller
 
 
 
-    function remove_cart(Route $route, $id)
+    public function remove_cart(Route $route, $id)
     {
         try {
 
@@ -750,25 +803,24 @@ class CustomerController extends Controller
 
 
 
-    function wishlist(Route $route, Request $request)
+    public function wishlist(Request $request, Route $route)
     {
         // try {
 
-        $id = decrypt($request->wishlist_id);
-        $product = Product::find($id);
+        $product = Product::find($request->id);
 
         if ($product) {
             $wishlist = ProductWishlist::where('product_id', $product->id)->where('customer_id', auth('customer')->user()->id)->get()->first();
 
             if ($wishlist) {
                 $wishlist->delete();
+                return redirect()->back()->with('success', 'Successfully Removed');
             } else {
-               $x= ProductWishlist::create([
+                ProductWishlist::create([
                     'product_id' => $product->id,
                     'customer_id' => auth('customer')->user()->id
                 ]);
-                // return $x;
-
+                return redirect()->back()->with('success', 'Successfully Added');
             }
         } else {
             return redirect()->back()->with('danger', 'Product Not Found !!!!');
@@ -802,13 +854,12 @@ class CustomerController extends Controller
 
 
 
-    function getWishList(Route $route)
+    public function getWishList(Route $route)
     {
         try {
 
-            $wishlist = ProductWishlist::where('customer_id', auth('customer')->user()->id)->get();
-            $tab='wishlist';
-            return view('front_end_inners.customer.user-profile', compact('wishlist','tab'));
+            $wishlistItems = ProductWishlist::with('product')->where('customer_id', auth('customer')->user()->id)->get();
+            return view('front_end_inners.customer.wishlist', compact('wishlistItems'));
         } catch (\Throwable $th) {
             $function_name =  $route->getActionName();
             $check_old_errors = new SupportTicket();
@@ -836,7 +887,7 @@ class CustomerController extends Controller
 
 
 
-    function updateCart(Request $request)
+    public function updateCart(Request $request)
     {
 
         $request->validate([
@@ -879,7 +930,7 @@ class CustomerController extends Controller
         }
     }
 
-    function updateCartCookie(Request $request)
+    public function updateCartCookie(Request $request)
     {
         $product = Product::find($request->cart_id);
         $property_type = $product->properties->count() > 0 ? 1 : 2;
@@ -927,7 +978,7 @@ class CustomerController extends Controller
         }
     }
 
-    function getTotal()
+    public function getTotal()
     {
         $withlist_count = ProductWishlist::where('customer_id', Auth::guard('customer')->user()->id)->count();
         $public_customer_carts = CartTemp::where(['user_id' => Auth::guard('customer')->user()->id, 'user_type' => 'Customer'])->get();
@@ -951,7 +1002,7 @@ class CustomerController extends Controller
         $public_customer_carts->endTotal = $endTotal;
         return number_format($public_customer_carts->endTotal, 2);
     }
-    function getTotalCookie()
+    public function getTotalCookie()
     {
 
         if (Cookie::get('shopping_cart')) {
@@ -983,7 +1034,7 @@ class CustomerController extends Controller
     }
 
 
-    function getOrderDetails(Request $request)
+    public function getOrderDetails(Request $request)
     {
         $request->validate([
             'sale_id' => 'required'
@@ -999,15 +1050,17 @@ class CustomerController extends Controller
             $shipStation = new ShipStation('42b21befe369478c910ef2b1666bea5e', 'c074d78f698e4cd8b1cc4139f287885b', 'https://ssapi.shipstation.com');
             if ($cartSale->orderId) {
                 $orderShipStation = $shipStation->orders->get(['orderNumber' => $cartSale->orderNumber]);
-                if (count($orderShipStation->orders) > 0)
+                if (count($orderShipStation->orders) > 0) {
                     $cartSale->statusShipStation = $orderShipStation->orders[0]->orderStatus;
-                else
+                } else {
                     $cartSale->statusShipStation = 'awaiting_shipment';
-            } else
+                }
+            } else {
                 $cartSale->statusShipStation = 'awaiting_shipment';
+            }
             $output = '';
             $output .= '<div class="tab-pane fade show active" id="tab_1" role="tabpanel" aria-labelledby="timeline-tab">
-                                <div class="media mt-3 profile-timeline-media">
+                                <div class="mt-3 media profile-timeline-media">
                                     <div class="media-body">
                                         <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Main Order Information :
                                         </h3>
@@ -1071,9 +1124,9 @@ class CustomerController extends Controller
             if (isset($cartSale->status)) {
                 if ($cartSale->status == 'Pendding') {
                     $output .= '<span style="color:rgba(182, 121, 7, 0.87);">' . $cartSale->status . '</span>';
-                } else if ($cartSale->status == 'Accepted') {
+                } elseif ($cartSale->status == 'Accepted') {
                     $output .= '<span style="color:green;">' . $cartSale->status . '</span>';
-                } else if ($cartSale->status == 'Rejected') {
+                } elseif ($cartSale->status == 'Rejected') {
                     $output .= '<span style="color:red;">' . $cartSale->status . '</span>';
                 }
             } else {
@@ -1085,9 +1138,9 @@ class CustomerController extends Controller
                 if ($cartSale->payment_status == 'Pendding') {
                     $output .= '<span
                                                                     style="color:rgba(182, 121, 7, 0.87);">' . $cartSale->payment_status . '</span>';
-                } else if ($cartSale->payment_status == 'Accepted') {
+                } elseif ($cartSale->payment_status == 'Accepted') {
                     $output .= '<span style="color:green;">' . $cartSale->payment_status . '</span>';
-                } else if ($cartSale->payment_status == 'Rejected') {
+                } elseif ($cartSale->payment_status == 'Rejected') {
                     $output .= '<span style="color:red;">' . $cartSale->payment_status . '</span>';
                 }
             } else {
@@ -1158,7 +1211,7 @@ class CustomerController extends Controller
                                     </div>
                                 </div>
 
-                                <div class="media mt-3 profile-timeline-media">
+                                <div class="mt-3 media profile-timeline-media">
                                     <div class="media-body">
                                         <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Delivery Information :
                                         </h3>
@@ -1274,7 +1327,7 @@ class CustomerController extends Controller
                                     </div>
                                 </div>
 
-                                <div class="media mt-3 profile-timeline-media">
+                                <div class="mt-3 media profile-timeline-media">
                                     <div class="media-body">';
             if (isset($payment)) {
                 $output .= '<h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Paypal Information :
@@ -1336,9 +1389,9 @@ class CustomerController extends Controller
                     if ($cartSale->payment_status == 'Pendding') {
                         $output .= '<span
                                                                         style="color:rgba(182, 121, 7, 0.87);">' . $cartSale->payment_status . '</span>';
-                    } else if ($cartSale->payment_status == 'Accepted') {
+                    } elseif ($cartSale->payment_status == 'Accepted') {
                         $output .= '<span style="color:green;">' . $cartSale->payment_status . '</span>';
-                    } else if ($cartSale->payment_status == 'Rejected') {
+                    } elseif ($cartSale->payment_status == 'Rejected') {
                         $output .= '<span style="color:red;">' . $cartSale->payment_status . '</span>';
                     }
                 } else {
@@ -1409,7 +1462,7 @@ class CustomerController extends Controller
                     if (isset($cartOperation->product->image) && $cartOperation->product->image && file_exists($cartOperation->product->image)) {
                         $output .= '<img src="' . asset($cartOperation->product->image) . '"
                                                                         alt="" width="90">';
-                    } else if (isset($cartOperation->product->image_url) && $cartOperation->product->image_url != null) {
+                    } elseif (isset($cartOperation->product->image_url) && $cartOperation->product->image_url != null) {
                         $output .= '<img src="' . $cartOperation->product->image_url . '"
                                                                             alt="" width="90">';
                     } else {

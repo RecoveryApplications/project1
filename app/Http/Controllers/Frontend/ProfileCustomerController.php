@@ -16,21 +16,23 @@ use App\Http\Requests\Frontend\Customers\ProfileCustomerRequest;
 class ProfileCustomerController extends Controller
 {
 
-    public function updateProfile(ProfileCustomerRequest $request,$id)
+    public function updateProfile(ProfileCustomerRequest $request)
     {
-        return 'sdfgsg';
-        $id=auth()->user()->id;
-        // return  $id;
-        $customer = Customer::find($id);
-        // return  $customer;
-        $customer->name_en = $request->name_en;
-        $customer->email = $request->email;
-        $customer->phone = $request->phone;
-        if ($customer->password || $customer->password_confirmation)
-            if ($customer->password != $customer->password_confirmation)
-                return redirect()->back()->with('danger', 'Password does not match !!!');
-        $customer->password = Hash::make($request->password);
-        $customer->save();
+        $customer = Customer::find(auth('customer')->user()->id);
+        $data = $request->except(['password', 'password_confirmation']);
+        // if request have email return error message
+        if ($request->has('email')) {
+            return redirect()->back()->with('error', 'Email cannot be changed.');
+        }
+        if ($request->has('password') && $request->has('password_confirmation')) {
+            if ($request->input('password') === $request->input('password_confirmation')) {
+                $data['password'] = Hash::make($request->input('password'));
+            } else {
+                return redirect()->back()->with('error', 'Password and password confirmation do not match.');
+            }
+        }
+
+        $customer->update($data);
         return redirect()->back()->with('success', 'Updated Successfully');
     }
 
@@ -65,36 +67,37 @@ class ProfileCustomerController extends Controller
                 'more_info' => $request->more_info
             ]);
             if ($location)
-                return redirect()->back()->with('success', 'updated successfully');
+                return redirect()->back()->with('success', 'Address created successfully');
             return redirect()->back()->with('danger', 'something went wrong');
         } else {
-            if (Cookie::get('shopping_Address')) {
-                $cookie_data = stripslashes(Cookie::get('shopping_Address'));
-                $locations = json_decode($cookie_data, true);
-            } else {
-                // if not exist create array to create cart
-                $locations = array();
-            }
-            $locations[] = [
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'name' => $request->name,
-                'company' => $request->company,
-                'address' => $request->address,
-                'apartment' => $request->apartment,
-                'city' => $request->city,
-                'state' => $request->state,
-                'zipcode' => $request->zipcode,
-                'country' => $request->country,
-                'more_info' => $request->more_info
-            ];
+            return redirect()->back()->with('danger', 'Something went wrong');
+            // if (Cookie::get('shopping_Address')) {
+            //     $cookie_data = stripslashes(Cookie::get('shopping_Address'));
+            //     $locations = json_decode($cookie_data, true);
+            // } else {
+            //     // if not exist create array to create cart
+            //     $locations = array();
+            // }
+            // $locations[] = [
+            //     'email' => $request->email,
+            //     'phone' => $request->phone,
+            //     'name' => $request->name,
+            //     'company' => $request->company,
+            //     'address' => $request->address,
+            //     'apartment' => $request->apartment,
+            //     'city' => $request->city,
+            //     'state' => $request->state,
+            //     'zipcode' => $request->zipcode,
+            //     'country' => $request->country,
+            //     'more_info' => $request->more_info
+            // ];
 
-            $item_data = json_encode($locations, JSON_UNESCAPED_UNICODE);
+            // $item_data = json_encode($locations, JSON_UNESCAPED_UNICODE);
 
-            $minutes = 43000;
-            // add array to cookies
-            Cookie::queue(Cookie::make('shopping_Address', $item_data, $minutes));
-            return redirect()->back()->with('success', 'created successfully');
+            // $minutes = 43000;
+            // // add array to cookies
+            // Cookie::queue(Cookie::make('shopping_Address', $item_data, $minutes));
+            // return redirect()->back()->with('success', 'created successfully');
         }
 
 

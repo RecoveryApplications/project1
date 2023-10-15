@@ -11,7 +11,7 @@
                             <div class="main-label sale-label"><span>Sale</span></div>
                             <div class="product-image">
                                 <a href="product-page.html">
-                                    <img src={{ asset($product->image) }} alt="Stylexpo">
+                                    <img src={{ asset($product->image) }} alt="{{ $product->name }}">
                                 </a>
                             </div>
                         </div>

@@ -81,7 +81,7 @@
             </div>
             <div class="sidebar-box mb-40 d-none d-lg-block">
               <a href="#">
-                <img src="{{ asset('front_end_style/assets/images/left-banner.jpg')}}" alt="Stylexpo">
+                <img src="{{ asset('front_end_style/assets/images/left-banner.jpg')}}" alt="FamilyDrop">
               </a>
             </div>
             <div class="sidebar-box sidebar-item"> <span class="opener plus"></span>
@@ -189,7 +189,7 @@
                 <div class="shop-list-view">
                   <div class="product-item">
                     <div class="main-label sale-label"><span>Sale</span></div>
-                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_1_md.jpg')}}" alt="Stylexpo"> </a> </div>
+                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_1_md.jpg')}}" alt="FamilyDrop"> </a> </div>
                   </div>
                   <div class="product-item-details">
                     <div class="product-item-name">
@@ -217,7 +217,7 @@
               <div class="col-xl-6 col-12">
                 <div class="shop-list-view">
                   <div class="product-item">
-                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_2_md.jpg')}}" alt="Stylexpo"> </a> </div>
+                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_2_md.jpg')}}" alt="FamilyDrop"> </a> </div>
                   </div>
                   <div class="product-item-details">
                     <div class="product-item-name"> <a href="product-page.html">Cross Colours Camo Print </a> </div>
@@ -243,7 +243,7 @@
               <div class="col-xl-6 col-12">
                 <div class="shop-list-view">
                   <div class="product-item">
-                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_3_md.jpg')}}" alt="Stylexpo"> </a> </div>
+                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_3_md.jpg')}}" alt="FamilyDrop"> </a> </div>
                   </div>
                   <div class="product-item-details">
                     <div class="product-item-name"> <a href="product-page.html">Cross Colours Camo Print</a> </div>
@@ -269,7 +269,7 @@
               <div class="col-xl-6 col-12">
                 <div class="shop-list-view">
                   <div class="product-item">
-                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_4_md.jpg')}}" alt="Stylexpo"> </a> </div>
+                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_4_md.jpg')}}" alt="FamilyDrop"> </a> </div>
                   </div>
                   <div class="product-item-details">
                     <div class="product-item-name"> <a href="product-page.html">Cross Colours Camo Print</a> </div>
@@ -295,7 +295,7 @@
               <div class="col-xl-6 col-12">
                 <div class="shop-list-view">
                   <div class="product-item">
-                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_5_md.jpg')}}" alt="Stylexpo"> </a> </div>
+                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_5_md.jpg')}}" alt="FamilyDrop"> </a> </div>
                   </div>
                   <div class="product-item-details">
                     <div class="product-item-name"> <a href="product-page.html">Cross Colours Camo Print</a> </div>
@@ -321,7 +321,7 @@
               <div class="col-xl-6 col-12">
                 <div class="shop-list-view">
                   <div class="product-item">
-                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_6_md.jpg')}}" alt="Stylexpo"> </a> </div>
+                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_6_md.jpg')}}" alt="FamilyDrop"> </a> </div>
                   </div>
                   <div class="product-item-details">
                     <div class="product-item-name"> <a href="product-page.html">Cross Colours Camo Print</a> </div>
@@ -347,7 +347,7 @@
               <div class="col-xl-6 col-12">
                 <div class="shop-list-view">
                   <div class="product-item">
-                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_7_md.jpg')}}" alt="Stylexpo"> </a> </div>
+                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_7_md.jpg')}}" alt="FamilyDrop"> </a> </div>
                   </div>
                   <div class="product-item-details">
                     <div class="product-item-name"> <a href="product-page.html">Cross Colours Camo Print</a> </div>
@@ -373,7 +373,7 @@
               <div class="col-xl-6 col-12">
                 <div class="shop-list-view">
                   <div class="product-item">
-                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_8_md.jpg')}}" alt="Stylexpo"> </a> </div>
+                    <div class="product-image"> <a href="product-page.html"> <img src="{{ asset('front_end_style/assets/images/product/product_8_md.jpg')}}" alt="FamilyDrop"> </a> </div>
                   </div>
                   <div class="product-item-details">
                     <div class="product-item-name"> <a href="product-page.html">Cross Colours Camo Print</a> </div>
@@ -429,7 +429,7 @@
                   <div class="col-xl-6 col-lg-6">
                     <div class="d-lg-flex align-items-center">
                       <div class="newsletter-icon">
-                        <img alt="Stylexpo" src="{{ asset('front_end_style/assets/images/newsletter-icon.png')}}">
+                        <img alt="FamilyDrop" src="{{ asset('front_end_style/assets/images/newsletter-icon.png')}}">
                       </div>
                       <div class="newsletter-title">
                         <h2 class="main_title">Subscribe to our newsletter</h2>

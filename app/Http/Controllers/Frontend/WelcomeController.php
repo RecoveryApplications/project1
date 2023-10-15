@@ -34,25 +34,12 @@ class WelcomeController extends Controller
         if (Auth::guard('super_admin')->check()) {
             return redirect()->route('super_admin.dashboard');
         }
-        $sliders = Slider::where('status', 1)->orderBy('created_at', 'asc')->get();
 
         $banner = Banner::inRandomOrder()->limit(5)->get();
-        $brands = Brand::where('status', 1)->where('image', '!=', null)->limit(10)->get();
 
 
-        $high_rated = Product::where('status', 1)->get()->sortByDesc(function ($q) {
-            return $q->productReviews->avg('review_value');
-        })->take(18);
+   
 
-        $recent_products = Product::where('status', 1)->where('featured_flag', null)->where('created_at', '>=', Carbon::now()->subDays(60)->toDateTimeString())->with('firstProperty')->inRandomOrder()->limit(18)->get();
-
-        $best_prop = ProdSzeClrRelation::where('status', 1)->whereHas('cartOperations')->get()->sortByDesc(function ($q) {
-            return $q->cartOperations->count();
-        })->pluck('product_id');
-
-        $best_selling = Product::where('status', 1)->whereHas('cartOperations')->with('firstProperty')->orWhereIn('id',$best_prop)->get()->sortByDesc(function ($q) {
-            return $q->cartOperations->count();
-        })->take(18);
 
 
 
@@ -62,14 +49,37 @@ class WelcomeController extends Controller
         $get_8_products = Product::where('status', 1)->inRandomOrder()->limit(8)->get();
         $photos = Photo::get();
         // $offers=Offer::where('status', 1)->where('expire_date','>',Carbon::now())->inRandomOrder()->get()->first();
-        $blogs=Blogs::limit(8)->get();
         $seo_operation = SeoOperation::where('page_name', 'Welcome')->get()->first();
         // $special_offers = Offer::where('status', 1)->where('expire_date','>',Carbon::now())->limit(1)->get()->first();
         // return $get_8_products ->mainCategory;
 
+        // =========================
+        // ==== Ahmad Alsakhen ====
+        // =========================
+        $sliders = Slider::where('status', 1)->orderBy('created_at', 'asc')->get();
         $categories = MainCategory::where('status', 1)->get();
+        $recent_products = Product::where('status', 1)->where('featured_flag', null)->where('created_at', '>=', Carbon::now()->subDays(60)->toDateTimeString())->with('firstProperty')->inRandomOrder()->limit(18)->get();
+        
+        $best_prop = ProdSzeClrRelation::where('status', 1)->whereHas('cartOperations')->get()->sortByDesc(function ($q) {
+            return $q->cartOperations->count();
+        })->pluck('product_id');
+        $best_selling = Product::where('status', 1)->whereHas('cartOperations')->with('firstProperty')->orWhereIn('id', $best_prop)->get()->sortByDesc(function ($q) {
+            return $q->cartOperations->count();
+        })->take(18);
+        //TODO -  show high rated products in welcome view
+        $high_rated = Product::where('status', 1)->get()->sortByDesc(function ($q) {
+            return $q->productReviews->avg('review_value');
+        })->take(18);
 
-        return view('welcome', compact('sliders','banner','brands','featured_products','recent_products','photos','best_selling','get_8_products','high_rated','blogs','seo_operation', 'categories'));
+        
+
+        $blogs = Blogs::limit(8)->get();
+     
+        $brands = Brand::where('status', 1)->where('image', '!=', null)->limit(10)->get();
+
+
+
+        return view('welcome', compact('sliders', 'banner', 'brands', 'featured_products', 'recent_products', 'photos', 'best_selling', 'get_8_products', 'high_rated', 'blogs', 'seo_operation', 'categories'));
     }
 
 

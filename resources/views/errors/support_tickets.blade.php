@@ -74,7 +74,7 @@
                 <img class="img-thumbnail image-preview " style="border: 1px solid #9b3c05; width: 50% !important;" src="{{ asset('images_default/target_point.png') }}" alt="">
             </div>
             <div class="m-b-md-12">
-                <h1 style="color: #797979;">SMARTZONE</h1>
+                <h1 style="color: #797979;">RECOVERY</h1>
                 <hr>
                 <h1 style="color: #797979;">Ticket Number : ( @isset ($end_error_ticket){{ $end_error_ticket->id }}@endisset )</h1>
                 <hr>

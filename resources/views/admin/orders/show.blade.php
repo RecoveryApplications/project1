@@ -15,18 +15,18 @@
         <div>
             <h1><i class="mdi mdi-account-multiple"></i> Order Details</h1>
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb p-0">
+                <ol class="p-0 breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="{{ route('super_admin.dashboard') }}">
-                            <i class="mdi  mdi-home"></i> Dashboard
+                            <i class="mdi mdi-home"></i> Dashboard
                         </a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('super_admin.orders-index') }}">
-                            <i class="mdi  mdi-account-multiple"></i> All Orders
+                            <i class="mdi mdi-account-multiple"></i> All Orders
                         </a>
                     </li>
-                    <li class="breadcrumb-item" aria-current="page"><i class="mdi  mdi-account-multiple"></i> Order Details
+                    <li class="breadcrumb-item" aria-current="page"><i class="mdi mdi-account-multiple"></i> Order Details
                     </li>
                 </ol>
             </nav>
@@ -60,11 +60,11 @@
             {{-- ========================================== Right Section ========================================= --}}
             {{-- ================================================================================================= --}}
             <div class="col-lg-12 col-xl-12">
-                <div class="profile-content-right py-5">
+                <div class="py-5 profile-content-right">
                     {{-- ================================================================================================= --}}
                     {{-- ===================================== Tabs Bodies Section ======================================= --}}
                     {{-- ================================================================================================= --}}
-                    <div class="tab-content px-3 px-xl-5" id="myTabContent">
+                    <div class="px-3 tab-content px-xl-5" id="myTabContent">
 
                         {{-- ============================================== --}}
                         {{-- ============= All Error Messages ============= --}}
@@ -92,8 +92,42 @@
                             {{-- ================================================= --}}
                             {{-- =========== Main Product Information ============ --}}
                             {{-- ================================================= --}}
-                            <div class="media mt-3 profile-timeline-media">
+                            <div class="mt-3 media profile-timeline-media">
+                                <h3>
+                                </h3>
                                 <div class="media-body">
+                                    <div>
+
+                                        {{-- //NOTE - Change The Order Status --}}
+                                        @if ($cartSale->status == 'Pendding')
+                                            <h2>
+                                                Change status :
+                                            </h2>
+                                            <a href="{{ route('super_admin.acceptOrder', $cartSale->id) }}"
+                                                class="btn btn-sm btn-info">
+                                                Accept
+                                            </a>
+                                            <a href="{{ route('super_admin.rejectOrder', $cartSale->id) }}"
+                                                class="btn btn-sm btn-danger">
+                                                Reject
+                                            </a>
+                                        @endif
+
+                                        {{-- //NOTE - Change The Delievery Status --}}
+                                        @if ($cartSale->status == 'Accepted' && $cartSale->delivery_status == 'Pendding')
+                                            <h2>
+                                                Change delievery status :
+                                            </h2>
+                                            <a href="{{ route('super_admin.acceptDelivery', $cartSale->id) }}"
+                                                class="btn btn-sm btn-info">
+                                                Received
+                                            </a>
+                                            <a href="{{ route('super_admin.rejectDelivery', $cartSale->id) }}"
+                                                class="btn btn-sm btn-danger">
+                                                Not Received
+                                            </a>
+                                        @endif
+                                    </div>
                                     <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Main Order Information :
                                     </h3>
                                     <table class="table table-hover table-striped">
@@ -105,6 +139,12 @@
                                                         style="color:blue;">{!! isset($cartSale->product_count)
                                                             ? $cartSale->product_count . ' products'
                                                             : '<span style="color:red;">Undefined</span>' !!}</span></th>
+                                            </tr>
+                                            <tr>
+                                                <th><i class="mdi mdi-account"></i>Shipping: <span
+                                                        style="color:blue;">{!! isset($cartSale->shipping) ? $cartSale->shipping . " $" : '<span style="color:red;">Undefined</span>' !!}</span></th>
+                                                <th><i class="mdi mdi-account"></i> Tax : <span
+                                                        style="color:blue;">{!! isset($cartSale->tax) ? $cartSale->tax . ' $' : '<span style="color:red;">Undefined</span>' !!}</span></th>
                                             </tr>
                                             <tr>
                                                 <th><i class="mdi mdi-account"></i> Sub Total : <span
@@ -167,7 +207,7 @@
                                                             @endif
                                                         @endif
                                                     </span></th>
-                                                    <th><i class="mdi mdi-phone"></i> order Number : <span
+                                                <th><i class="mdi mdi-phone"></i> order Number : <span
                                                         style="color:blue;">{!! isset($cartSale->orderNumber) ? $cartSale->orderNumber : '<span style="color:red;">Undefined</span>' !!}</span></th>
                                             </tr>
 
@@ -216,7 +256,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="media mt-3 profile-timeline-media">
+                            <div class="mt-3 media profile-timeline-media">
                                 <div class="media-body">
                                     <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Delivery Information :
                                     </h3>
@@ -379,7 +419,7 @@
                             {{-- ================================================= --}}
                             {{-- =========== payments Information ============ --}}
                             {{-- ================================================= --}}
-                            <div class="media mt-3 profile-timeline-media">
+                            <div class="mt-3 media profile-timeline-media">
                                 <div class="media-body">
                                     @if (isset($payment))
                                         <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Payment Information
@@ -482,6 +522,7 @@
                                                 <th><span style="color:blue;">Product</th>
                                                 <th><span style="color:blue;">Quantity</th>
                                                 <th><span style="color:blue;">Unit Price</th>
+                                                <th><span style="color:blue;">Out Sale Price</th>
                                                 <th><span style="color:blue;">Sub Total</th>
                                                 <th><span style="color:blue;">Total</th>
                                             </tr>
@@ -492,8 +533,8 @@
                                                     <tr>
                                                         <td>
                                                             @if (isset($cartOperation->product->image) &&
-                                                                $cartOperation->product->image &&
-                                                                file_exists($cartOperation->product->image))
+                                                                    $cartOperation->product->image &&
+                                                                    file_exists($cartOperation->product->image))
                                                                 <img src="{{ asset($cartOperation->product->image) }}"
                                                                     alt="" width="90">
                                                             @elseif (isset($cartOperation->product->image_url) && $cartOperation->product->image_url != null)
@@ -514,13 +555,15 @@
                                                         <td>{!! isset($cartOperation->unit_price)
                                                             ? $cartOperation->unit_price . '<small> $</small>'
                                                             : '<span style="color: red;">Undefined</span>' !!}</td>
-                                                        <td>{!! isset($cartOperation->quantity) && isset($cartOperation->unit_price)
-                                                            ? $cartOperation->quantity * $cartOperation->unit_price . '<small> $</small>'
+                                                        <td>{!! isset($cartOperation->out_sale_price)
+                                                            ? $cartOperation->out_sale_price . '<small> $</small>'
                                                             : '<span style="color: red;">Undefined</span>' !!}</td>
-                                                        <td>{!! isset($cartOperation->quantity) && isset($cartOperation->unit_price)
-                                                            ? $cartOperation->quantity * $cartOperation->unit_price  .
-                                                                '<small> $</small>'
-                                                            : '<span style="color: red;">Undefined</span>' !!}</td>
+                                                        <td>
+                                                            {{ $cartOperation->sub_total ?? '<span style="color: red;">Undefined</span>' }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $cartOperation->total ?? '<span style="color: red;">Undefined</span>' }}
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             @endif
@@ -561,8 +604,8 @@
 
                                                         <div class="form-row">
                                                             {{-- Product Other Images Input --}}
-                                                            <div class="col-md-6 mb-3">
-                                                                <label class="text-dark font-weight-medium mb-3"
+                                                            <div class="mb-3 col-md-6">
+                                                                <label class="mb-3 text-dark font-weight-medium"
                                                                     for="validationServer01">Product Other Images : <strong
                                                                         class="text-danger"> * </strong></label>
                                                                 <div class="input-group">
@@ -577,8 +620,8 @@
                                                             </div>
 
                                                             {{-- Button --}}
-                                                            <div class="col-md-6 mb-3">
-                                                                <label class="text-dark font-weight-medium mb-3"
+                                                            <div class="mb-3 col-md-6">
+                                                                <label class="mb-3 text-dark font-weight-medium"
                                                                     for="validationServer01">Save Product Other Images :
                                                                 </label>
                                                                 <div class="input-group">
@@ -594,7 +637,7 @@
                                                         </div>
                                                     </form>
                                                 </div>
-                                                <div class="card-img mx-auto rounded-circle">
+                                                <div class="mx-auto card-img rounded-circle">
                                                     <hr>
                                                     @if (isset($product) && $product->productImages->count() > 0)
                                                         <div class="row">

@@ -50,7 +50,7 @@
             <div class="contact-box">
               <div class="contact-icon contact-mail-icon"></div>
               <span><b>Mail</b></span>
-              <p>infoservices@stylexpo.com </p>
+              <p>infoservices@FamilyDrop.com </p>
             </div>
           </div>
           <div class="col-md-4 p-0">
@@ -113,7 +113,7 @@
                   <div class="col-xl-6 col-lg-6">
                     <div class="d-lg-flex align-items-center">
                       <div class="newsletter-icon">
-                        <img alt="Stylexpo" src="images/newsletter-icon.png">
+                        <img alt="FamilyDrop" src="images/newsletter-icon.png">
                       </div>
                       <div class="newsletter-title">
                         <h2 class="main_title">Subscribe to our newsletter</h2>

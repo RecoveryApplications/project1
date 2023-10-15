@@ -125,7 +125,7 @@ class FrontEndController extends Controller
                         </div>
                     <h6>' . $reviews->count() . ' ' . __('front_end.product_ratings') . '</h6>
                 </div>
-                <div class="part py-3">
+                <div class="py-3 part">
                 <p class="mb-1">' . \Illuminate\Support\Str::limit(isset($product->main_description) ? str_replace('&nbsp;', ' ', $product->main_description) : '--------', 200, $end = '...');
                 if (\Illuminate\Support\Str::length(isset($product->main_description) ? str_replace('&nbsp;', ' ', $product->main_description) : '--------') > 200) {
                     $output_details .= '<span id="dots"><a href="' . route('productDetails', $product->id) . '">More</a></span>';
@@ -162,7 +162,7 @@ class FrontEndController extends Controller
                         }
                         $output_images .= '</div>
                         <div class="row">
-                            <div class="col-12 p-0">
+                            <div class="p-0 col-12">
                                 <div class="slider-nav">';
                         foreach ($property->propertyImages as $image) {
                             $output_images .= '<div>';
@@ -364,7 +364,7 @@ class FrontEndController extends Controller
                         </div>
                     <h6>' . $reviews->count() . ' ' . __('front_end.product_ratings') . '</h6>
                 </div>
-                <div class="part py-3">
+                <div class="py-3 part">
                 <p class="mb-1">' . \Illuminate\Support\Str::limit(isset($product->main_description) ? str_replace('&nbsp;', ' ', $product->main_description) : '--------', 200, $end = '...');
                 if (\Illuminate\Support\Str::length(isset($product->main_description) ? str_replace('&nbsp;', ' ', $product->main_description) : '--------') > 200) {
                     $output_details .= '<span id="dots"><a href="' . route('productDetails', $product->id) . '">More</a></span>';
@@ -401,7 +401,7 @@ class FrontEndController extends Controller
                     }
                     $output_images .= '</div>
                         <div class="row">
-                            <div class="col-12 p-0">
+                            <div class="p-0 col-12">
                                 <div class="slider-nav">';
                     foreach ($product->productImages as $image) {
                         $output_images .= '<div>';
@@ -889,7 +889,7 @@ class FrontEndController extends Controller
                 'message' => $request->message,
             ]);
 
-            return redirect()->back()->with('success', trans('sent_successfully'));
+            return redirect()->back()->with('success', "Your message has been sent successfully");
         } catch (\Throwable $th) {
             $function_name =  $route->getActionName();
             $check_old_errors = new SupportTicket();
@@ -1260,7 +1260,7 @@ class FrontEndController extends Controller
     // {
 
     //     $output = '
-    //         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+    //         <div class="mb-6 col-lg-4 col-md-6 col-sm-6 col-xs-6 pro-gl-content">
     //             <div class="ec-product-inner">
     //                 <div class="ec-pro-image-outer">
     //                     <div class="ec-pro-image" style="height:300px !important">
@@ -1574,7 +1574,7 @@ class FrontEndController extends Controller
                         }
                         $output_images .= '</div>
                         <div class="row">
-                            <div class="col-12 p-0">
+                            <div class="p-0 col-12">
                                 <div class="slider-nav">';
                         foreach ($property->propertyImages as $image) {
                             $output_images .= '<div>';
@@ -1821,7 +1821,7 @@ class FrontEndController extends Controller
                         </div>
                     <h6>' . $reviews->count() . ' ' . __('front_end.product_ratings') . '</h6>
                 </div>
-                <div class="part py-3">
+                <div class="py-3 part">
                 <p class="mb-1">' . \Illuminate\Support\Str::limit(isset($product->main_description) ? str_replace('&nbsp;', ' ', $product->main_description) : '--------', 200, $end = '...');
                 if (\Illuminate\Support\Str::length(isset($product->main_description) ? str_replace('&nbsp;', ' ', $product->main_description) : '--------') > 200) {
                     $output_details .= '<span id="dots"><a href="' . route('productDetails', $product->id) . '">More</a></span>';
@@ -1861,7 +1861,7 @@ class FrontEndController extends Controller
                         }
                         $output_images .= '</div>
                         <div class="row">
-                            <div class="col-12 p-0">
+                            <div class="p-0 col-12">
                                 <div class="slider-nav">';
                         foreach ($property->propertyImages as $image) {
                             $output_images .= '<div>';
@@ -2354,7 +2354,7 @@ class FrontEndController extends Controller
                                         </div>
                                     </div>
                                 </div>
-                                <div class="qtyDetail text-center">
+                                <div class="text-center qtyDetail">
                                             <a href="#" class="remove deleteCartItem" data-cart-id="'.$public_customer_cart->id.'"><i class="fa fa-close" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"></i></a>
                                         </div>
 
@@ -2372,9 +2372,9 @@ class FrontEndController extends Controller
                     $output .=  $endTotal;
                     $output .= trans('front_end.home_SAR').'  </span>
                 </div>
-                <a href="' . route('customer.checkoutPage') . '" class="w-100 p-2 my-2 btn btn-outline proceed-to-checkout rounded">';
+                <a href="' . route('customer.checkoutPage') . '" class="p-2 my-2 rounded w-100 btn btn-outline proceed-to-checkout">';
                 $output .= trans('front_end.home_Proceed_to_Checkout').'</a>
-                <a href="cart-style1.html" class="w-100 btn btn-solid btn-xs cart-btn rounded">';
+                <a href="cart-style1.html" class="rounded w-100 btn btn-solid btn-xs cart-btn">';
                 $output .=trans('front_end.home_view_cart').'</a>
             </div>';
 
@@ -2457,7 +2457,7 @@ class FrontEndController extends Controller
                                         </div>
                                     </div>
                                 </div>
-                                <div class="qtyDetail text-center">
+                                <div class="text-center qtyDetail">
                                             <a href="#" class="remove deleteCartItem" data-cart-id="'.$public_customer_cart->id.'"><i class="fa fa-close" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove"></i></a>
                                         </div>
 
@@ -2475,8 +2475,8 @@ class FrontEndController extends Controller
                     $output .=  $endTotal;
                     $output .= ' SAR </span>
                 </div>
-                <a href="' . route('customer.checkoutPage') . '" class="w-100 p-2 my-2 btn btn-outline proceed-to-checkout rounded">Proceed to Checkout</a>
-                <a href="cart-style1.html" class="w-100 btn btn-solid btn-xs cart-btn rounded">View Cart</a>
+                <a href="' . route('customer.checkoutPage') . '" class="p-2 my-2 rounded w-100 btn btn-outline proceed-to-checkout">Proceed to Checkout</a>
+                <a href="cart-style1.html" class="rounded w-100 btn btn-solid btn-xs cart-btn">View Cart</a>
             </div>';
 
 
