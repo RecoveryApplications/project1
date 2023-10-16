@@ -65,7 +65,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="heading-part heading-bg mb-30">
-                                    <h3 class="p-2 m-0 text-white rounded heading bg-secondary">Wallet : <small>{{ auth('customer')->user()->wallet->ballance  ?? 0 }} $</small> </h3>
+                                    <h3 class="p-2 m-0 text-white rounded heading bg-secondary">Wallet : {{ auth('customer')->user()->wallet->ballance  ?? 0 }} <small> JOD</small> </h3>
                                 </div>
                             </div>
                         </div>
@@ -488,29 +488,29 @@
                                                             <tr>
                                                                 <th><i class="mdi mdi-account"></i> Shipping : <span
                                                                         style="color:blue;">{!! isset($cartSale->shipping)
-                                                                            ? $cartSale->shipping . '<small> $</small>'
+                                                                            ? $cartSale->shipping . '<small> JOD</small>'
                                                                             : '<span style="color:red;">Undefined</span>' !!}</span>
                                                                 </th>
                                                                 <th><i class="mdi mdi-account"></i> Tax : <span
-                                                                        style="color:blue;">{!! isset($cartSale->tax) ? $cartSale->tax . '<small> $</small>' : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                        style="color:blue;">{!! isset($cartSale->tax) ? $cartSale->tax . '<small> JOD</small>' : '<span style="color:red;">Undefined</span>' !!}</span>
                                                                 </th>
                                                             </tr>
                                                             <tr>
                                                                 <th><i class="mdi mdi-account"></i> Sale percentage : <span
                                                                         style="color:blue;">{!! isset($cartSale->sale_percentage)
-                                                                            ? $cartSale->sale_percentage . '<small> $</small>'
+                                                                            ? $cartSale->sale_percentage . '<small> JOD</small>'
                                                                             : '<span style="color:red;">Undefined</span>' !!}</span>
                                                                 </th>
                                                             </tr>
                                                             <tr>
                                                                 <th><i class="mdi mdi-account"></i> Sub Total : <span
                                                                         style="color:blue;">{!! isset($cartSale->sub_total)
-                                                                            ? $cartSale->sub_total . '<small> $</small>'
+                                                                            ? $cartSale->sub_total . '<small> JOD</small>'
                                                                             : '<span style="color:red;">Undefined</span>' !!}</span>
                                                                 </th>
                                                                 <th><i class="mdi mdi-account"></i> Total : <span
                                                                         style="color:blue;">{!! isset($cartSale->total)
-                                                                            ? $cartSale->total . '<small> $</small>'
+                                                                            ? $cartSale->total . '<small> JOD</small>'
                                                                             : '<span style="color:red;">Undefined</span>' !!}</span>
                                                                 </th>
                                                             </tr>
@@ -518,7 +518,7 @@
                                                             <th><i class="mdi mdi-email"></i> Promo Code : <span
                                                                     style="color:blue;">{!! isset($cartSale->promoCode->promo_code) ? $cartSale->promoCode->promo_code : '------' !!}</span></th>
                                                             <th><i class="mdi mdi-email"></i> Discount : <span
-                                                                    style="color:blue;">{!! isset($cartSale->discount) ? $cartSale->discount . '<small> $</small>' : '------' !!}</span></th>
+                                                                    style="color:blue;">{!! isset($cartSale->discount) ? $cartSale->discount . '<small> JOD</small>' : '------' !!}</span></th>
                                                         </tr> --}}
                                                             <tr>
                                                                 <th><i class="mdi mdi-phone"></i> Order Status :
@@ -736,10 +736,10 @@
                                                                         <td>{{ isset($cartOperation->quantity) ? $cartOperation->quantity : 0 }}
                                                                         </td>
                                                                         <td>{!! isset($cartOperation->unit_price)
-                                                                            ? $cartOperation->unit_price . '<small> $</small>'
+                                                                            ? $cartOperation->unit_price . '<small> JOD</small>'
                                                                             : '<span style="color: red;">Undefined</span>' !!}</td>
                                                                         <td>{!! isset($cartOperation->out_sale_price)
-                                                                            ? $cartOperation->out_sale_price . '<small> $</small>'
+                                                                            ? $cartOperation->out_sale_price . '<small> JOD</small>'
                                                                             : '<span style="color: red;">Undefined</span>' !!}</td>
                                                                         <td>
                                                                             {{ $cartOperation->sub_total ?? '<span style="color: red;">Undefined</span>' }}
@@ -751,7 +751,7 @@
                                                                         {{-- <td>{!! isset($cartOperation->quantity) && isset($cartOperation->unit_price)
                                                                             ? $cartOperation->quantity * $cartOperation->unit_price +
                                                                                 ($cartOperation->quantity * $cartOperation->unit_price * 15) / 100 .
-                                                                                '<small> $</small>'
+                                                                                '<small> JOD</small>'
                                                                             : '<span style="color: red;">Undefined</span>' !!}</td> --}}
                                                                     </tr>
                                                                 @endforeach

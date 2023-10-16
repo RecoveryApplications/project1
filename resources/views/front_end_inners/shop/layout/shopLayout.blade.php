@@ -1,7 +1,7 @@
 @extends('front_end_inners.app_front_end')
 
 @php
-    $image_url = asset('images/Shop.png')
+    $image_url = asset('images/Shop.png');
 @endphp
 @push('styles')
     <style>
@@ -116,7 +116,7 @@
                                 $queryParams = request()->query();
                                 $url = route('shop') . '?' . http_build_query($queryParams);
                             @endphp
-                            <form action="{{  $url }}" method="post">
+                            <form action="{{ $url }}" method="post">
                                 @csrf
                                 @method('GET')
                                 <div class="sidebar-contant">
@@ -186,46 +186,7 @@
         </div>
     </section>
     <!-- CONTAINER END -->
-
-    <!-- News Letter Start -->
-    <section>
-        <div class="newsletter">
-            <div class="container">
-                <div class="newsletter-inner center-sm">
-                    <div class="row justify-content-center align-items-center">
-                        <div class=" col-xl-10 col-md-12">
-                            <div class="newsletter-bg">
-                                <div class="row align-items-center">
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div class="d-lg-flex align-items-center">
-                                            <div class="newsletter-icon">
-                                                <img alt="FamilyDrop"
-                                                    src={{ asset('front_end_style/assets/images/newsletter-icon.png') }}>
-                                            </div>
-                                            <div class="newsletter-title">
-                                                <h2 class="main_title">Subscribe to our newsletter</h2>
-                                                <div class="sub-title">Sign up for newsletter and Get upto 50% off
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6">
-                                        <form>
-                                            <div class="newsletter-box">
-                                                <input type="email" placeholder="Email Here...">
-                                                <button title="Subscribe" class="btn-color">Subscribe</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- News Letter End -->
+    <hr>
 @endsection
 
 @push('scripts')

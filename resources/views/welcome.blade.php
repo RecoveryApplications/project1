@@ -18,7 +18,8 @@
                                         <div class="row ">
                                             <div class="slider-shadow position-absolute"></div>
                                             <div class="col-12">
-                                                <div class="py-4 text-center banner-detail-inner slider-animation animated-1 ">
+                                                <div
+                                                    class="py-4 text-center banner-detail-inner slider-animation animated-1 ">
                                                     <h1 class="banner-title animated">
                                                         {{ $slider->title }}
                                                     </h1>
@@ -247,7 +248,7 @@
                                             <img src="{{ asset($blog->image) }}" alt="FamilyDrop"
                                                 style="height: 250px; object-fit: cover">
                                             <div class="blog-effect"></div>
-                                            <a href="{{ route('BlogDetails' , $blog->slug) }}" title="Click For Read More"
+                                            <a href="{{ route('BlogDetails', $blog->slug) }}" title="Click For Read More"
                                                 class="read">&nbsp;</a>
                                         </div>
                                     </div>
@@ -258,7 +259,7 @@
                                                 {{ $blog->month_and_year }}
                                             </div>
                                             <div class="blog-title">
-                                                <a href="{{ route('BlogDetails' , $blog->slug) }}">
+                                                <a href="{{ route('BlogDetails', $blog->slug) }}">
                                                     {{ $blog->title }}
                                                 </a>
                                             </div>
@@ -275,7 +276,7 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('BlogDetails' , $blog->slug) }}">
+                                                        <a href="{{ route('BlogDetails', $blog->slug) }}">
                                                             Read more
                                                             <i class="fa fa-angle-double-right"></i>
                                                         </a>
@@ -325,42 +326,5 @@
     @endif
     <!-- CONTAINER END -->
 
-    <!-- News Letter Start -->
-    <section>
-        <div class="newsletter">
-            <div class="container">
-                <div class="newsletter-inner center-sm">
-                    <div class="row justify-content-center align-items-center">
-                        <div class=" col-xl-10 col-md-12">
-                            <div class="newsletter-bg">
-                                <div class="row align-items-center">
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div class="d-lg-flex align-items-center">
-                                            <div class="newsletter-icon">
-                                                <img alt="FamilyDrop"
-                                                    src="{{ asset('front_end_style/assets/images/newsletter-icon.png') }}">
-                                            </div>
-                                            <div class="newsletter-title">
-                                                <h2 class="main_title">Subscribe to our newsletter</h2>
-                                                <div class="sub-title">Sign up for newsletter and Get upto 50% off</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6">
-                                        <form>
-                                            <div class="newsletter-box">
-                                                <input type="email" placeholder="Email Here...">
-                                                <button title="Subscribe" class="btn-color">Subscribe</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- News Letter End -->
+    <hr>
 @endsection

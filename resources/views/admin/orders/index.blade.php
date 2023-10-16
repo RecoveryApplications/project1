@@ -120,8 +120,8 @@
                                             {{-- <td>{!! isset($order->sub_total) ? $order->sub_total . '<small> $</small>' : "<span style='color:red;'>Undefined</span>" !!}</td> --}}
                                             {{-- <td>25 <small> SAR</small></td> --}}
 
-                                            <td>{!! isset($order->sub_total) ? $order->sub_total . '<small> $</small>' : "<span style='color:red;'>Undefined</span>" !!}</td>
-                                            <td>{!! isset($order->total) ? $order->total . '<small> $</small>' : "<span style='color:red;'>Undefined</span>" !!}</td>
+                                            <td>{!! isset($order->sub_total) ? $order->sub_total . '<small> JOD</small>' : "<span style='color:red;'>Undefined</span>" !!}</td>
+                                            <td>{!! isset($order->total) ? $order->total . '<small> JOD</small>' : "<span style='color:red;'>Undefined</span>" !!}</td>
 
                                             <td>
                                                 <a href="{{ route('super_admin.orders-show', [$order->id]) }}" title="Show Order Details" class=" text-primary">

@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-xl-2 col-lg-3 mb-sm-30 col-lgmd-20per">
           <div class="sidebar-block">
-            <div class="sidebar-box listing-box mb-40"> <span class="opener plus"></span>
+            <div class="mb-40 sidebar-box listing-box"> <span class="opener plus"></span>
               <div class="sidebar-title">
                 <h3><span>Categories</span></h3>
               </div>
@@ -41,7 +41,7 @@
                 </ul>
               </div>
             </div>
-            <div class="sidebar-box mb-40"> <span class="opener plus"></span>
+            <div class="mb-40 sidebar-box"> <span class="opener plus"></span>
               <div class="sidebar-title">
                 <h3><span>Shop by</span></h3>
               </div>
@@ -51,7 +51,7 @@
                   <input class="price-txt" type="text" id="amount">
                   <div id="slider-range"></div>
                 </div>
-                <div class="size mb-20">
+                <div class="mb-20 size">
                   <div class="inner-title">Size</div>
                   <ul >
                     <li><a href="#">S (10)</a></li>
@@ -79,7 +79,7 @@
                 </div>
                 <a href="#" class="btn btn-color">Refine</a> </div>
             </div>
-            <div class="sidebar-box mb-40 d-none d-lg-block">
+            <div class="mb-40 sidebar-box d-none d-lg-block">
               <a href="#">
                 <img src="{{ asset('front_end_style/assets/images/left-banner.jpg')}}" alt="FamilyDrop">
               </a>
@@ -142,7 +142,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="view">
-                  <div class="list-types grid"> <a href="shop.html">
+                  <div class="grid list-types"> <a href="shop.html">
                     <div class="grid-icon list-types-icon"></div>
                     </a>
                   </div>
@@ -416,45 +416,7 @@
     </div>
   </section>
   <!-- CONTAINER END -->
-
-  <!-- News Letter Start -->
-  <section>
-    <div class="newsletter">
-      <div class="container">
-        <div class="newsletter-inner center-sm">
-          <div class="row justify-content-center align-items-center">
-            <div class=" col-xl-10 col-md-12">
-              <div class="newsletter-bg">
-                <div class="row  align-items-center">
-                  <div class="col-xl-6 col-lg-6">
-                    <div class="d-lg-flex align-items-center">
-                      <div class="newsletter-icon">
-                        <img alt="FamilyDrop" src="{{ asset('front_end_style/assets/images/newsletter-icon.png')}}">
-                      </div>
-                      <div class="newsletter-title">
-                        <h2 class="main_title">Subscribe to our newsletter</h2>
-                        <div class="sub-title">Sign up for newsletter and Get upto 50% off</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xl-6 col-lg-6">
-                    <form>
-                      <div class="newsletter-box">
-                        <input type="email" placeholder="Email Here...">
-                        <button title="Subscribe" class="btn-color">Subscribe</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- News Letter End -->
-
+  <hr>
 
 @endsection
 @section('javascript')

@@ -71,14 +71,14 @@
         <div class="price-box">
             @if ($product && $product->on_sale_price_status == 'Active')
                 <span class="price">
-                    ${{ $product->on_sale_price }}
+                    <small>JOD </small>{{ $product->on_sale_price }}
                 </span>
                 <del class="price old-price">
-                    ${{ $product->sale_price }}
+                    <small>JOD </small>{{ $product->sale_price }}
                 </del>
             @else
                 <span class="price">
-                    ${{ $product->sale_price ?? '' }}
+                    <small>JOD </small>{{ $product->sale_price ?? '' }}
                 </span>
             @endif
         </div>

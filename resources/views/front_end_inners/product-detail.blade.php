@@ -84,14 +84,14 @@
                                             <div class="price-box">
                                                 @if ($product && $product->on_sale_price_status == 'Active')
                                                     <span class="price">
-                                                        ${{ $product->on_sale_price }}
+                                                        <small>JOD </small>{{ $product->on_sale_price }}
                                                     </span>
                                                     <del class="price old-price">
-                                                        ${{ $product->sale_price }}
+                                                        <small>JOD </small>{{ $product->sale_price }}
                                                     </del>
                                                 @else
                                                     <span class="price">
-                                                        ${{ $product->sale_price ?? '' }}
+                                                        <small>JOD </small>{{ $product->sale_price ?? '' }}
                                                     </span>
                                                 @endif
                                             </div>
@@ -215,10 +215,10 @@
                     <div class="col-lg-12">
                         <div id="tabs">
                             <ul class="nav nav-tabs">
-                                @if ($product->description)
+                                @if ($product->main_description)
                                     <li><a class="tab-Description selected" title="Description">Description</a></li>
                                 @endif
-                                <li><a @class(['tab-Reviews', 'selected' => !$product->description]) title="Reviews">Reviews</a></li>
+                                <li><a @class(['tab-Reviews', 'selected' => !$product->main_description]) title="Reviews">Reviews</a></li>
                             </ul>
                         </div>
                         <div id="items">
@@ -227,12 +227,12 @@
                                     <li>
                                         <div class="items-Description selected ">
                                             <div class="Description">
-                                                {!! $product->description !!}
+                                                {!! $product->main_description !!}
                                             </div>
                                         </div>
                                     </li>
                                     <li>
-                                        <div @class(['items-Reviews', 'selected' => !$product->description])>
+                                        <div @class(['items-Reviews', 'selected' => !$product->main_description])>
                                             <div class="main-form mt-30">
                                                 <h4>Leave a review</h4>
                                                 <form>
@@ -295,45 +295,7 @@
         </section>
         <!-- CONTAINER END -->
     @endif
-
-    <!-- News Letter Start -->
-    <section>
-        <div class="newsletter">
-            <div class="container">
-                <div class="newsletter-inner center-sm">
-                    <div class="row justify-content-center align-items-center">
-                        <div class=" col-xl-10 col-md-12">
-                            <div class="newsletter-bg">
-                                <div class="row align-items-center">
-                                    <div class="col-xl-6 col-lg-6">
-                                        <div class="d-lg-flex align-items-center">
-                                            <div class="newsletter-icon">
-                                                <img alt="FamilyDrop"
-                                                    src="{{ asset('front_end_style/assets/images/newsletter-icon.png') }}">
-                                            </div>
-                                            <div class="newsletter-title">
-                                                <h2 class="main_title">Subscribe to our newsletter</h2>
-                                                <div class="sub-title">Sign up for newsletter and Get upto 50% off</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6">
-                                        <form>
-                                            <div class="newsletter-box">
-                                                <input type="email" placeholder="Email Here...">
-                                                <button title="Subscribe" class="btn-color">Subscribe</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- News Letter End -->
+    <hr>
 
     {{-- JavaScript Section --}}
 @section('javascript')

@@ -667,11 +667,11 @@
                                         <li @class(['active' => request()->routeIs('shop')])>
                                             <a href="{{ route('shop') }}"><span>Shop</span></a>
                                         </li>
+                                        <li @class(['active' => request()->routeIs('Blogs')])>
+                                            <a href="{{ route('Blogs') }}"><span>Blogs</span></a>
+                                        </li>
                                         <li @class(['active' => request()->routeIs('aboutUs')])>
                                             <a href="{{ route('aboutUs') }}"><span>About Us</span></a>
-                                        </li>
-                                        <li @class(['active' => request()->routeIs('Blogs')])>
-                                            <a href="{{ route('Blogs') }}"><span>Blog</span></a>
                                         </li>
                                         <li @class(['active' => request()->routeIs('contactUs')])>
                                             <a href="{{ route('contactUs') }}"><span>Contact</span></a>

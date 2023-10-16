@@ -71,30 +71,30 @@
                                   <span>Sliders</span>
                               </a>
                           </li>
-                          <li>
+                          {{-- <li>
                               <a href="{{ route('super_admin.faqs-index') }}">
                                   <i class="fa fa-circle"></i>
                                   <span>FAQ</span>
                               </a>
-                          </li>
-                          <li>
+                          </li> --}}
+                          {{-- <li>
                               <a href="{{ route('super_admin.term_and_conditions-index') }}">
                                   <i class="fa fa-circle"></i>
                                   <span>Term & Conditions</span>
                               </a>
-                          </li>
-                          <li>
+                          </li> --}}
+                          {{-- <li>
                               <a href="{{ route('super_admin.privacy_policies-index') }}">
                                   <i class="fa fa-circle"></i>
                                   <span>Privacy Policy</span>
                               </a>
-                          </li>
-                          <li>
+                          </li> --}}
+                          {{-- <li>
                               <a href="{{ route('super_admin.banners-index') }}">
                                   <i class="fa fa-circle"></i>
                                   <span>Banners</span>
                               </a>
-                          </li>
+                          </li> --}}
 
 
 

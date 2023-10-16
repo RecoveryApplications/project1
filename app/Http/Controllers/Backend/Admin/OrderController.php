@@ -653,7 +653,7 @@ class OrderController extends Controller
                         $wallet->save();
                     } else {
                         Wallet::create([
-                            'user_id' => $cartSale->user_id,
+                            'customer_id' => $cartSale->user_id,
                             'ballance' => $walletTotal
                         ]);
                     }
