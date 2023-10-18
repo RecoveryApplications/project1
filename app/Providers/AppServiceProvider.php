@@ -41,9 +41,8 @@ class AppServiceProvider extends ServiceProvider
             $public_products = Product::where('status', 1)->orderBy('created_at', 'asc')->get();
             $public_contact = ContactUs::get()->first();
 
-            $public_main_categories = MainCategory::where('status', 1)
+            $public_main_categories = MainCategory::withCount(['products'])->where('status', 1)->whereHas('products')->orderBy('name_en', 'asc')->get();
 
-                ->orderBy('created_at', 'asc')->get();
 
             $withlist_count = 0;
             $endTotal = 0;
@@ -70,7 +69,6 @@ class AppServiceProvider extends ServiceProvider
                 }
                 $public_customer_carts->endTotal = $endTotal;
                 $public_customer_carts_count = $public_customer_carts->count();
-                // dd($public_customer_carts, $public_customer_carts_count);
             }
             $public_customer_carts_count = count($public_customer_carts ?? []);
 
@@ -96,7 +94,6 @@ class AppServiceProvider extends ServiceProvider
             view()->share([
                 'public_user_types' => $public_user_types,
                 'public_products' => $public_products,
-                // 'public_super_categories' => $public_super_categories,
                 'public_main_categories' => $public_main_categories,
                 'public_contact' => $public_contact,
                 'public_customer_carts' => $public_customer_carts ?? [],

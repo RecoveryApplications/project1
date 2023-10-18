@@ -2,7 +2,7 @@
 
 
 @php
-    $image_url = asset('images/Userprofile.png')
+    $image_url = asset('images/Userprofile.png');
 @endphp
 @push('styles')
     <style>
@@ -64,8 +64,74 @@
                     <div id="data-step1" class="account-content" data-temp="tabdata">
                         <div class="row">
                             <div class="col-12">
-                                <div class="heading-part heading-bg mb-30">
-                                    <h3 class="p-2 m-0 text-white rounded heading bg-secondary">Wallet : {{ auth('customer')->user()->wallet->ballance  ?? 0 }} <small> JOD</small> </h3>
+                                <div class="gap-3 py-2 heading-part heading-bg mb-30 d-flex bg-secondary">
+                                    <h3 class="p-2 m-0 text-white rounded heading ">Wallet :
+                                        {{ auth('customer')->user()->wallet->ballance ?? 0 }} <small> JOD</small> </h3>
+                                    <button class="p-1 btn btn-sm btn-secondary"
+                                        style="font-size: 14px; text-decoration: underline" id="requestWithdrawalBtn">
+                                        Request Withdrawal
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-0" id="createWithdrawalRequest">
+                            <div class="row mb-30">
+                                <div class="mb-20 col-12">
+                                    <div class="gap-3 heading-part d-flex align-items-center">
+                                        <h3 class="m-0 sub-heading">Request Withdrawal </h3>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12">
+                                    <div class="cart-total-table address-box commun-table">
+                                        <form action="{{ route('customer.request_order.store') }}" method="POST"
+                                            class="p-2 mt-2 card">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="mb-1 col-6">
+                                                    <label for="amount" class="form-label" style="font-size: 14px">
+                                                        Amount *
+                                                    </label>
+                                                    <input type="number" min="0" step="0.001"
+                                                        max=" {{ auth('customer')->user()->wallet->ballance ?? 0 }}"
+                                                        name="amount" value="{{ old('amount') }}"
+                                                        class="form-control form-control-sm" placeholder="name"
+                                                        id="amount" required>
+                                                </div>
+                                                <div class="mb-1 col-6">
+                                                    <label for="phone" class="form-label" style="font-size: 14px">
+                                                        Phone Number *
+                                                    </label>
+                                                    <input type="text" name="phone" value="{{ old('phone') }}"
+                                                        class="form-control form-control-sm" placeholder="phone_number"
+                                                        id="phone" required>
+                                                </div>
+
+                                                <div class="mb-1 col-6">
+                                                    <div class="mb-20 input-box select-dropdown">
+                                                        <label for="payment_wallet" class="form-label" style="font-size: 14px">
+                                                            Payment Wallet*
+                                                        </label>
+                                                        <fieldset>
+                                                            <select id="payment_wallet" class="option-drop" name="payment_wallet_id">
+                                                                <option value="">Select payment wallet ...</option>
+                                                                @foreach ($payment_wallets as $wallet)
+                                                                    <option value="{{ $wallet->id }}">
+                                                                        {{ $wallet->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3 text-center">
+                                                <button type="submit" class="p-2 btn btn-sm btn-success">
+                                                    request
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +149,8 @@
                                         <h3 class="sub-heading">Hello, {{ auth('customer')->user()->name_en }}</h3>
                                     </div>
                                     <p>
-                                        From your account dashboard. you can easily check &amp; view your recent orders and edit your password and account
+                                        From your account dashboard. you can easily check &amp; view your recent orders and
+                                        edit your password and account
                                         details.
                                     </p>
                                 </div>
@@ -148,7 +215,8 @@
                                                     <label for="apartment" class="form-label" style="font-size: 14px">
                                                         apartment
                                                     </label>
-                                                    <input type="text" name="apartment" value="{{ old('apartment') }}"
+                                                    <input type="text" name="apartment"
+                                                        value="{{ old('apartment') }}"
                                                         class="form-control form-control-sm" placeholder="apartment"
                                                         id="apartment">
                                                 </div>
@@ -780,6 +848,7 @@
 
 @push('scripts')
     <script>
+        $('#createWithdrawalRequest').hide();
         $('#createAddressForm').hide();
         $('.editAddressForm').hide();
 
@@ -788,6 +857,9 @@
             $(`#updateAddressForm${id}`).slideToggle();
         });
 
+        $('#requestWithdrawalBtn').on('click', function() {
+            $('#createWithdrawalRequest').slideToggle();
+        });
         $('#addAddress').on('click', function() {
             $('#createAddressForm').slideToggle();
         });

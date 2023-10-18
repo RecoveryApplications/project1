@@ -35,16 +35,21 @@
             {{-- ============================================== --}}
             <div class="breadcrumb-wrapper breadcrumb-contacts">
                 <div>
-                    <h3><i class="mdi mdi-account-multiple"></i> All Wallets</h3>
+                    <h3><i class="mdi mdi-account-multiple"></i> Payment Wallets</h3>
                     <nav aria-label="breadcrumb">
                         <ol class="p-0 breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="{{ route('super_admin.dashboard') }}"> <i class="mdi mdi-home"></i> Dashboard </a>
                             </li>
-                            <li class="breadcrumb-item" aria-current="page"><i class="mdi mdi-account-multiple"></i> All
-                                Wallets</li>
+                            <li class="breadcrumb-item" aria-current="page"><i class="mdi mdi-account-multiple"></i>
+                                Payment Wallets
+                            </li>
                         </ol>
                     </nav>
+                    <div>
+                        <a href="{{ route('super_admin.payment_wallets.create') }}" class="mb-1 btn btn-primary"><i
+                                class="mdi mdi-playlist-plus"></i> Add New </a>
+                    </div>
                 </div>
             </div>
 
@@ -58,32 +63,48 @@
                             <tr>
                                 {{-- <th>#</th> --}}
                                 <th><i class="mdi mdi-account"></i> Name EN</th>
-                                <th><i class="mdi mdi-email"></i> Email</th>
-                                <th><i class="mdi mdi-phone"></i> Phone</th>
-                                <th><i class="mdi mdi-account-question"></i> Wallet Ballance</th>
-                                {{-- <th><i class="mdi mdi-settings mdi-spin"></i> Control</th> --}}
+                                <th><i class="mdi mdi-account-question"></i> Status</th>
+                                <th><i class="mdi mdi-settings mdi-spin"></i> Control</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($customers as $customer)
+                            @forelse ($payment_wallets as $wallet)
                                 <tr>
                                     <td>
-                                        {{ $customer->name_en }}
+                                        {{ $wallet->name_en }}
                                     </td>
                                     <td>
-                                        {{ $customer->email }}
+                                        @if ($wallet->status == 'active')
+                                            <span class="badge badge-success">Active</span>
+                                        @else
+                                            <span class="badge badge-danger">Inactive</span>
+                                        @endif
                                     </td>
-                                    <td>
-                                        {{ $customer->phone }}
+
+
+                                    <td class="gap-1 d-flex">
+                                        <form action="{{ route('super_admin.payment_wallets.edit', $wallet->id) }}"
+                                            method="GET">
+                                            @csrf
+                                            <button class="p-2 btn btn-danger btn-sm"> <i class="fa fa-edit"
+                                                    title="Edit"></i></button>
+                                        </form>
+
+                                        <form
+                                            action="{{ route('super_admin.payment_wallets.toggle-status', $wallet->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            <button class="p-2 btn btn-warning btn-sm"> <i class="fa fa-toggle-on"
+                                                    title="Toggle Status"></i></button>
+                                        </form>
+                                        <form action="{{ route('super_admin.payment_wallets.destroy', $wallet->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="p-2 btn btn-primary btn-sm"> <i class="fa fa-trash"
+                                                    title="Delete"></i></button>
+                                        </form>
                                     </td>
-                                    <td>
-                                        {{ $customer->wallet->ballance ?? 0 }} <small> JOD </small>
-                                    </td>
-                                    {{-- <td>
-                                        <a href="{{ route('super_admin.wallet-pay-out' , $customer->id) }}" title="Pay" class="mb-1 process btn btn-sm btn-success">
-                                            pay out
-                                        </a>
-                                    </td> --}}
                                 </tr>
 
                             @empty
@@ -96,7 +117,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

@@ -76,7 +76,8 @@
                                             <form action="{{ route('customer.orderOverview.store') }}" method="POST"
                                                 id="checkoutFORM">
                                                 @csrf
-                                                <input type="hidden" name="shipping" value="{{ $public_prices['shipping'] }}">
+                                                <input type="hidden" name="shipping"
+                                                    value="{{ $public_prices['shipping'] }}">
                                                 <input type="hidden" name="tax" value="{{ $public_prices['tax'] }}">
                                                 <thead>
                                                     <tr>
@@ -136,6 +137,8 @@
                                                                 <input type="number" step=".01"
                                                                     min="{{ $product_price }}" name="out_sale_price[]"
                                                                     value="{{ $product_price }}" />
+                                                                <input type="hidden" class="qty"
+                                                                    value="{{ $item->quantity }}">
                                                             </td>
                                                             <td>
                                                                 <i class="fa fa-trash cart-remove-item" data-id="100"
@@ -172,7 +175,8 @@
                                                     <td>Item(s) Subtotal</td>
                                                     <td>
                                                         <div class="price-box">
-                                                            <span class="price">${{ $public_prices['subTotal'] }}</span>
+                                                            <span class="price"><small>JOD
+                                                                </small>{{ $public_prices['subTotal'] }}</span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -180,15 +184,23 @@
                                                     <td>Shipping</td>
                                                     <td>
                                                         <div class="price-box">
-                                                            <span class="price">${{ $public_prices['shipping'] }}</span>
+                                                            <span class="price">
+                                                                <small>JOD </small>
+                                                                <span
+                                                                    id="shippingPrice">{{ $public_prices['shipping'] }}</span></span>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Tax  [{{ $public_prices['taxPercentage'] . "%" }}]</td>
+                                                    <td>Tax [{{ $public_prices['taxPercentage'] . '%' }}]</td>
                                                     <td>
                                                         <div class="price-box">
-                                                            <span class="price">${{ $public_prices['tax'] }}</span>
+                                                            <span class="price"><small>JOD
+                                                                </small>
+                                                                <span id="taxPrice">
+                                                                    {{ $public_prices['tax'] }}
+                                                                </span>
+                                                            </span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -196,7 +208,17 @@
                                                     <td><b>Amount Payable</b></td>
                                                     <td>
                                                         <div class="price-box">
-                                                            <span class="price"><b>${{ $public_prices['total'] }}</b></span>
+                                                            <span class="price"><small>JOD
+                                                                </small><b>{{ $public_prices['total'] }}</b></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Outsale Amount</b></td>
+                                                    <td>
+                                                        <div class="price-box">
+                                                            <span class="price"><small>JOD </small><b
+                                                                    id="outsaleTotalPrice"></b></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -413,6 +435,37 @@
                 // console.log($(this).attr('id'))
                 $(this).next('form').submit();
             })
+
+            var shippingPrice = $('#shippingPrice').text();
+            var taxPrice = $('#taxPrice').text();
+            var totalSum = 0 + parseFloat(shippingPrice) + parseFloat(taxPrice);
+
+
+
+
+            $('input[name="out_sale_price[]"]').each(function() {
+                let qty = $(this).next('.qty').val();
+                let price = parseFloat($(this).val());
+
+                totalSum += parseFloat(price * qty) || 0;
+            });
+
+            $('#outsaleTotalPrice').text(totalSum.toFixed(2));
+
+            $('input[name="out_sale_price[]"]').on('input', function() {
+                var shippingPrice = $('#shippingPrice').text();
+                var taxPrice = $('#taxPrice').text();
+                var totalSum = 0 + parseFloat(shippingPrice) + parseFloat(taxPrice);
+
+                // Loop through all "out_sale_price" input fields and sum their values
+                $('input[name="out_sale_price[]"]').each(function() {
+                    let qty = $(this).next('.qty').val();
+                    let price = parseFloat($(this).val());
+                    totalSum += parseFloat(price * qty) || 0;
+                });
+                // Update the "totalSumInput" with the calculated total
+                $('#outsaleTotalPrice').text(totalSum.toFixed(2));
+            });
         });
     </script>
 @endpush

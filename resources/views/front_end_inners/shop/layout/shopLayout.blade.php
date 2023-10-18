@@ -46,7 +46,10 @@
                                             <li>
                                                 @php
                                                     $queryParams = request()->query();
+                                                    unset($queryParams['search']);
+                                                    unset($queryParams['_token']);
                                                     $queryParams['category'] = $category->id;
+
                                                     $url = route('shop') . '?' . http_build_query($queryParams);
                                                 @endphp
                                                 <a href="{{ $url }}"
@@ -58,6 +61,8 @@
                                         <li>
                                             @php
                                                 $queryParams = request()->query();
+                                                unset($queryParams['search']);
+                                                unset($queryParams['_token']);
                                                 unset($queryParams['category']);
                                                 $url = route('shop') . '?' . http_build_query($queryParams);
                                             @endphp
@@ -82,6 +87,8 @@
                                             <li>
                                                 @php
                                                     $queryParams = request()->query();
+                                                    unset($queryParams['search']);
+                                                    unset($queryParams['_token']);
                                                     $queryParams['brand'] = $brand->id;
                                                     $url = route('shop') . '?' . http_build_query($queryParams);
                                                 @endphp
@@ -96,7 +103,9 @@
                                         <li>
                                             @php
                                                 $queryParams = request()->query();
+                                                unset($queryParams['search']);
                                                 unset($queryParams['brand']);
+                                                unset($queryParams['_token']);
                                                 $url = route('shop') . '?' . http_build_query($queryParams);
                                             @endphp
                                             <a href="{{ $url }}"

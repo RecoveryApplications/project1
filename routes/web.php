@@ -23,6 +23,7 @@ use App\Http\Controllers\Frontend\BlogsController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\ShopController;
+use App\Http\Controllers\Frontend\WalletRequestOrdersController;
 use App\Models\SeoOperation;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -126,6 +127,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::post('/addToCartAjax', [FrontEndController::class, 'addToCartAjax'])->name('addToCartAjax');
             Route::get('/getCartAjax', [FrontEndController::class, 'getCartAjax'])->name('getCartAjax');
             Route::post('/getOrderDetails', [CustomerController::class, 'getOrderDetails'])->name('getOrderDetails');
+
+            Route::group(['prefix' => 'wallet'], function () {
+                // =========== Wallet Request Orders Controller ===========
+                Route::resource('request_order', WalletRequestOrdersController::class);
+            });
         });
 
 

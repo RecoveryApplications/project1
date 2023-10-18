@@ -22,10 +22,13 @@ use App\Http\Controllers\Backend\Admin\SuperCategoryController;
 use App\Http\Controllers\Backend\Admin\AdminDashboardController;
 use App\Http\Controllers\Backend\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Backend\Admin\BlogsController;
+use App\Http\Controllers\Backend\Admin\PaymentWalletsController;
 use App\Http\Controllers\Backend\Admin\PublicValuesController;
+use App\Http\Controllers\Backend\Admin\RequestedWalletOrders;
 use App\Http\Controllers\Backend\Admin\SeoOperationsController;
 use App\Http\Controllers\Backend\Admin\TermAndConditionController;
 use App\Http\Controllers\Backend\Admin\WalletController;
+use App\Http\Controllers\Frontend\WalletRequestOrdersController;
 // ==================================================================================================================
 // =========================================== Super Admin Routes ===================================================
 // ==================================================================================================================
@@ -124,6 +127,13 @@ Route::prefix('super_admin')->name('super_admin.')->group(function () {
         Route::group(['prefix' => 'wallet'], function () {
             Route::get('/', [WalletController::class, 'index'])->name('wallet-index');
             Route::get('/pay-out/{id}', [WalletController::class, 'payOut'])->name('wallet-pay-out');
+            // paymnet wallets
+            Route::resource('payment_wallets', PaymentWalletsController::class);
+            Route::post('payment_wallets/{id}/toggle-status', [PaymentWalletsController::class, 'toggleStatus'])->name('payment_wallets.toggle-status');
+            // =========== Wallet Request Orders Controller ===========
+            Route::get('requested_orders/{status?}', [RequestedWalletOrders::class, 'index'])->name('requested_orders.index');
+            Route::post('requested_orders/pay/{id}', [RequestedWalletOrders::class, 'pay'])->name('requested_orders.pay');
+            Route::post('requested_orders/reject/{id}', [RequestedWalletOrders::class, 'reject'])->name('requested_orders.reject');
         });
 
 

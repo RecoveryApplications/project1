@@ -29,6 +29,7 @@ use App\Http\Requests\Frontend\Customers\CustomerLoginFormRequest;
 use App\Http\Requests\Frontend\Customers\ProductReviewFormRequest;
 use App\Http\Requests\Frontend\Customers\CustomerRegisterFormRequest;
 use App\Models\CartOperation;
+use App\Models\PaymentWallet;
 use App\Models\PromoCode;
 use App\Models\UsedPromoCode;
 use Illuminate\Support\Facades\Validator;
@@ -171,7 +172,7 @@ class CustomerController extends Controller
             $user = Customer::create($data);
 
             Auth::guard('customer')->login($user);
-            return redirect()->back()->with('success',"Registration completed successfully");
+            return redirect()->back()->with('success', "Registration completed successfully");
 
             // $rules = [
             //     'password' => ['required']
@@ -263,16 +264,15 @@ class CustomerController extends Controller
     // ================================================================
     public function profile()
     {
-        // if (Auth::guard('customer')->check()) {
-        $auth = Auth::guard('customer')->user()->profile_photo_path;
-        $user_addresses = Auth::guard('customer')->user()->locations;
-        // return  $user_addresses;
-        $cartSales = CartSale::with(['cartOperations'])->where(['user_id' => auth('customer')->user()->id])->orderBy('created_at', 'desc')->paginate(10);
-        // return view('front_end_inners.customer.user-profile', compact('orders'));
-        return view('front_end_inners.customer.user-profile', compact('auth', 'cartSales', 'user_addresses'));
-        // } else {
-        //     return view('front_end_inners.customer.login_register');
-        // }
+        if (Auth::guard('customer')->check()) {
+            $auth = Auth::guard('customer')->user()->profile_photo_path;
+            $user_addresses = Auth::guard('customer')->user()->locations;
+            $cartSales = CartSale::with(['cartOperations'])->where(['user_id' => auth('customer')->user()->id])->orderBy('created_at', 'desc')->paginate(10);
+            $payment_wallets = PaymentWallet::where('status', 'active')->get();
+            return view('front_end_inners.customer.user-profile', compact('auth', 'cartSales', 'user_addresses', 'payment_wallets'));
+        } else {
+            return view('front_end_inners.customer.login_register');
+        }
     }
 
 

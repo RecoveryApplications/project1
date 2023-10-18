@@ -13,12 +13,18 @@ class ShopController extends Controller
 {
     public function index(Request $request)
     {
-        $itemsPerPage = request()->query('items', 12);
+        // Remove the _token key from the request
+        $request->request->remove('_token');
 
+        $itemsPerPage = request()->query('items', 12);
         // Define the base query for products
         $productsQuery = Product::query()->where('status', 1)->orderBy('created_at', 'desc');
 
         // Apply filters if they are present in the request
+        if ($request->has('search')) {
+            $productsQuery->where('name_en', 'like', '%' . $request->input('search') . '%');
+        }
+
         if ($request->has('brand')) {
             $productsQuery->where('brand_id', $request->input('brand'));
         }
@@ -26,7 +32,6 @@ class ShopController extends Controller
         if ($request->has('category')) {
             $productsQuery->where('main_category_id', $request->input('category'));
         }
-
         if ($request->has('price_range')) {
             // Explode the 'price_range' parameter into an array
             $price_range = explode('-', $request->input('price_range'));
@@ -37,22 +42,12 @@ class ShopController extends Controller
                     ->orWhereBetween('on_sale_price', [$price_range[0], $price_range[1]]);
             });
         }
-
-        // Get the query parameters excluding the CSRF token
-        $queryParams = $request->query();
-        unset($queryParams['_token']);
         // Paginate the products
         $products = $productsQuery->paginate($itemsPerPage)->withQueryString();
 
         // Fetch brands and categories separately
         $brands = Brand::where('status', 1)->whereHas('products')->orderBy('created_at', 'desc')->get();
         $categories = MainCategory::where('status', 1)->whereHas('products')->orderBy('name_en', 'asc')->get();
-
-
-        // if ($request->type == 'list') {
-        //     return view('front_end_inners.shop.shop-list', compact('products', 'brands'));
-        // }
-
         return view('front_end_inners.shop.index', compact('products', 'brands', 'categories'));
     }
 }
