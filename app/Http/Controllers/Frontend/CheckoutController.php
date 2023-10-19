@@ -11,6 +11,7 @@ use App\Models\Customer;
 use App\Models\ProdSzeClrRelation;
 use App\Models\Product;
 use App\Models\PromoCode;
+use App\Models\PublicValue;
 use App\Models\SupportTicket;
 use App\Models\UsedPromoCode;
 use App\Models\UserLocation;
@@ -37,15 +38,18 @@ class CheckoutController extends Controller
                 $cartTemp->out_sale_price = $outSalePrices[$key];
             }
             $location = UserLocation::find($request->location_id);
+            // ================= Public Values =================
+            $get_sale_percentage = PublicValue::where('title', 'SalePercentage')->first()->values;
+            $get_tax_percentage = PublicValue::where('title', 'Tax')->first()->values;
+            $get_shipping_value = PublicValue::where('title', 'Shipping')->first()->values;
 
 
             $discountValue = 0;
             $endTotal = 0;
             $coupan = null;
-            $sub_total = $request->sub_total;
 
             if (isset($carts) && $carts->count() > 0) {
-                DB::transaction(function () use ($user, $request, $coupan, $endTotal, $discountValue, $carts, $sub_total, $location) {
+                DB::transaction(function () use ($user, $request, $coupan, $endTotal, $discountValue, $carts, $location, $get_shipping_value, $get_tax_percentage, $get_sale_percentage) {
                     $order_num = $user->id . mb_substr($user->name, 0, 1) . time();
                     // invoice header
                     $CartSale = CartSale::create([
@@ -54,14 +58,12 @@ class CheckoutController extends Controller
                         'location_id' => $location->id,
                         'product_count' => $carts->count(),
                         // 'discount' => $coupan != null ? $discountValue : null,
-                        'discount' => null,
                         // 'promo_code_id' => $coupan != null ? $coupan->id : null,
+                        'total' => 0,
+                        'sub_total' => 0,
+                        'sale_percentage' => 0,
                         'promo_code_id' => null,
                         'orderNumber' => $order_num,
-                        'sub_total' => $sub_total,
-                        'total' => $sub_total - $discountValue,
-                        'tax' => $request->tax ?? 0,
-                        'shipping' => $request->shipping ?? 0,
                         'status' => 1,
                         'payment_status' => 1,
                         'delivery_status' => 1,
@@ -78,37 +80,37 @@ class CheckoutController extends Controller
                         'more_info' => $location->more_info,
                     ]);
 
-                    $total = $request->shipping + $request->tax; // with shipping + tax + out sale price
+                    $out_total = 0;
+                    $sub_total = 0;
+                    $tax = $get_tax_percentage / 100;
+                    $sale_percentage = $get_sale_percentage / 100;
+                    $shipping = $get_shipping_value;
                     foreach ($carts as $cart) {
-                        $total += $cart->out_sale_price * $cart->quantity;
-                        $sale_price = 0;
+                        $out_total += $cart->out_sale_price * $cart->quantity;
 
                         $sale_price = $cart->product->on_sale_price_status == 'Active' ? $cart->product->on_sale_price : $cart->product->sale_price;
-                        $sub_total = $cart->quantity * $sale_price;
-                        $operation_total  = $cart->quantity * $cart->out_sale_price;
-
+                        $sub_total += $cart->quantity * $sale_price;
                         // invoice details
                         CartOperation::create([
                             "cart_sale_id" => $CartSale->id,
                             "product_id" => $cart->product_id,
                             "unit_price" => $sale_price,
-                            "sub_total" => $sub_total,
-                            "total" => $operation_total,
-                            "out_sale_price" => $cart->out_sale_price,
+                            "sub_total" => $cart->quantity * $sale_price,
+                            "total" => $cart->quantity * $sale_price,
+                            "out_sale_price" => $cart->out_sale_price * $cart->quantity,
                             "quantity" => $cart->quantity,
                             "property_type" => $cart->property_type,
                         ]);
                     }
-
-                    $subTotal = $CartSale->sub_total;
-                    $totalTax = $subTotal + $CartSale->tax;
-                    $totalShipping = $CartSale->shipping;
-                    $sale_percentage = $CartSale->sale_percentage;
-                    $sale_percentage = $total - ($totalTax + $totalShipping + $sale_percentage);
-                    
+                    $redeem =  ($out_total + (($sub_total * $tax) + ($sub_total * $sale_percentage) + $shipping)) - ($sub_total + (($sub_total * $tax) + ($sub_total * $sale_percentage) + $shipping));
+                    // let redeem = sum -(websitePercentage + shippingPrice + taxPrice + all_total )
                     $CartSale->update([
-                        'total' => $total,
-                        'sale_percentage' => $sale_percentage,
+                        'total' => $out_total + (($sub_total * $tax) + ($sub_total * $sale_percentage) + $shipping),
+                        'sub_total' => $sub_total,
+                        'sale_percentage' => $sub_total * $sale_percentage,
+                        'tax' => $sub_total * $tax,
+                        'shipping' => $shipping ?? 0,
+                        'redeem' => $redeem,
                     ]);
 
                     // delete items from the cart for the user

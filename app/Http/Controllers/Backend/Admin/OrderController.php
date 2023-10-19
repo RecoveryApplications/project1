@@ -641,10 +641,10 @@ class OrderController extends Controller
 
                     $subTotal = $cartSale->sub_total;
                     $total = $cartSale->total;
-                    $totalTax = $subTotal + $cartSale->tax;
+                    $totalTax = $cartSale->tax;
                     $totalShipping = $cartSale->shipping;
                     $sale_percentage = $cartSale->sale_percentage;
-                    $walletTotal = $total - ($totalTax + $totalShipping + $sale_percentage);
+                    $walletTotal = $total - ($totalTax + $totalShipping + $sale_percentage + $cartSale->sub_total);
 
                     $wallet = Wallet::find($cartSale->user_id);
                     if ($wallet) {
@@ -654,7 +654,7 @@ class OrderController extends Controller
                     } else {
                         Wallet::create([
                             'customer_id' => $cartSale->user_id,
-                            'ballance' => $walletTotal
+                            'ballance' => $cartSale->sale_percentage
                         ]);
                     }
                     $cartSale->payment_status = 2;

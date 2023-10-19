@@ -566,12 +566,19 @@
                                                                 </th>
                                                             </tr>
                                                             <tr>
-                                                                <th><i class="mdi mdi-account"></i> Sale percentage : <span
+                                                                <th><i class="mdi mdi-account"></i> Website percentage :
+                                                                    <span
                                                                         style="color:blue;">{!! isset($cartSale->sale_percentage)
                                                                             ? $cartSale->sale_percentage . '<small> JOD</small>'
                                                                             : '<span style="color:red;">Undefined</span>' !!}</span>
                                                                 </th>
+                                                                <th><i class="mdi mdi-account"></i> Redeem : <span
+                                                                        style="color:blue;">{!! isset($cartSale->redeem)
+                                                                            ? $cartSale->redeem . '<small> JOD</small>'
+                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
                                                             </tr>
+
                                                             <tr>
                                                                 <th><i class="mdi mdi-account"></i> Sub Total : <span
                                                                         style="color:blue;">{!! isset($cartSale->sub_total)

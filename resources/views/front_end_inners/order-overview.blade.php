@@ -205,11 +205,29 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <td><b>Website Percentage</b></td>
+                                                    <td>
+                                                        <div class="price-box">
+                                                            <span class="price"><small>JOD </small><b
+                                                                    id="websitePercentage"></b></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td><b>Amount Payable</b></td>
                                                     <td>
                                                         <div class="price-box">
                                                             <span class="price"><small>JOD
                                                                 </small><b>{{ $public_prices['total'] }}</b></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Redeem</b></td>
+                                                    <td>
+                                                        <div class="price-box">
+                                                            <span class="price"><small>JOD </small><b
+                                                                    id="redeemPrice">0</b></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -436,9 +454,13 @@
                 $(this).next('form').submit();
             })
 
-            var shippingPrice = $('#shippingPrice').text();
-            var taxPrice = $('#taxPrice').text();
-            var totalSum = 0 + parseFloat(shippingPrice) + parseFloat(taxPrice);
+            var shippingPrice = parseFloat($('#shippingPrice').text());
+            var taxPrice = parseFloat($('#taxPrice').text());
+            var websitePercentage = ({{ $public_prices['subTotal'] }} * {{ $public_sale_percentage / 100 }})
+            .toFixed(2);
+            websitePercentage = parseFloat(websitePercentage);
+            var totalSum = 0 + shippingPrice + taxPrice ;
+
 
 
 
@@ -449,13 +471,19 @@
 
                 totalSum += parseFloat(price * qty) || 0;
             });
-
-            $('#outsaleTotalPrice').text(totalSum.toFixed(2));
+            var sum = websitePercentage + totalSum;
+            $('#outsaleTotalPrice').text(sum.toFixed(2));
+            $('#websitePercentage').text(websitePercentage);
 
             $('input[name="out_sale_price[]"]').on('input', function() {
-                var shippingPrice = $('#shippingPrice').text();
-                var taxPrice = $('#taxPrice').text();
-                var totalSum = 0 + parseFloat(shippingPrice) + parseFloat(taxPrice);
+                var all_total = parseFloat({{ $public_prices['subTotal'] }})
+                var shippingPrice = parseFloat($('#shippingPrice').text());
+                var taxPrice = parseFloat($('#taxPrice').text());
+                var websitePercentage = 
+                ({{ $public_prices['subTotal'] }} * {{ $public_sale_percentage / 100 }}).toFixed(2);
+                    websitePercentage = parseFloat(websitePercentage);
+                    var totalSum = 0 ;
+
 
                 // Loop through all "out_sale_price" input fields and sum their values
                 $('input[name="out_sale_price[]"]').each(function() {
@@ -464,7 +492,13 @@
                     totalSum += parseFloat(price * qty) || 0;
                 });
                 // Update the "totalSumInput" with the calculated total
-                $('#outsaleTotalPrice').text(totalSum.toFixed(2));
+                var sum = totalSum + shippingPrice + taxPrice + websitePercentage;
+
+                $('#outsaleTotalPrice').text(sum.toFixed(2));
+
+                let redeem = sum -(websitePercentage + shippingPrice + taxPrice + all_total )
+
+                $('#redeemPrice').text(redeem);
             });
         });
     </script>

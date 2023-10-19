@@ -89,7 +89,7 @@ class AppServiceProvider extends ServiceProvider
             $prices['taxPercentage'] = $public_tax_values_proparty;
             $prices['tax'] = round($endTotal * ($public_tax_values_proparty / 100), 3);
             $prices['salePercentage'] = $public_sale_percentage;
-            $prices['total'] = $endTotal + $public_shipping_price +  $prices['tax'];
+            $prices['total'] = $endTotal + $public_shipping_price +  $prices['tax'] + round($endTotal * ($public_sale_percentage / 100), 3);
 
             view()->share([
                 'public_user_types' => $public_user_types,

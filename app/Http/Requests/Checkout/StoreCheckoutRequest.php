@@ -23,7 +23,6 @@ class StoreCheckoutRequest extends FormRequest
     {
         return [
             'location_id' => 'required|exists:user_locations,id',
-            'sub_total' => 'required|numeric',
             'out_sale_price' => 'required',
         ];
     }
@@ -36,8 +35,6 @@ class StoreCheckoutRequest extends FormRequest
         return [
             'location_id.required' => 'Location is required',
             'location_id.exists' => 'Location is not exists',
-            'sub_total.required' => 'Total price is required',
-            'sub_total.numeric' => 'Total price must be numeric',
             'out_sale_price.required' => 'Out sale price is required',
         ];
     }
