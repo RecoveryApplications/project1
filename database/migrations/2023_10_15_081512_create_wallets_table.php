@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete()->uniqid();
+            $table->bigInteger('customer_id')->nullable();
             $table->double('ballance')->default(0);
             $table->timestamps();
         });

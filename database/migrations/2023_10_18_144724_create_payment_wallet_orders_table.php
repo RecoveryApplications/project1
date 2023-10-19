@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('payment_wallet_orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained('customers')->nullOnDelete();
-            $table->foreignId('payment_wallet_id')->constrained('payment_wallets')->nullOnDelete();
+            $table->bigInteger('customer_id')->nullable();
+            $table->bigInteger('payment_wallet_id')->nullable();
             $table->string('phone')->nullable();
             $table->float('amount')->default(0);
             $table->enum('status', ['pending', 'paid', 'rejected'])->default('pending');
