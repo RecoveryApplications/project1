@@ -95,7 +95,7 @@
                                                     <input type="number" min="0" step="0.001"
                                                         max=" {{ auth('customer')->user()->wallet->ballance ?? 0 }}"
                                                         name="amount" value="{{ old('amount') }}"
-                                                        class="form-control form-control-sm" placeholder="name"
+                                                        class="form-control form-control-sm" placeholder="amount"
                                                         id="amount" required>
                                                 </div>
                                                 <div class="mb-1 col-6">
@@ -109,11 +109,13 @@
 
                                                 <div class="mb-1 col-6">
                                                     <div class="mb-20 input-box select-dropdown">
-                                                        <label for="payment_wallet" class="form-label" style="font-size: 14px">
+                                                        <label for="payment_wallet" class="form-label"
+                                                            style="font-size: 14px">
                                                             Payment Wallet*
                                                         </label>
                                                         <fieldset>
-                                                            <select id="payment_wallet" class="option-drop" name="payment_wallet_id">
+                                                            <select id="payment_wallet" class="option-drop"
+                                                                name="payment_wallet_id" required>
                                                                 <option value="">Select payment wallet ...</option>
                                                                 @foreach ($payment_wallets as $wallet)
                                                                     <option value="{{ $wallet->id }}">

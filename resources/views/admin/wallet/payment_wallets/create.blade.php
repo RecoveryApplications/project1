@@ -76,7 +76,7 @@
                                                         </strong>
                                                     </label>
                                                     <div class="input-group">
-                                                        <input type="text" name="name_en" required
+                                                        <input type="text" name="name_ar" required
                                                             class="form-control @error('name_ar') is-invalid @enderror"
                                                             id="validationServer01" placeholder="Name Ar"
                                                             value="{{ old('name_ar') }}">

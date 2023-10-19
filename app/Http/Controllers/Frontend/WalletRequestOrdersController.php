@@ -19,14 +19,21 @@ class WalletRequestOrdersController extends Controller
             'amount' => 'required|numeric|min:1',
             'phone' => 'required|numeric',
         ]);
-        try {
-            // PaymentWalletOrder 
-            // Wallet
-            if (auth('customer')->check()) {
-                $customer = auth('customer')->user();
-                $wallet = $customer->wallet;
-                $payment_wallet = PaymentWallet::find($request->payment_wallet_id);
 
+        try {
+
+            $customer = auth('customer')->user();
+            $wallet = $customer->wallet;
+            if (auth('customer')->check()) {
+                $payment_wallet = PaymentWallet::find($request->payment_wallet_id);
+                if (!$wallet) {
+                    $new_wallet = Wallet::create([
+                        'customer_id' => $customer->id,
+                        'ballance' => 0,
+                        'requested_ballance' => 0,
+                    ]);
+                    $wallet = $new_wallet;
+                }
                 if ($wallet->ballance >= $request->amount) {
                     if ($payment_wallet->status == 'active') {
                         if ($wallet->requested_ballance == 0) {
