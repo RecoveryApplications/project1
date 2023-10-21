@@ -81,7 +81,7 @@ class Customer extends Authenticatable
     }
 
     public function cartTemps(){
-        return $this->hasMany(CartTemp::class,'user_id');
+        return $this->hasMany(CartTemp::class,'user_id')->with('product');
     }
 
     public function wishlist(){

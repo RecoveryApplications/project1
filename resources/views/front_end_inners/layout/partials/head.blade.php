@@ -15,7 +15,28 @@
                 </div>
                 <div class="col-xl-3 col-md-3 col-6 col-lgmd-20per order-md-3">
                     <div class="right-side header-right-link">
-                        <ul>
+                        <ul class="d-flex align-items-center">
+                            @auth('customer')
+                                <li class="d-none d-lg-block">
+                                    <a href="{{ route('customer.logout') }}">
+                                        <div class="account-inner">
+                                            <i class="pt-2 fa fa-share-square-o" style="font-size: 25px"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="wishlist-icon d-none d-lg-block">
+                                    <a href="{{ route('customer.profile') }}">
+                                        <i class="pt-2 fa fa-user" style="font-size: 25px" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            @endauth
+                            @guest('customer')
+                                <li class="wishlist-icon d-none d-lg-block">
+                                    <a href="{{ route('customer.loginRegister') }}">
+                                        <i class="pt-2 fa fa-sign-in" style="font-size: 25px" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            @endguest
                             <li class="wishlist-icon">
                                 <a href="{{ route('customer.getWishList') }}">
                                     <span></span>
@@ -98,10 +119,11 @@
                     <div class="p-0 header-right-part">
                         <div class="main-search w-100">
                             <div class="header_search_toggle desktop-view">
-                                <form action="{{ route('shop', array_merge(request()->query() , ['_token' => null])) }}" method="GET">
+                                <form action="{{ route('shop', array_merge(request()->query(), ['_token' => null])) }}"
+                                    method="GET">
                                     <div class="search-box">
-                                        <input class="input-text" name="search" value="{{ old('search') }}" type="text"
-                                            placeholder="Search store products here...">
+                                        <input class="input-text" name="search" value="{{ old('search') }}"
+                                            type="text" placeholder="Search store products here...">
                                         <button class="search-btn"></button>
                                     </div>
                                 </form>
@@ -133,8 +155,8 @@
                                                     <ul>
                                                         @auth('customer')
                                                             <li class="login-icon">
-                                                                <a href="{{ route('customer.profile') }}" title="Login"><i
-                                                                        class="fa fa-user"></i>
+                                                                <a href="{{ route('customer.profile') }}"
+                                                                    title="Login"><i class="fa fa-user"></i>
                                                                     Profile
                                                                 </a>
                                                             </li>
@@ -181,6 +203,45 @@
                                             </li>
                                         @empty
                                         @endforelse
+
+                                        <hr>
+
+                                        @auth('customer')
+                                            <li class="wishlist-icon d-block d-lg-none">
+                                                <a href="{{ route('customer.profile') }}">
+                                                    <i class="fa fa-user"></i>
+                                                    profile
+                                                </a>
+                                            </li>
+                                            <li class="wishlist-icon d-block d-lg-none">
+                                                <a href="{{ route('customer.getWishList') }}">
+                                                    ❤️
+                                                    wishlist
+                                                </a>
+                                            </li>
+                                            <li class="wishlist-icon d-block d-lg-none">
+                                                <a href="{{ route('customer.logout') }}">
+                                                    <div class="account-inner">
+                                                        <i class="fa fa-share-square-o"></i>
+                                                        logout
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        @endauth
+                                        @guest('customer')
+                                            <li class="wishlist-icon d-block d-lg-none">
+                                                <a href="{{ route('customer.loginRegister') }}">
+                                                    <i class="fa fa-user"></i>
+                                                    login
+                                                </a>
+                                            </li>
+                                            <li class="wishlist-icon d-block d-lg-none">
+                                                <a href="{{ route('customer.loginRegister', 'register') }}">
+                                                    <i class="fa fa-user"></i>
+                                                    register
+                                                </a>
+                                            </li>
+                                        @endguest
                                     </ul>
                                     <div class="header-top mobile">
                                         <div class="">

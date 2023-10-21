@@ -205,11 +205,11 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Website Percentage</b></td>
+                                                    <td>Website Percentage [{{ $public_prices['salePercentage'] . '%' }}]</td>
                                                     <td>
                                                         <div class="price-box">
-                                                            <span class="price"><small>JOD </small><b
-                                                                    id="websitePercentage"></b></span>
+                                                            <span class="price"><small>JOD </small><span
+                                                                    id="websitePercentage"></span></span>
                                                         </div>
                                                     </td>
                                                 </tr>

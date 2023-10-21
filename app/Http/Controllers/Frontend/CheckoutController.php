@@ -36,6 +36,10 @@ class CheckoutController extends Controller
             $outSalePrices = $request->out_sale_price;
             foreach ($carts as $key => $cartTemp) {
                 $cartTemp->out_sale_price = $outSalePrices[$key];
+                $price = $cartTemp->product->on_sale_price_status == 'Active' ? $cartTemp->product->on_sale_price : $cartTemp->product->sale_price;
+                if ($cartTemp->out_sale_price < $price) {
+                    return redirect()->back()->with('danger', "The outsale price of the product is less than the minimum price");
+                }
             }
             $location = UserLocation::find($request->location_id);
             // ================= Public Values =================

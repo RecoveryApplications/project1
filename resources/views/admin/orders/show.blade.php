@@ -101,7 +101,7 @@
                                         {{-- //NOTE - Change The Order Status --}}
                                         @if ($cartSale->status == 'Pendding')
                                             <h2>
-                                                Change status :
+                                                Accept Order ?
                                             </h2>
                                             <a href="{{ route('super_admin.acceptOrder', $cartSale->id) }}"
                                                 class="btn btn-sm btn-info">
@@ -116,7 +116,7 @@
                                         {{-- //NOTE - Change The Delievery Status --}}
                                         @if ($cartSale->status == 'Accepted' && $cartSale->delivery_status == 'Pendding')
                                             <h2>
-                                                Change delievery status :
+                                                Order Received ?
                                             </h2>
                                             <a href="{{ route('super_admin.acceptDelivery', $cartSale->id) }}"
                                                 class="btn btn-sm btn-info">
@@ -131,7 +131,7 @@
                                         {{-- //NOTE - Change The Payment Status --}}
                                         @if ($cartSale->status == 'Accepted' && $cartSale->delivery_status == 'Received' && $cartSale->payment_status == 'Pendding')
                                             <h2>
-                                                Change payment status :
+                                                Order Paid ?
                                             </h2>
                                             <a href="{{ route('super_admin.acceptPay', $cartSale->id) }}"
                                                 class="btn btn-sm btn-info">
@@ -143,7 +143,9 @@
                                             </a>
                                         @endif
                                     </div>
-                                    <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Main Order Information :
+                                    <hr>
+                                    <hr>
+                                    <h3 class="py-3 text-center text-dark"><i class="mdi mdi-information"></i> Main Order Information 
                                     </h3>
                                     <table class="table table-hover table-striped">
                                         <thead>
@@ -163,7 +165,7 @@
                                             </tr>
 
                                             <tr>
-                                                <th><i class="mdi mdi-account"></i>Websire percentage: <span
+                                                <th><i class="mdi mdi-account"></i>Website percentage: <span
                                                         style="color:blue;">{!! isset($cartSale->sale_percentage) ? $cartSale->sale_percentage . " <small> JOD</small>" : '<span style="color:red;">Undefined</span>' !!}</span></th>
                                                 <th><i class="mdi mdi-account"></i> Redeem : <span
                                                         style="color:blue;">{!! isset($cartSale->redeem) ? $cartSale->redeem . ' <small> JOD</small>' : '<span style="color:red;">Undefined</span>' !!}</span></th>
@@ -213,7 +215,22 @@
                                                         <span>------</span>
                                                     @endif
                                                 </th>
-
+                                            </tr>
+                                            <tr>
+                                                <th><i class="mdi mdi-phone"></i> Delivery Status :
+                                                    @if (isset($cartSale->delivery_status))
+                                                        @if ($cartSale->delivery_status == 'Pendding')
+                                                            <span
+                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->delivery_status !!}</span>
+                                                        @elseif($cartSale->delivery_status == 'Received')
+                                                            <span style="color:green;">{!! $cartSale->delivery_status !!}</span>
+                                                        @elseif($cartSale->delivery_status == 'Not Received')
+                                                            <span style="color:red;">{!! $cartSale->delivery_status !!}</span>
+                                                        @endif
+                                                    @else
+                                                        <span style="color:red;">Undefined</span>
+                                                    @endif
+                                                </th>
                                             </tr>
 
                                             <tr>
