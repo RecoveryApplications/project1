@@ -64,10 +64,16 @@
                     <div id="data-step1" class="account-content" data-temp="tabdata">
                         <div class="row">
                             <div class="col-12">
-                                <div class="gap-3 py-2 heading-part heading-bg mb-30 d-flex bg-secondary">
-                                    <h3 class="p-2 m-0 text-white rounded heading ">Wallet :
-                                        {{ auth('customer')->user()->wallet->ballance ?? 0 }} <small> JOD</small> </h3>
-                                    <button class="p-1 btn btn-sm btn-secondary"
+                                <div class="gap-5 py-2 heading-part heading-bg mb-30 d-flex bg-secondary">
+                                    <div class="d-flex flex-column">
+                                        <h3 class="p-2 m-0 text-white rounded heading ">Wallet :
+                                            {{ auth('customer')->user()->wallet->ballance ?? 0 }} <small> JOD</small> </h3>
+                                            <p class="p-2 m-0 text-white rounded heading ">Amount withdrawn :
+                                                <strong>{{ auth('customer')->user()->wallet->amount_withdrawn ?? 0 }} JOD</strong> 
+                                            </p>
+
+                                    </div>
+                                    <button class="p-1 ml-0 ml-md-5 btn btn-sm btn-secondary"
                                         style="font-size: 14px; text-decoration: underline" id="requestWithdrawalBtn">
                                         Request Withdrawal
                                     </button>

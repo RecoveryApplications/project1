@@ -61,7 +61,11 @@
                                 <th><i class="mdi mdi-email"></i> Email</th>
                                 <th><i class="mdi mdi-phone"></i> Phone</th>
                                 <th><i class="mdi mdi-account-question"></i> Wallet Ballance</th>
-                                {{-- <th><i class="mdi mdi-settings mdi-spin"></i> Control</th> --}}
+                                <th><i class="mdi mdi-account-question"></i> Amount Withdrawn</th>
+                                <th>
+                                    <i class="mdi mdi-account-question"></i> 
+                                    Withdrwan orders
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,11 +83,13 @@
                                     <td>
                                         {{ $customer->wallet->ballance ?? 0 }} <small> JOD </small>
                                     </td>
-                                    {{-- <td>
-                                        <a href="{{ route('super_admin.wallet-pay-out' , $customer->id) }}" title="Pay" class="mb-1 process btn btn-sm btn-success">
-                                            pay out
-                                        </a>
-                                    </td> --}}
+                                    <td>
+                                        {{ $customer->wallet->amount_withdrawn ?? 0 }} <small> JOD </small>
+                                    </td>
+
+                                    <td>
+                                        {{ $customer->payment_wallet_orders_count ?? 0 }}
+                                    </td>
                                 </tr>
 
                             @empty

@@ -14,7 +14,7 @@ class WalletController extends Controller
     {
         try {
 
-            $customers = Customer::with(['wallet'])->orderBy('created_at', 'asc')->get();
+            $customers = Customer::whereHas('wallet')->with(['wallet'])->withCount('paymentWalletOrders')->orderBy('created_at', 'asc')->get();
             return view('admin.wallet.index', compact('customers'));
         } catch (\Throwable $th) {
             $function_name =  $route->getActionName();

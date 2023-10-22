@@ -48,12 +48,22 @@ class RequestedWalletOrders extends Controller
             if (!$order) {
                 return redirect()->back()->with('error', 'Order Not Found');
             }
+
+            $wallet = $order->customer->wallet;
+            if (!$wallet) {
+                return redirect()->back()->with('error', 'Customer Wallet Not Found');
+            }
+
+            if ($wallet->ballance < $order->amount) {
+                return redirect()->back()->with('error', 'Customer Wallet Ballance Is Less Than Order Amount');
+            }
+
             $order->status = 'paid';
             $order->save();
-
-            $order->customer->wallet->update([
-                'ballance' => $order->customer->wallet->ballance - $order->amount,
+            $wallet->update([
+                'ballance' => $wallet->ballance - $order->amount,
                 'requested_ballance' => 0,
+                'amount_withdrawn' => $wallet->amount_withdrawn + $order->amount,
             ]);
 
             return redirect()->back()->with('success', 'Order Paid Successfully');

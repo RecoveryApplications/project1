@@ -40,7 +40,7 @@ class Customer extends Authenticatable
 
     ];
 
-    protected $date = ['deleted_at'];    
+    protected $date = ['deleted_at'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -76,24 +76,37 @@ class Customer extends Authenticatable
     // =========================================== Relationship Section ==================================================
     // ===================================================================================================================
 
-    public function locations(){
-        return $this->hasMany(UserLocation::class,'user_id');
+    public function locations()
+    {
+        return $this->hasMany(UserLocation::class, 'user_id');
     }
 
-    public function cartTemps(){
-        return $this->hasMany(CartTemp::class,'user_id')->with('product');
+    public function cartTemps()
+    {
+        return $this->hasMany(CartTemp::class, 'user_id')->with('product');
     }
 
-    public function wishlist(){
-        return $this->hasMany(ProductWishlist::class,'customer_id');
+    public function wishlist()
+    {
+        return $this->hasMany(ProductWishlist::class, 'customer_id');
     }
 
-    public function cartSales(){
-        return $this->hasMany(CartSale::class,'user_id')->with('cartOperations');
+    public function cartSales()
+    {
+        return $this->hasMany(CartSale::class, 'user_id')->with('cartOperations');
     }
 
-    public function wallet(){
-        return $this->hasOne(Wallet::class,'customer_id');
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class, 'customer_id')->orderBy('amount_withdrawn', 'asc');
+    }
+
+    public function paymentWalletOrders()
+    {
+        return $this->hasMany(PaymentWalletOrder::class, 'customer_id');
+    }
+    public function paidPaymentWalletOrders(){
+        return $this->hasMany(PaymentWalletOrder::class, 'customer_id')->where('status', 'paid');
     }
 
 
@@ -117,5 +130,15 @@ class Customer extends Authenticatable
         } elseif ($value == 3) {
             return 'Inactive';
         }
+    }
+
+    
+    public function getTotalPaidOrderWalletsAttribute($value)
+    {
+        $sum = 0;
+        foreach ($this->paymentWalletOrders as $key => $paymentWalletOrder) {
+            $sum += $paymentWalletOrder->amount;
+        }
+        return $sum;
     }
 }
