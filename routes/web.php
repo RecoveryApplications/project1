@@ -43,7 +43,16 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         return view('front_end_inners.compare');
     });
 
-    Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
+    // =======================================================================
+    // ========================= Ahmad Routes =================================
+    // =======================================================================
+
+    Route::group(['middleware' => ['checkAuth']], function () {
+        Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
+        Route::get('/cart', [CartController::class, 'index'])->name('cart');
+        Route::get('shop', [ShopController::class, 'index'])->name('shop');
+        Route::get('shop-list', [ShopController::class, 'index2'])->name('shop-list');
+    });
 
     // =======================================================================
     // ========================= Ajax Routes =================================
@@ -61,7 +70,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::post('/productListPost/{type?}/{id?}', [FrontEndController::class, 'productListPost'])->name('productListPost');
     Route::get('/productDetails/{product_id}/{color?}/{size?}', [ProductController::class, 'view'])->name('productDetails');
 
-    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+
     Route::get('/about-us', AboutUsController::class)->name('aboutUs');
     Route::get('/faqs', function () {
         $faqs = Faq::paginate(100);
@@ -89,11 +98,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     })->name('terms');
 
 
-    // =======================================================================
-    // ========================= Ahmad Routes =================================
-    // =======================================================================
-    Route::get('shop', [ShopController::class, 'index'])->name('shop');
-    Route::get('shop-list', [ShopController::class, 'index2'])->name('shop-list');
 
     // ================================================================
     // ==================== Customer routes ===========================
