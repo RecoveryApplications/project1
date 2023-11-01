@@ -68,9 +68,10 @@
                                     <div class="d-flex flex-column">
                                         <h3 class="p-2 m-0 text-white rounded heading ">Wallet :
                                             {{ auth('customer')->user()->wallet->ballance ?? 0 }} <small> JOD</small> </h3>
-                                            <p class="p-2 m-0 text-white rounded heading ">Amount withdrawn :
-                                                <strong>{{ auth('customer')->user()->wallet->amount_withdrawn ?? 0 }} JOD</strong> 
-                                            </p>
+                                        <p class="p-2 m-0 text-white rounded heading ">Amount withdrawn :
+                                            <strong>{{ auth('customer')->user()->wallet->amount_withdrawn ?? 0 }}
+                                                JOD</strong>
+                                        </p>
 
                                     </div>
                                     <button class="p-1 ml-0 ml-md-5 btn btn-sm btn-secondary"
@@ -165,164 +166,173 @@
                             </div>
                         </div>
                         <div class="m-0">
-                            <div class="row mb-30">
-                                <div class="mb-20 col-12">
-                                    <div class="gap-3 heading-part d-flex align-items-center">
-                                        <h3 class="m-0 sub-heading">Addresses</h3>
-                                        <button class="p-2 ml-3 btn btn-sm btn-success" id="addAddress">+</button>
+                            {{-- //NOTE - remove if condition if rami asked to make addreses in the profile page --}}
+                            @if (1 == 2)
+                                <div class="row mb-30">
+                                    <div class="mb-20 col-12">
+                                        <div class="gap-3 heading-part d-flex align-items-center">
+                                            <h3 class="m-0 sub-heading">Addresses</h3>
+                                            <button class="p-2 ml-3 btn btn-sm btn-success" id="addAddress">+</button>
+                                        </div>
+                                        <hr>
                                     </div>
-                                    <hr>
-                                </div>
-                                <div class="col-12">
-                                    <div class="cart-total-table address-box commun-table">
-                                        <form action="{{ route('createAddress.profile') }}" method="post"
-                                            class="p-2 mt-2 card" id="createAddressForm">
-                                            @csrf
-                                            <div class="row">
-                                                <div class="mb-1 col-6">
-                                                    <label for="name" class="form-label" style="font-size: 14px">
-                                                        name*
-                                                    </label>
-                                                    <input type="text" name="name" value="{{ old('name') }}"
-                                                        class="form-control form-control-sm" placeholder="name"
-                                                        id="name" required>
+                                    <div class="col-12">
+                                        <div class="cart-total-table address-box commun-table">
+                                            <form action="{{ route('createAddress.profile') }}" method="post"
+                                                class="p-2 mt-2 card" id="createAddressForm">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="mb-1 col-6">
+                                                        <label for="name" class="form-label" style="font-size: 14px">
+                                                            name*
+                                                        </label>
+                                                        <input type="text" name="name" value="{{ old('name') }}"
+                                                            class="form-control form-control-sm" placeholder="name"
+                                                            id="name" required>
+                                                    </div>
+                                                    <div class="mb-1 col-6">
+                                                        <label for="email" class="form-label" style="font-size: 14px">
+                                                            email
+                                                        </label>
+                                                        <input type="email" name="email" value="{{ old('email') }}"
+                                                            class="form-control form-control-sm" placeholder="email"
+                                                            id="email">
+                                                    </div>
+                                                    <div class="mb-1 col-6">
+                                                        <label for="phone" class="form-label" style="font-size: 14px">
+                                                            phone
+                                                        </label>
+                                                        <input type="text" name="phone" value="{{ old('phone') }}"
+                                                            class="form-control form-control-sm" placeholder="phone"
+                                                            id="phone" required>
+                                                    </div>
+                                                    <div class="mb-1 col-6">
+                                                        <label for="company" class="form-label" style="font-size: 14px">
+                                                            company
+                                                        </label>
+                                                        <input type="text" name="company"
+                                                            value="{{ old('company') }}"
+                                                            class="form-control form-control-sm" placeholder="company"
+                                                            id="company">
+                                                    </div>
+                                                    <div class="mb-1 col-6">
+                                                        <label for="address" class="form-label" style="font-size: 14px">
+                                                            address*
+                                                        </label>
+                                                        <input type="text" name="address"
+                                                            value="{{ old('address') }}"
+                                                            class="form-control form-control-sm" placeholder="address"
+                                                            id="address" required>
+                                                    </div>
+                                                    <div class="mb-1 col-6">
+                                                        <label for="apartment" class="form-label"
+                                                            style="font-size: 14px">
+                                                            apartment
+                                                        </label>
+                                                        <input type="text" name="apartment"
+                                                            value="{{ old('apartment') }}"
+                                                            class="form-control form-control-sm" placeholder="apartment"
+                                                            id="apartment">
+                                                    </div>
+                                                    <div class="mb-1 col-6">
+                                                        <label for="city" class="form-label" style="font-size: 14px">
+                                                            city*
+                                                        </label>
+                                                        <input type="text" name="city" value="{{ old('city') }}"
+                                                            class="form-control form-control-sm" placeholder="city"
+                                                            id="city" required>
+                                                    </div>
+                                                    <div class="mb-1 col-6">
+                                                        <label for="state" class="form-label" style="font-size: 14px">
+                                                            state*
+                                                        </label>
+                                                        <input type="text" name="state" value="{{ old('state') }}"
+                                                            class="form-control form-control-sm" placeholder="state"
+                                                            id="state" required>
+                                                    </div>
+                                                    <div class="mb-1 col-6">
+                                                        <label for="country" class="form-label" style="font-size: 14px">
+                                                            country*
+                                                        </label>
+                                                        <input type="text" name="country"
+                                                            value="{{ old('country') }}"
+                                                            class="form-control form-control-sm" placeholder="country"
+                                                            id="country" required>
+                                                    </div>
+                                                    <div class="mb-1 col-6">
+                                                        <label for="zipcode" class="form-label" style="font-size: 14px">
+                                                            zipcode
+                                                        </label>
+                                                        <input type="text" name="zipcode"
+                                                            value="{{ old('zipcode') }}"
+                                                            class="form-control form-control-sm" placeholder="zipcode"
+                                                            id="zipcode">
+                                                    </div>
+                                                    <div class="mb-1 col-12">
+                                                        <label for="zipcode" class="form-label" style="font-size: 14px">
+                                                            more info
+                                                        </label>
+                                                        <textarea name="more_info" id="more_info" cols="30" rows="3" class="form-control form-control-sm"
+                                                            placeholder="more info">{{ old('more_info') }}</textarea>
+                                                    </div>
                                                 </div>
-                                                <div class="mb-1 col-6">
-                                                    <label for="email" class="form-label" style="font-size: 14px">
-                                                        email
-                                                    </label>
-                                                    <input type="email" name="email" value="{{ old('email') }}"
-                                                        class="form-control form-control-sm" placeholder="email"
-                                                        id="email">
+                                                <div class="mt-3 text-center">
+                                                    <button type="submit"
+                                                        class="p-2 btn btn-sm btn-success">save</button>
                                                 </div>
-                                                <div class="mb-1 col-6">
-                                                    <label for="phone" class="form-label" style="font-size: 14px">
-                                                        phone
-                                                    </label>
-                                                    <input type="text" name="phone" value="{{ old('phone') }}"
-                                                        class="form-control form-control-sm" placeholder="phone"
-                                                        id="phone" required>
-                                                </div>
-                                                <div class="mb-1 col-6">
-                                                    <label for="company" class="form-label" style="font-size: 14px">
-                                                        company
-                                                    </label>
-                                                    <input type="text" name="company" value="{{ old('company') }}"
-                                                        class="form-control form-control-sm" placeholder="company"
-                                                        id="company">
-                                                </div>
-                                                <div class="mb-1 col-6">
-                                                    <label for="address" class="form-label" style="font-size: 14px">
-                                                        address*
-                                                    </label>
-                                                    <input type="text" name="address" value="{{ old('address') }}"
-                                                        class="form-control form-control-sm" placeholder="address"
-                                                        id="address" required>
-                                                </div>
-                                                <div class="mb-1 col-6">
-                                                    <label for="apartment" class="form-label" style="font-size: 14px">
-                                                        apartment
-                                                    </label>
-                                                    <input type="text" name="apartment"
-                                                        value="{{ old('apartment') }}"
-                                                        class="form-control form-control-sm" placeholder="apartment"
-                                                        id="apartment">
-                                                </div>
-                                                <div class="mb-1 col-6">
-                                                    <label for="city" class="form-label" style="font-size: 14px">
-                                                        city*
-                                                    </label>
-                                                    <input type="text" name="city" value="{{ old('city') }}"
-                                                        class="form-control form-control-sm" placeholder="city"
-                                                        id="city" required>
-                                                </div>
-                                                <div class="mb-1 col-6">
-                                                    <label for="state" class="form-label" style="font-size: 14px">
-                                                        state*
-                                                    </label>
-                                                    <input type="text" name="state" value="{{ old('state') }}"
-                                                        class="form-control form-control-sm" placeholder="state"
-                                                        id="state" required>
-                                                </div>
-                                                <div class="mb-1 col-6">
-                                                    <label for="country" class="form-label" style="font-size: 14px">
-                                                        country*
-                                                    </label>
-                                                    <input type="text" name="country" value="{{ old('country') }}"
-                                                        class="form-control form-control-sm" placeholder="country"
-                                                        id="country" required>
-                                                </div>
-                                                <div class="mb-1 col-6">
-                                                    <label for="zipcode" class="form-label" style="font-size: 14px">
-                                                        zipcode
-                                                    </label>
-                                                    <input type="text" name="zipcode" value="{{ old('zipcode') }}"
-                                                        class="form-control form-control-sm" placeholder="zipcode"
-                                                        id="zipcode">
-                                                </div>
-                                                <div class="mb-1 col-12">
-                                                    <label for="zipcode" class="form-label" style="font-size: 14px">
-                                                        more info
-                                                    </label>
-                                                    <textarea name="more_info" id="more_info" cols="30" rows="3" class="form-control form-control-sm"
-                                                        placeholder="more info">{{ old('more_info') }}</textarea>
-                                                </div>
-                                            </div>
-                                            <div class="mt-3 text-center">
-                                                <button type="submit" class="p-2 btn btn-sm btn-success">save</button>
-                                            </div>
-                                        </form>
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>name</th>
-                                                        <th>email</th>
-                                                        <th>phone</th>
-                                                        <th>company</th>
-                                                        <th>address</th>
-                                                        <th>apartment</th>
-                                                        <th>city</th>
-                                                        <th>state</th>
-                                                        <th>country</th>
-                                                        <th>zipcode</th>
-                                                        <th>more info</th>
-                                                        <th>action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @forelse (auth('customer')->user()->locations as $location)
+                                            </form>
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
                                                         <tr>
-                                                            <td>{{ $location->name ?? '-' }}</td>
-                                                            <td>{{ $location->email ?? '-' }}</td>
-                                                            <td>{{ $location->phone ?? '-' }}</td>
-                                                            <td>{{ $location->company ?? '-' }}</td>
-                                                            <td>{{ $location->address ?? '-' }}</td>
-                                                            <td>{{ $location->apartment ?? '-' }}</td>
-                                                            <td>{{ $location->city ?? '-' }}</td>
-                                                            <td>{{ $location->state ?? '-' }}</td>
-                                                            <td>{{ $location->country ?? '-' }}</td>
-                                                            <td>{{ $location->zipcode ?? '-' }}</td>
-                                                            <td>{{ $location->more_info ?? '-' }}</td>
-                                                            <td class="d-flex align-items-center">
-                                                                <a href="{{ route('address-destroy', $location->id) }}"
-                                                                    class="p-1 text-white btn btn-danger">
-                                                                    <i title="Remove Address" data-id="100"
-                                                                        class="fa fa-trash deleteAddressBtn"></i>
-                                                                </a>
-                                                            </td>
+                                                            <th>name</th>
+                                                            <th>email</th>
+                                                            <th>phone</th>
+                                                            <th>company</th>
+                                                            <th>address</th>
+                                                            <th>apartment</th>
+                                                            <th>city</th>
+                                                            <th>state</th>
+                                                            <th>country</th>
+                                                            <th>zipcode</th>
+                                                            <th>more info</th>
+                                                            <th>action</th>
                                                         </tr>
-                                                    @empty
-                                                        <tr>
-                                                            <td colspan="12" class="text-center">No Addresses</td>
-                                                        </tr>
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        @forelse (auth('customer')->user()->locations as $location)
+                                                            <tr>
+                                                                <td>{{ $location->name ?? '-' }}</td>
+                                                                <td>{{ $location->email ?? '-' }}</td>
+                                                                <td>{{ $location->phone ?? '-' }}</td>
+                                                                <td>{{ $location->company ?? '-' }}</td>
+                                                                <td>{{ $location->address ?? '-' }}</td>
+                                                                <td>{{ $location->apartment ?? '-' }}</td>
+                                                                <td>{{ $location->city ?? '-' }}</td>
+                                                                <td>{{ $location->state ?? '-' }}</td>
+                                                                <td>{{ $location->country ?? '-' }}</td>
+                                                                <td>{{ $location->zipcode ?? '-' }}</td>
+                                                                <td>{{ $location->more_info ?? '-' }}</td>
+                                                                <td class="d-flex align-items-center">
+                                                                    <a href="{{ route('address-destroy', $location->id) }}"
+                                                                        class="p-1 text-white btn btn-danger">
+                                                                        <i title="Remove Address" data-id="100"
+                                                                            class="fa fa-trash deleteAddressBtn"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="12" class="text-center">No Addresses</td>
+                                                            </tr>
+                                                        @endforelse
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
 
                             <div class="my-4 row">
                                 <div class="mb-20 col-12">
@@ -335,7 +345,7 @@
                                     <div class="cart-total-table address-box commun-table">
                                         <form
                                             action="{{ route('customer-update.profile', auth('customer')->user()->id) }}"
-                                            method="post" class="p-2 mt-2 card" id="createAddressForm">
+                                            method="post" class="p-2 mt-2 card">
                                             @csrf
                                             <div class="row">
                                                 <div class="mb-1 col-6">
@@ -556,7 +566,63 @@
                                                                 <th><i class="mdi mdi-account"></i> Order ID: <span
                                                                         style="color:blue;">{!! isset($cartSale->id) ? $cartSale->id : '<span style="color:red;">Undefined</span>' !!}</span>
                                                                 </th>
-                                                                <th><i class="mdi mdi-account"></i> Number Of Product :
+
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-phone"></i> Order Status :
+                                                                    @if (isset($cartSale->status))
+                                                                        @if ($cartSale->status == 'Pendding')
+                                                                            <span
+                                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->status !!}</span>
+                                                                        @elseif($cartSale->status == 'Accepted')
+                                                                            <span
+                                                                                style="color:green;">{!! $cartSale->status !!}</span>
+                                                                        @elseif($cartSale->status == 'Rejected')
+                                                                            <span
+                                                                                style="color:red;">{!! $cartSale->status !!}</span>
+                                                                        @endif
+                                                                    @else
+                                                                        <span style="color:red;">Undefined</span>
+                                                                    @endif
+                                                                </th>
+                                                                <th><i class="mdi mdi-phone"></i> Payment Status :
+                                                                    @if (isset($cartSale->payment_status))
+                                                                        @if ($cartSale->payment_status == 'Pendding')
+                                                                            <span
+                                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->payment_status !!}</span>
+                                                                        @elseif($cartSale->payment_status == 'Accepted')
+                                                                            <span
+                                                                                style="color:green;">{!! $cartSale->payment_status !!}</span>
+                                                                        @elseif($cartSale->payment_status == 'Rejected')
+                                                                            <span
+                                                                                style="color:red;">{!! $cartSale->payment_status !!}</span>
+                                                                        @endif
+                                                                    @else
+                                                                        <span>------</span>
+                                                                    @endif
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-phone"></i> Delivery Status :
+                                                                    @if (isset($cartSale->delivery_status))
+                                                                        @if ($cartSale->delivery_status == 'Pendding')
+                                                                            <span
+                                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->delivery_status !!}</span>
+                                                                        @elseif($cartSale->delivery_status == 'Received')
+                                                                            <span
+                                                                                style="color:green;">{!! $cartSale->delivery_status !!}</span>
+                                                                        @elseif($cartSale->delivery_status == 'Not Received')
+                                                                            <span
+                                                                                style="color:red;">{!! $cartSale->delivery_status !!}</span>
+                                                                        @endif
+                                                                    @else
+                                                                        <span style="color:red;">Undefined</span>
+                                                                    @endif
+                                                                </th>
+                                                            </tr>
+                                                            <hr>
+                                                            <tr>
+                                                                <th><i class="mdi mdi-account"></i> Number Of Products :
                                                                     <span
                                                                         style="color:blue;">{!! isset($cartSale->product_count) ? $cartSale->product_count : '<span style="color:red;">Undefined</span>' !!}</span>
                                                                 </th>
@@ -603,63 +669,12 @@
                                                             <th><i class="mdi mdi-email"></i> Discount : <span
                                                                     style="color:blue;">{!! isset($cartSale->discount) ? $cartSale->discount . '<small> JOD</small>' : '------' !!}</span></th>
                                                         </tr> --}}
-                                                            <tr>
-                                                                <th><i class="mdi mdi-phone"></i> Order Status :
-                                                                    @if (isset($cartSale->status))
-                                                                        @if ($cartSale->status == 'Pendding')
-                                                                            <span
-                                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->status !!}</span>
-                                                                        @elseif($cartSale->status == 'Accepted')
-                                                                            <span
-                                                                                style="color:green;">{!! $cartSale->status !!}</span>
-                                                                        @elseif($cartSale->status == 'Rejected')
-                                                                            <span
-                                                                                style="color:red;">{!! $cartSale->status !!}</span>
-                                                                        @endif
-                                                                    @else
-                                                                        <span style="color:red;">Undefined</span>
-                                                                    @endif
-                                                                </th>
-                                                                <th><i class="mdi mdi-phone"></i> Payment Status :
-                                                                    @if (isset($cartSale->payment_status))
-                                                                        @if ($cartSale->payment_status == 'Pendding')
-                                                                            <span
-                                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->payment_status !!}</span>
-                                                                        @elseif($cartSale->payment_status == 'Accepted')
-                                                                            <span
-                                                                                style="color:green;">{!! $cartSale->payment_status !!}</span>
-                                                                        @elseif($cartSale->payment_status == 'Rejected')
-                                                                            <span
-                                                                                style="color:red;">{!! $cartSale->payment_status !!}</span>
-                                                                        @endif
-                                                                    @else
-                                                                        <span>------</span>
-                                                                    @endif
-                                                                </th>
-                                                            </tr>
+
                                                             <tr>
                                                                 <th><i class="mdi mdi-phone"></i> Customer Name : <span
                                                                         style="color:blue;">{!! isset($cartSale->customer->name_en)
                                                                             ? $cartSale->customer->name_en
                                                                             : '<span style="color:red;">Undefined</span>' !!}</span>
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th><i class="mdi mdi-phone"></i> Delivery Status :
-                                                                    @if (isset($cartSale->delivery_status))
-                                                                        @if ($cartSale->delivery_status == 'Pendding')
-                                                                            <span
-                                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->delivery_status !!}</span>
-                                                                        @elseif($cartSale->payment_status == 'In Progress')
-                                                                            <span
-                                                                                style="color:green;">{!! $cartSale->delivery_status !!}</span>
-                                                                        @else
-                                                                            <span
-                                                                                style="color:red;">{!! $cartSale->delivery_status !!}</span>
-                                                                        @endif
-                                                                    @else
-                                                                        <span>------</span>
-                                                                    @endif
                                                                 </th>
                                                                 <th><i class="mdi mdi-phone"></i> Shipment Num. :
                                                                     @if (isset($cartSale->track_number))
@@ -729,31 +744,22 @@
                                                                 </th>
                                                             </tr>
                                                             <tr>
+                                                                <th><i class="mdi mdi-email"></i> City : <span
+                                                                        style="color:blue;">{!! isset($cartSale->location->city) ? $cartSale->location->city : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                                </th>
                                                                 <th><i class="mdi mdi-email"></i> Address : <span
                                                                         style="color:blue;">{!! isset($cartSale->location->address) ? $cartSale->location->address : '------' !!}</span>
                                                                 </th>
+
+                                                            </tr>
+                                                            <tr>
                                                                 <th><i class="mdi mdi-email"></i> Apt/Unit/Suite/etc. :
                                                                     <span
                                                                         style="color:blue;">{!! isset($cartSale->location->apartment) ? $cartSale->location->apartment : '------' !!}</span>
                                                                 </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th><i class="mdi mdi-email"></i> City : <span
-                                                                        style="color:blue;">{!! isset($cartSale->location->city) ? $cartSale->location->city : '<span style="color:red;">Undefined</span>' !!}</span>
-                                                                </th>
-                                                                <th><i class="mdi mdi-phone"></i>State :<span
-                                                                        style="color:blue;">{!! isset($cartSale->location->state) ? $cartSale->location->state : '<span style="color:red;">Undefined</span>' !!}</span>
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
                                                                 <th><i class="mdi mdi-phone"></i> ZipCode : <span
                                                                         style="color:blue;">{!! isset($cartSale->location->zipcode)
                                                                             ? $cartSale->location->zipcode
-                                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
-                                                                </th>
-                                                                <th><i class="mdi mdi-phone"></i> Country : <span
-                                                                        style="color:blue;">{!! isset($cartSale->location->country)
-                                                                            ? $cartSale->location->country
                                                                             : '<span style="color:red;">Undefined</span>' !!}</span>
                                                                 </th>
                                                             </tr>

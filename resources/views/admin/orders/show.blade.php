@@ -97,7 +97,6 @@
                                 </h3>
                                 <div class="media-body">
                                     <div>
-
                                         {{-- //NOTE - Change The Order Status --}}
                                         @if ($cartSale->status == 'Pendding')
                                             <h2>
@@ -112,7 +111,6 @@
                                                 Reject
                                             </a>
                                         @endif
-
                                         {{-- //NOTE - Change The Delievery Status --}}
                                         @if ($cartSale->status == 'Accepted' && $cartSale->delivery_status == 'Pendding')
                                             <h2>
@@ -127,9 +125,11 @@
                                                 Not Received
                                             </a>
                                         @endif
-
                                         {{-- //NOTE - Change The Payment Status --}}
-                                        @if ($cartSale->status == 'Accepted' && $cartSale->delivery_status == 'Received' && $cartSale->payment_status == 'Pendding')
+                                        @if (
+                                            $cartSale->status == 'Accepted' &&
+                                                $cartSale->delivery_status == 'Received' &&
+                                                $cartSale->payment_status == 'Pendding')
                                             <h2>
                                                 Order Paid ?
                                             </h2>
@@ -145,30 +145,107 @@
                                     </div>
                                     <hr>
                                     <hr>
-                                    <h3 class="py-3 text-center text-dark"><i class="mdi mdi-information"></i> Main Order Information 
+                                    <div class="text-center row">
+                                        <div class="col-md-4">
+                                            <div class="d-flex flex-column align-items-center">
+                                                <h3 class="text-capitalize">
+                                                    order status :
+                                                </h3>
+                                                <h4>
+                                                    @if (isset($cartSale->status))
+                                                        @if ($cartSale->status == 'Pendding')
+                                                            <span
+                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->status !!}</span>
+                                                        @elseif($cartSale->status == 'Accepted')
+                                                            <span style="color:green;">{!! $cartSale->status !!}</span>
+                                                        @elseif($cartSale->status == 'Rejected')
+                                                            <span style="color:red;">{!! $cartSale->status !!}</span>
+                                                        @endif
+                                                    @else
+                                                        <span style="color:red;">Undefined</span>
+                                                    @endif
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="d-flex flex-column">
+                                                <h3 class="text-capitalize">
+                                                    Delivery Status :
+                                                </h3>
+                                                <h4>
+                                                    @if (isset($cartSale->delivery_status))
+                                                        @if ($cartSale->delivery_status == 'Pendding')
+                                                            <span
+                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->delivery_status !!}</span>
+                                                        @elseif($cartSale->delivery_status == 'Received')
+                                                            <span style="color:green;">{!! $cartSale->delivery_status !!}</span>
+                                                        @elseif($cartSale->delivery_status == 'Not Received')
+                                                            <span style="color:red;">{!! $cartSale->delivery_status !!}</span>
+                                                        @endif
+                                                    @else
+                                                        <span style="color:red;">Undefined</span>
+                                                    @endif
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="d-flex flex-column">
+                                                <h3 class="text-capitalize">
+                                                    Payment Status :
+                                                </h3>
+                                                <h4>
+                                                    @if (isset($cartSale->payment_status))
+                                                        @if ($cartSale->payment_status == 'Pendding')
+                                                            <span
+                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->payment_status !!}</span>
+                                                        @elseif($cartSale->payment_status == 'Accepted')
+                                                            <span style="color:green;">{!! $cartSale->payment_status !!}</span>
+                                                        @elseif($cartSale->payment_status == 'Rejected')
+                                                            <span style="color:red;">{!! $cartSale->payment_status !!}</span>
+                                                        @endif
+                                                    @else
+                                                        <span>------</span>
+                                                    @endif
+                                                </h4>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <hr>
+                                    <hr>
+                                    <h3 class="py-3 text-center text-dark"><i class="mdi mdi-information"></i> Main Order
+                                        Information
                                     </h3>
                                     <table class="table table-hover table-striped">
                                         <thead>
                                             <tr>
                                                 <th><i class="mdi mdi-account"></i> Order ID: <span
                                                         style="color:blue;">{!! isset($cartSale->id) ? $cartSale->id : '<span style="color:red;">Undefined</span>' !!}</span></th>
-                                                <th><i class="mdi mdi-account"></i> Number Of Product : <span
+                                                <th><i class="mdi mdi-account"></i> Number Of Products : <span
                                                         style="color:blue;">{!! isset($cartSale->product_count)
                                                             ? $cartSale->product_count . ' products'
                                                             : '<span style="color:red;">Undefined</span>' !!}</span></th>
                                             </tr>
                                             <tr>
                                                 <th><i class="mdi mdi-account"></i>Shipping: <span
-                                                        style="color:blue;">{!! isset($cartSale->shipping) ? $cartSale->shipping . " <small> JOD</small>" : '<span style="color:red;">Undefined</span>' !!}</span></th>
+                                                        style="color:blue;">{!! isset($cartSale->shipping)
+                                                            ? $cartSale->shipping . ' <small> JOD</small>'
+                                                            : '<span style="color:red;">Undefined</span>' !!}</span></th>
                                                 <th><i class="mdi mdi-account"></i> Tax : <span
-                                                        style="color:blue;">{!! isset($cartSale->tax) ? $cartSale->tax . ' <small> JOD</small>' : '<span style="color:red;">Undefined</span>' !!}</span></th>
+                                                        style="color:blue;">{!! isset($cartSale->tax)
+                                                            ? $cartSale->tax . ' <small> JOD</small>'
+                                                            : '<span style="color:red;">Undefined</span>' !!}</span></th>
                                             </tr>
 
                                             <tr>
                                                 <th><i class="mdi mdi-account"></i>Website percentage: <span
-                                                        style="color:blue;">{!! isset($cartSale->sale_percentage) ? $cartSale->sale_percentage . " <small> JOD</small>" : '<span style="color:red;">Undefined</span>' !!}</span></th>
+                                                        style="color:blue;">{!! isset($cartSale->sale_percentage)
+                                                            ? $cartSale->sale_percentage . ' <small> JOD</small>'
+                                                            : '<span style="color:red;">Undefined</span>' !!}</span></th>
                                                 <th><i class="mdi mdi-account"></i> Redeem : <span
-                                                        style="color:blue;">{!! isset($cartSale->redeem) ? $cartSale->redeem . ' <small> JOD</small>' : '<span style="color:red;">Undefined</span>' !!}</span></th>
+                                                        style="color:blue;">{!! isset($cartSale->redeem)
+                                                            ? $cartSale->redeem . ' <small> JOD</small>'
+                                                            : '<span style="color:red;">Undefined</span>' !!}</span></th>
                                             </tr>
                                             <tr>
                                                 <th><i class="mdi mdi-account"></i> Sub Total : <span
@@ -186,52 +263,7 @@
                                                 <th><i class="mdi mdi-email"></i> Discount : <span
                                                         style="color:blue;">{!! isset($cartSale->discount) ? $cartSale->discount . '<small> JOD</small>' : '------' !!}</span></th>
                                             </tr>
-                                            <tr>
-                                                <th><i class="mdi mdi-phone"></i> Order Status :
-                                                    @if (isset($cartSale->status))
-                                                        @if ($cartSale->status == 'Pendding')
-                                                            <span
-                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->status !!}</span>
-                                                        @elseif($cartSale->status == 'Accepted')
-                                                            <span style="color:green;">{!! $cartSale->status !!}</span>
-                                                        @elseif($cartSale->status == 'Rejected')
-                                                            <span style="color:red;">{!! $cartSale->status !!}</span>
-                                                        @endif
-                                                    @else
-                                                        <span style="color:red;">Undefined</span>
-                                                    @endif
-                                                </th>
-                                                <th><i class="mdi mdi-phone"></i> Payment Status :
-                                                    @if (isset($cartSale->payment_status))
-                                                        @if ($cartSale->payment_status == 'Pendding')
-                                                            <span
-                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->payment_status !!}</span>
-                                                        @elseif($cartSale->payment_status == 'Accepted')
-                                                            <span style="color:green;">{!! $cartSale->payment_status !!}</span>
-                                                        @elseif($cartSale->payment_status == 'Rejected')
-                                                            <span style="color:red;">{!! $cartSale->payment_status !!}</span>
-                                                        @endif
-                                                    @else
-                                                        <span>------</span>
-                                                    @endif
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th><i class="mdi mdi-phone"></i> Delivery Status :
-                                                    @if (isset($cartSale->delivery_status))
-                                                        @if ($cartSale->delivery_status == 'Pendding')
-                                                            <span
-                                                                style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->delivery_status !!}</span>
-                                                        @elseif($cartSale->delivery_status == 'Received')
-                                                            <span style="color:green;">{!! $cartSale->delivery_status !!}</span>
-                                                        @elseif($cartSale->delivery_status == 'Not Received')
-                                                            <span style="color:red;">{!! $cartSale->delivery_status !!}</span>
-                                                        @endif
-                                                    @else
-                                                        <span style="color:red;">Undefined</span>
-                                                    @endif
-                                                </th>
-                                            </tr>
+
 
                                             <tr>
 
@@ -354,6 +386,18 @@
                                                 </th>
                                             </tr>
                                             <tr>
+                                                <th><i class="mdi mdi-email"></i> City : <span style="color:blue;">
+                                                        @if (isset($cartSale->location->city))
+                                                            {{ $cartSale->location->city }}
+                                                        @else
+                                                            @if (isset($cartSale->city))
+                                                                {{ $cartSale->city }}
+                                                            @else
+                                                                <span style="color:red;">Undefined</span>
+                                                            @endif
+                                                        @endif
+                                                    </span>
+                                                </th>
                                                 <th><i class="mdi mdi-email"></i> Address : <span style="color:blue;">
                                                         @if (isset($cartSale->location->address))
                                                             {{ $cartSale->location->address }}
@@ -366,6 +410,9 @@
                                                         @endif
                                                     </span>
                                                 </th>
+
+                                            </tr>
+                                            <tr>
                                                 <th><i class="mdi mdi-email"></i> Apt/Unit/Suite/etc. : <span
                                                         style="color:blue;">
                                                         @if (isset($cartSale->location->apartment))
@@ -379,35 +426,6 @@
                                                         @endif
                                                     </span>
                                                 </th>
-                                            </tr>
-                                            <tr>
-                                                <th><i class="mdi mdi-email"></i> City : <span style="color:blue;">
-                                                        @if (isset($cartSale->location->city))
-                                                            {{ $cartSale->location->city }}
-                                                        @else
-                                                            @if (isset($cartSale->city))
-                                                                {{ $cartSale->city }}
-                                                            @else
-                                                                <span style="color:red;">Undefined</span>
-                                                            @endif
-                                                        @endif
-                                                    </span>
-                                                </th>
-                                                <th><i class="mdi mdi-phone"></i><span style="color:blue;">
-                                                        @if (isset($cartSale->location->state))
-                                                            {{ $cartSale->location->state }}
-                                                        @else
-                                                            @if (isset($cartSale->state))
-                                                                {{ $cartSale->state }}
-                                                            @else
-                                                                <span style="color:red;">Undefined</span>
-                                                            @endif
-                                                        @endif
-                                                    </span>
-                                                </th>
-                                            </tr>
-                                            <tr>
-
                                                 <th><i class="mdi mdi-phone"></i> ZipCode : <span style="color:blue;">
                                                         @if (isset($cartSale->location->zipcode))
                                                             {{ $cartSale->location->zipcode }}
@@ -420,19 +438,8 @@
                                                         @endif
                                                     </span>
                                                 </th>
-                                                <th><i class="mdi mdi-phone"></i> Country : <span style="color:blue;">
-                                                        @if (isset($cartSale->location->country))
-                                                            {{ $cartSale->location->country }}
-                                                        @else
-                                                            @if (isset($cartSale->country))
-                                                                {{ $cartSale->country }}
-                                                            @else
-                                                                <span style="color:red;">Undefined</span>
-                                                            @endif
-                                                        @endif
-                                                    </span>
-                                                </th>
                                             </tr>
+
                                             <tr>
                                                 <th colspan="2"><i class="mdi mdi-account-multiple"></i> More Info :
                                                     <span style="color:blue;">

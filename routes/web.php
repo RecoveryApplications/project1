@@ -157,8 +157,8 @@ Route::group(['prefix' => 'account', 'middleware' => 'auth:customer'], function 
     Route::prefix('address')->group(function () {
         Route::get('/delete/{id}', [ProfileCustomerController::class, 'deleteAddress'])->name('address-destroy');
         Route::post('updateAddress/{id}', [ProfileCustomerController::class, 'updateAddress'])->name('updateAddress.profile');
+        Route::post('createAddress', [ProfileCustomerController::class, 'createAddress'])->name('createAddress.profile');
     });
 });
-Route::post('createAddress', [ProfileCustomerController::class, 'createAddress'])->name('createAddress.profile');
 
 require __DIR__ . '/super_admin.php';

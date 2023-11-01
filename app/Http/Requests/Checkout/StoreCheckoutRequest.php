@@ -22,8 +22,11 @@ class StoreCheckoutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'location_id' => 'required|exists:user_locations,id',
             'out_sale_price' => 'required',
+            'name' => 'required',
+            'phone' => 'required',
+            'city' => 'required',
+            'address' => 'required',
         ];
     }
 
@@ -33,9 +36,11 @@ class StoreCheckoutRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'location_id.required' => 'Location is required',
-            'location_id.exists' => 'Location is not exists',
             'out_sale_price.required' => 'Out sale price is required',
+            'name.required' => 'Name is required',
+            'phone.required' => 'Phone is required',
+            'city.required' => 'City is required',
+            'address.required' => 'Address is required',
         ];
     }
 }

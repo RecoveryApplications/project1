@@ -18,6 +18,12 @@ class CartController extends Controller
 
     function index()
     {
+        if (!auth('customer')->check()) {
+            return redirect()->route('customer.login')->with('danger', "You must login first");
+        }
+        if (auth('customer')->user()->cartTemps->count() == 0) {
+            return redirect()->route('shop')->with('danger', "The cart is empty, please add products to the cart");
+        }
         return view('front_end_inners.cart');
     }
 

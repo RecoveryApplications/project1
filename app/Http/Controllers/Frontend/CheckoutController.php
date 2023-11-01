@@ -24,14 +24,55 @@ class CheckoutController extends Controller
 {
     public function  index()
     {
-        // dd(auth('customer')->user()->cartSales);
+        if (!auth('customer')->check()) {
+            return redirect()->route('customer.login')->with('danger', "You must login first");
+        }
+        if (auth('customer')->user()->cartTemps->count() == 0) {
+            return redirect()->route('shop')->with('danger', "The cart is empty, please add products to the cart");
+        }
         return view('front_end_inners.order-overview');
     }
 
     public function store(Route $route, StoreCheckoutRequest $request)
     {
         try {
+            // check for auth user
+            if (!auth('customer')->check()) {
+                return redirect()->back()->with('danger', "You must login first");
+            }
+            if (auth('customer')->user()->cartTemps->count() == 0) {
+                return redirect()->back()->with('danger', "The cart is empty");
+            }
+
+            // ================================================
+            // ================= Public Values =================
+            // ================================================
+            $get_sale_percentage = PublicValue::where('title', 'SalePercentage')->first()->values;
+            $get_tax_percentage = PublicValue::where('title', 'Tax')->first()->values;
+            $get_shipping_value = PublicValue::where('title', 'Shipping')->first()->values;
+
             $user = auth('customer')->user();
+
+            // =================================================
+            // ----------- Create new location ------------
+            // =================================================
+            $locationData = $request->only([
+                'name',
+                'phone',
+                'email',
+                'company',
+                'city',
+                'address',
+                'apartment',
+                'zipcode',
+                'more_info',
+            ]);
+            $locationData['user_id'] = $user->id;
+            $location = UserLocation::create($locationData);
+
+            // =================================================
+            // ---- Add outsale price to the cart items --------
+            // =================================================
             $carts = $user->cartTemps;
             $outSalePrices = $request->out_sale_price;
             foreach ($carts as $key => $cartTemp) {
@@ -41,12 +82,6 @@ class CheckoutController extends Controller
                     return redirect()->back()->with('danger', "The outsale price of the product is less than the minimum price");
                 }
             }
-            $location = UserLocation::find($request->location_id);
-            // ================= Public Values =================
-            $get_sale_percentage = PublicValue::where('title', 'SalePercentage')->first()->values;
-            $get_tax_percentage = PublicValue::where('title', 'Tax')->first()->values;
-            $get_shipping_value = PublicValue::where('title', 'Shipping')->first()->values;
-
 
             $discountValue = 0;
             $endTotal = 0;
@@ -71,16 +106,14 @@ class CheckoutController extends Controller
                         'status' => 1,
                         'payment_status' => 1,
                         'delivery_status' => 1,
-                        'email' => $location->email,
-                        'phone' => $location->phone,
                         'name' => $location->name,
+                        'phone' => $location->phone,
+                        'email' => $location->email,
                         'company' => $location->company,
+                        'city' => $location->city,
                         'address' => $location->address,
                         'apartment' => $location->apartment,
-                        'city' => $location->city,
-                        'state' => $location->state,
                         'zipcode' => $location->zipcode,
-                        'country' => $location->country,
                         'more_info' => $location->more_info,
                     ]);
 

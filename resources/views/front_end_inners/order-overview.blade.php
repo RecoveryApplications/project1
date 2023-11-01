@@ -68,13 +68,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-8 mb-sm-30">
-                                <div class="cart-item-table commun-table mb-30">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <form action="{{ route('customer.orderOverview.store') }}" method="POST"
-                                                id="checkoutFORM">
+                        <form action="{{ route('customer.orderOverview.store') }}" method="POST" id="checkoutFORM">
+                            <div class="row">
+                                <div class="col-md-8 mb-sm-30">
+                                    <div class="cart-item-table commun-table mb-30">
+                                        <div class="table-responsive">
+                                            <table class="table">
+
                                                 @csrf
                                                 <input type="hidden" name="shipping"
                                                     value="{{ $public_prices['shipping'] }}">
@@ -159,147 +159,112 @@
                                                     <input type="hidden" value="{{ $endTotal }}" name="sub_total">
 
                                                 </tbody>
-                                        </table>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="cart-total-table commun-table mb-30">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th colspan="2">Cart Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Item(s) Subtotal</td>
-                                                    <td>
-                                                        <div class="price-box">
-                                                            <span class="price"><small>JOD
-                                                                </small>{{ $public_prices['subTotal'] }}</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Shipping</td>
-                                                    <td>
-                                                        <div class="price-box">
-                                                            <span class="price">
-                                                                <small>JOD </small>
-                                                                <span
-                                                                    id="shippingPrice">{{ $public_prices['shipping'] }}</span></span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Tax [{{ $public_prices['taxPercentage'] . '%' }}]</td>
-                                                    <td>
-                                                        <div class="price-box">
-                                                            <span class="price"><small>JOD
-                                                                </small>
-                                                                <span id="taxPrice">
-                                                                    {{ $public_prices['tax'] }}
+                                    <div class="cart-total-table commun-table mb-30">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="2">Cart Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Item(s) Subtotal</td>
+                                                        <td>
+                                                            <div class="price-box">
+                                                                <span class="price"><small>JOD
+                                                                    </small>{{ $public_prices['subTotal'] }}</span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Shipping</td>
+                                                        <td>
+                                                            <div class="price-box">
+                                                                <span class="price">
+                                                                    <small>JOD </small>
+                                                                    <span
+                                                                        id="shippingPrice">{{ $public_prices['shipping'] }}</span></span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tax [{{ $public_prices['taxPercentage'] . '%' }}]</td>
+                                                        <td>
+                                                            <div class="price-box">
+                                                                <span class="price"><small>JOD
+                                                                    </small>
+                                                                    <span id="taxPrice">
+                                                                        {{ $public_prices['tax'] }}
+                                                                    </span>
                                                                 </span>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Website Percentage [{{ $public_prices['salePercentage'] . '%' }}]</td>
-                                                    <td>
-                                                        <div class="price-box">
-                                                            <span class="price"><small>JOD </small><span
-                                                                    id="websitePercentage"></span></span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Amount Payable</b></td>
-                                                    <td>
-                                                        <div class="price-box">
-                                                            <span class="price"><small>JOD
-                                                                </small><b>{{ $public_prices['total'] }}</b></span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Redeem</b></td>
-                                                    <td>
-                                                        <div class="price-box">
-                                                            <span class="price"><small>JOD </small><b
-                                                                    id="redeemPrice">0</b></span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Outsale Amount</b></td>
-                                                    <td>
-                                                        <div class="price-box">
-                                                            <span class="price"><small>JOD </small><b
-                                                                    id="outsaleTotalPrice"></b></span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Website Percentage
+                                                            [{{ $public_prices['salePercentage'] . '%' }}]</td>
+                                                        <td>
+                                                            <div class="price-box">
+                                                                <span class="price"><small>JOD </small><span
+                                                                        id="websitePercentage"></span></span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Amount Payable</b></td>
+                                                        <td>
+                                                            <div class="price-box">
+                                                                <span class="price"><small>JOD
+                                                                    </small><b>{{ $public_prices['total'] }}</b></span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Redeem</b></td>
+                                                        <td>
+                                                            <div class="price-box">
+                                                                <span class="price"><small>JOD </small><b
+                                                                        id="redeemPrice">0</b></span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Outsale Amount</b></td>
+                                                        <td>
+                                                            <div class="price-box">
+                                                                <span class="price"><small>JOD </small><b
+                                                                        id="outsaleTotalPrice"></b></span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="cart-total-table address-box commun-table mb-30">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Shipping Address</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="mb-20 input-box select-dropdown">
-                                                            <fieldset>
-                                                                <select id="location_id" name="location_id"
-                                                                    class="option-drop" required>
-                                                                    <option selected="" value="">Select
-                                                                        Address</option>
-                                                                    @forelse (auth('customer')->user()->locations as $address)
-                                                                        <option value="{{ $address->id }}">
-                                                                            {{ $address->name . '-' . $address->address . '-' . $address->city }}
-                                                                        </option>
-                                                                    @empty
-                                                                        <option value="">No address found!
-                                                                        </option>
-                                                                    @endforelse
+                                <div class="col-md-4">
+                                    <div class="cart-total-table address-box commun-table mb-30">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Shipping Address</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                                                </select>
-                                                            </fieldset>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                </form>
+                                                    <tr>
+                                                        <td>
 
-                                                <tr>
-                                                    <td class="dflex flex-column align-items-center justify-content-center">
-                                                        <p class="text-center">
-                                                            or you can make
-                                                        </p>
-                                                        <p id="addAddress" class="text-center"
-                                                            style="border: 1px solid black; border-radius: 12px;">
-                                                            New Address
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <form action="{{ route('createAddress.profile') }}" method="post"
-                                                            class="p-2 mt-2 card createAddressForm">
-                                                            @csrf
                                                             <div class="row">
                                                                 <div class="mb-2 col-12">
                                                                     <label for="name" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        name*
+                                                                        Name*
                                                                     </label>
                                                                     <input type="text" name="name"
                                                                         value="{{ old('name') }}"
@@ -307,9 +272,20 @@
                                                                         placeholder="name" id="name" required>
                                                                 </div>
                                                                 <div class="mb-2 col-12">
+                                                                    <label for="phone" class="form-label"
+                                                                        style="font-size: 14px">
+                                                                        Phone*
+                                                                    </label>
+                                                                    <input type="text" name="phone"
+                                                                        value="{{ old('phone') }}"
+                                                                        class="form-control form-control-sm"
+                                                                        placeholder="phone" id="phone" required>
+                                                                </div>
+
+                                                                <div class="mb-2 col-12">
                                                                     <label for="email" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        email
+                                                                        Email
                                                                     </label>
                                                                     <input type="email" name="email"
                                                                         value="{{ old('email') }}"
@@ -317,19 +293,9 @@
                                                                         placeholder="email" id="email">
                                                                 </div>
                                                                 <div class="mb-2 col-12">
-                                                                    <label for="phone" class="form-label"
-                                                                        style="font-size: 14px">
-                                                                        phone
-                                                                    </label>
-                                                                    <input type="text" name="phone"
-                                                                        value="{{ old('phone') }}"
-                                                                        class="form-control form-control-sm"
-                                                                        placeholder="phone" id="phone" required>
-                                                                </div>
-                                                                <div class="mb-2 col-12">
                                                                     <label for="company" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        company
+                                                                        Company
                                                                     </label>
                                                                     <input type="text" name="company"
                                                                         value="{{ old('company') }}"
@@ -337,9 +303,35 @@
                                                                         placeholder="company" id="company">
                                                                 </div>
                                                                 <div class="mb-2 col-12">
+                                                                    <div class="mb-0 input-box select-dropdown">
+                                                                        <label for="city" class="form-label"
+                                                                            style="font-size: 14px">
+                                                                            City*
+                                                                        </label>
+                                                                        <fieldset>
+                                                                            <select id="city" class="option-drop"
+                                                                                name="city" required>
+                                                                                <option value="amman" selected>Amman
+                                                                                </option>
+                                                                                <option value="zarqaa">Zarqaa</option>
+                                                                                <option value="irbid">Irbid</option>
+                                                                                <option value="salt">Salt</option>
+                                                                                <option value="madaba">Madaba</option>
+                                                                                <option value="karak">Karak</option>
+                                                                                <option value="Tafilah">Tafilah</option>
+                                                                                <option value="ma'an">Ma'an</option>
+                                                                                <option value="jerash">Jerash</option>
+                                                                                <option value="ajloun">Ajloun</option>
+                                                                                <option value="mafraq">Mafraq</option>
+                                                                                <option value="aqaba">Aqaba</option>
+                                                                            </select>
+                                                                        </fieldset>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-2 col-12">
                                                                     <label for="address" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        address*
+                                                                        Address*
                                                                     </label>
                                                                     <input type="text" name="address"
                                                                         value="{{ old('address') }}"
@@ -349,7 +341,7 @@
                                                                 <div class="mb-2 col-12">
                                                                     <label for="apartment" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        apartment
+                                                                        Apartment
                                                                     </label>
                                                                     <input type="text" name="apartment"
                                                                         value="{{ old('apartment') }}"
@@ -357,39 +349,9 @@
                                                                         placeholder="apartment" id="apartment">
                                                                 </div>
                                                                 <div class="mb-2 col-12">
-                                                                    <label for="city" class="form-label"
-                                                                        style="font-size: 14px">
-                                                                        city*
-                                                                    </label>
-                                                                    <input type="text" name="city"
-                                                                        value="{{ old('city') }}"
-                                                                        class="form-control form-control-sm"
-                                                                        placeholder="city" id="city" required>
-                                                                </div>
-                                                                <div class="mb-2 col-12">
-                                                                    <label for="state" class="form-label"
-                                                                        style="font-size: 14px">
-                                                                        state*
-                                                                    </label>
-                                                                    <input type="text" name="state"
-                                                                        value="{{ old('state') }}"
-                                                                        class="form-control form-control-sm"
-                                                                        placeholder="state" id="state" required>
-                                                                </div>
-                                                                <div class="mb-2 col-12">
-                                                                    <label for="country" class="form-label"
-                                                                        style="font-size: 14px">
-                                                                        country*
-                                                                    </label>
-                                                                    <input type="text" name="country"
-                                                                        value="{{ old('country') }}"
-                                                                        class="form-control form-control-sm"
-                                                                        placeholder="country" id="country" required>
-                                                                </div>
-                                                                <div class="mb-2 col-12">
                                                                     <label for="zipcode" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        zipcode
+                                                                        Zipcode
                                                                     </label>
                                                                     <input type="text" name="zipcode"
                                                                         value="{{ old('zipcode') }}"
@@ -399,34 +361,31 @@
                                                                 <div class="mb-2 col-12">
                                                                     <label for="zipcode" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        more info
+                                                                        More info
                                                                     </label>
                                                                     <textarea name="more_info" id="more_info" cols="30" rows="3" class="form-control form-control-sm"
                                                                         placeholder="more info">{{ old('more_info') }}</textarea>
                                                                 </div>
                                                             </div>
-                                                            <div class="mt-3 text-center">
-                                                                <button type="submit"
-                                                                    class="p-2 btn btn-sm btn-success">add</button>
-                                                            </div>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="right-side float-none-xs">
-                            <button class="btn btn-color" id="checkoutBTN">
-                                Checkout
-                            </button>
-                        </div>
+                            <div class="right-side float-none-xs">
+                                <button class="btn btn-color">
+                                    Checkout
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <!-- CONTAINER END -->
@@ -438,7 +397,7 @@
             $('#checkoutBTN').on('click', function() {
                 $('#checkoutFORM').submit();
             });
-            $('.createAddressForm').hide();
+            // $('.createAddressForm').hide();
 
             $('.editAddress').on('click', function() {
                 let id = $(this).attr('id');
@@ -457,9 +416,9 @@
             var shippingPrice = parseFloat($('#shippingPrice').text());
             var taxPrice = parseFloat($('#taxPrice').text());
             var websitePercentage = ({{ $public_prices['subTotal'] }} * {{ $public_sale_percentage / 100 }})
-            .toFixed(2);
+                .toFixed(2);
             websitePercentage = parseFloat(websitePercentage);
-            var totalSum = 0 + shippingPrice + taxPrice ;
+            var totalSum = 0 + shippingPrice + taxPrice;
 
 
 
@@ -479,10 +438,10 @@
                 var all_total = parseFloat({{ $public_prices['subTotal'] }})
                 var shippingPrice = parseFloat($('#shippingPrice').text());
                 var taxPrice = parseFloat($('#taxPrice').text());
-                var websitePercentage = 
-                ({{ $public_prices['subTotal'] }} * {{ $public_sale_percentage / 100 }}).toFixed(2);
-                    websitePercentage = parseFloat(websitePercentage);
-                    var totalSum = 0 ;
+                var websitePercentage =
+                    ({{ $public_prices['subTotal'] }} * {{ $public_sale_percentage / 100 }}).toFixed(2);
+                websitePercentage = parseFloat(websitePercentage);
+                var totalSum = 0;
 
 
                 // Loop through all "out_sale_price" input fields and sum their values
@@ -496,7 +455,7 @@
 
                 $('#outsaleTotalPrice').text(sum.toFixed(2));
 
-                let redeem = sum -(websitePercentage + shippingPrice + taxPrice + all_total )
+                let redeem = sum - (websitePercentage + shippingPrice + taxPrice + all_total)
 
                 $('#redeemPrice').text(redeem);
             });
