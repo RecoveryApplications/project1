@@ -34,10 +34,10 @@ class Customer extends Authenticatable
         'phone',
         'password',
         'country_key',
+        'country_id',
         'profile_photo_path',
         'user_status',
         'created_by',
-
     ];
 
     protected $date = ['deleted_at'];
@@ -105,8 +105,14 @@ class Customer extends Authenticatable
     {
         return $this->hasMany(PaymentWalletOrder::class, 'customer_id');
     }
-    public function paidPaymentWalletOrders(){
+    public function paidPaymentWalletOrders()
+    {
         return $this->hasMany(PaymentWalletOrder::class, 'customer_id')->where('status', 'paid');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
     }
 
 
@@ -132,7 +138,7 @@ class Customer extends Authenticatable
         }
     }
 
-    
+
     public function getTotalPaidOrderWalletsAttribute($value)
     {
         $sum = 0;

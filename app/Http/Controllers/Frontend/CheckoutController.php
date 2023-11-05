@@ -153,7 +153,7 @@ class CheckoutController extends Controller
                     // delete items from the cart for the user
                     auth('customer')->user()->cartTemps()->delete();
                 });
-                return redirect()->back()->with('success', "Order created successfully");
+                return redirect()->route('shop')->with('success', "Order created successfully");
             } else {
                 return redirect()->back()->with(['danger', 'The cart is empty']);
             }

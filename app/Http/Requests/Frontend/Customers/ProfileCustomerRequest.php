@@ -30,6 +30,7 @@ class ProfileCustomerRequest extends FormRequest
             'phone' => 'required',
             'password' => 'nullable',
             'password_confirmation' => 'nullable',
+            'country_id' => 'required|exists:countries,id',
         ];
         
     }
@@ -41,6 +42,8 @@ class ProfileCustomerRequest extends FormRequest
             'email.email' => 'Enter the correct email !!',
             'phone.required' => 'Customer phone is required !!',
             'phone.regex' => 'Enter the correct phone !!',
+            'country_id.required' => 'Country is required !!',
+            'country_id.exists' => 'Country is not exists !!',
         ];
     }
 }

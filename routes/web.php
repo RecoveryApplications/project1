@@ -134,7 +134,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
             Route::group(['prefix' => 'wallet'], function () {
                 // =========== Wallet Request Orders Controller ===========
-                Route::resource('request_order', WalletRequestOrdersController::class);
+                Route::post('request_order/{type}', [WalletRequestOrdersController::class , 'store'])->name('request_order.store');
             });
         });
 

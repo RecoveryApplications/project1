@@ -12,13 +12,21 @@ use Illuminate\Routing\Route;
 
 class WalletRequestOrdersController extends Controller
 {
-    public function store(Request $request, Route $route)
+    public function store(Request $request, Route $route, $type = 'wallet')
     {
         $request->validate([
-            'payment_wallet_id' => 'required|exists:payment_wallets,id',
+            'payment_wallet_id' => ['required_if:type,wallet', 'exists:payment_wallets,id'],
             'amount' => 'required|numeric|min:1',
             'phone' => 'required|numeric',
+            'country' => 'required_if:type,western',
+            'city' => 'required_if:type,western',
+            'name' => 'required_if:type,western',
         ]);
+
+        // type = wallet or western only, make validation for it
+        if (!in_array($type, ['wallet', 'western'])) {
+            return redirect()->back()->with('error', 'Sorry, You Are Not Allowed To Do This Action');
+        }
 
         try {
 
@@ -34,25 +42,30 @@ class WalletRequestOrdersController extends Controller
                     ]);
                     $wallet = $new_wallet;
                 }
+
+                if ($type == 'wallet' && $payment_wallet->status != 'active') {
+                    return redirect()->back()->with('error', 'Sorry, This Payment Wallet Is Not Active');
+                }
+
                 if ($wallet->ballance >= $request->amount) {
-                    if ($payment_wallet->status == 'active') {
-                        if ($wallet->requested_ballance == 0) {
-                            $new_payment_wallet_order = PaymentWalletOrder::create([
-                                'customer_id' => $customer->id,
-                                'payment_wallet_id' => $request->payment_wallet_id,
-                                'amount' => $request->amount,
-                                'phone' => $request->phone,
-                                'status' => 'pending',
-                            ]);
-                            $wallet->update([
-                                'requested_ballance' => $request->amount,
-                            ]);
-                            return redirect()->back()->with('success', 'Your Request Has Been Sent Successfully');
-                        } else {
-                            return redirect()->back()->with('error', 'You Have A Pending Request');
-                        }
+                    if ($wallet->requested_ballance == 0) {
+                        $new_payment_wallet_order = PaymentWalletOrder::create([
+                            'customer_id' => $customer->id,
+                            'payment_wallet_id' => $request->payment_wallet_id ?? null,
+                            'amount' => $request->amount,
+                            'phone' => $request->phone,
+                            'status' => 'pending',
+                            'type' => $type ?? null,
+                            'country' => $request->country ?? null,
+                            'city' => $request->city ?? null,
+                            'name' => $request->name ?? null,
+                        ]);
+                        $wallet->update([
+                            'requested_ballance' => $request->amount,
+                        ]);
+                        return redirect()->back()->with('success', 'Your Request Has Been Sent Successfully');
                     } else {
-                        return redirect()->back()->with('error', 'Sorry, This Payment Wallet Is Not Active');
+                        return redirect()->back()->with('error', 'You Have A Pending Request');
                     }
                 } else {
                     return redirect()->back()->with('error', 'Sorry, You Don\'t Have Enough Ballance');

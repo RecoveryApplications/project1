@@ -211,11 +211,17 @@
                               </a>
                           </li>
                           <li>
-                            <a href="{{ route('super_admin.requested_orders.index') }}">
-                                <i class="fa fa-circle"></i>
-                                <span> Requested Withdrawals</span>
-                            </a>
-                        </li>
+                              <a href="{{ route('super_admin.wallet_orders.index') }}">
+                                  <i class="fa fa-circle"></i>
+                                  <span> Wallet Withdrawals</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="{{ route('super_admin.western_orders.index') }}">
+                                  <i class="fa fa-circle"></i>
+                                  <span> Western Withdrawals</span>
+                              </a>
+                          </li>
                       </ul>
                   </li>
 
@@ -251,8 +257,12 @@
                               </a>
                           </li>
 
-
-
+                          <li>
+                              <a href="{{ route('super_admin.countries.index') }}">
+                                  <i class="fa fa-circle"></i>
+                                  <span> Countries</span>
+                              </a>
+                          </li>
 
                       </ul>
                   </li>

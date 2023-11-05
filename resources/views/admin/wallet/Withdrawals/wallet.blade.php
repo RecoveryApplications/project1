@@ -35,41 +35,41 @@
             {{-- ============================================== --}}
             <div class="breadcrumb-wrapper breadcrumb-contacts">
                 <div>
-                    <h3><i class="mdi mdi-account-multiple"></i> {{$status}} Withdrawals</h3>
+                    <h3><i class="mdi mdi-account-multiple"></i> {{ $status }} wallet withdrawals</h3>
                     <nav aria-label="breadcrumb">
                         <ol class="p-0 breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="{{ route('super_admin.dashboard') }}"> <i class="mdi mdi-home"></i> Dashboard </a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page"><i class="mdi mdi-account-multiple"></i>
-                                {{$status}} Withdrawals
+                                {{ $status }} Withdrawals
                             </li>
                         </ol>
                     </nav>
                     @if ($status == 'pending')
-                        <a href="{{ route('super_admin.requested_orders.index', 'paid') }}"
+                        <a href="{{ route('super_admin.wallet_orders.index', 'paid') }}"
                             class="btn btn-primary btn-rounded">
                             Paid Orders
                         </a>
-                        <a href="{{ route('super_admin.requested_orders.index', 'rejected') }}"
+                        <a href="{{ route('super_admin.wallet_orders.index', 'rejected') }}"
                             class="btn btn-danger btn-rounded">
                             Rejected Orders
                         </a>
                     @elseif ($status == 'paid')
-                        <a href="{{ route('super_admin.requested_orders.index', 'pending') }}"
+                        <a href="{{ route('super_admin.wallet_orders.index', 'pending') }}"
                             class="btn btn-warning btn-rounded">
                             Pending Orders
                         </a>
-                        <a href="{{ route('super_admin.requested_orders.index', 'rejected') }}"
+                        <a href="{{ route('super_admin.wallet_orders.index', 'rejected') }}"
                             class="btn btn-danger btn-rounded">
                             Rejected Orders
                         </a>
                     @elseif ($status == 'rejected')
-                        <a href="{{ route('super_admin.requested_orders.index', 'pending') }}"
+                        <a href="{{ route('super_admin.wallet_orders.index', 'pending') }}"
                             class="btn btn-warning btn-rounded">
                             Pending Orders
                         </a>
-                        <a href="{{ route('super_admin.requested_orders.index', 'paid') }}"
+                        <a href="{{ route('super_admin.wallet_orders.index', 'paid') }}"
                             class="btn btn-primary btn-rounded">
                             Paid Orders
                         </a>
@@ -93,6 +93,8 @@
                                 <th><i class="mdi mdi-account"></i> Amount</th>
                                 <th><i class="mdi mdi-account"></i> Payment Wallet</th>
                                 <th><i class="mdi mdi-account-question"></i> Status</th>
+                                <th>Ordered At</th>
+
                                 <th><i class="mdi mdi-settings mdi-spin"></i> Control</th>
                             </tr>
                         </thead>
@@ -126,10 +128,10 @@
                                                 Rejected
                                             </span>
                                         @endif
-
                                     </td>
-
-
+                                    <td>
+                                        {{ $order->created_at->format('Y-m-d / H:i:s') }}
+                                    </td>
                                     <td class="gap-1 d-flex">
                                         @if ($order->status == 'pending')
                                             <form action="{{ route('super_admin.requested_orders.pay', $order->id) }}"
@@ -152,7 +154,7 @@
 
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">No Requested Withdrawals</td>
+                                    <td colspan="8" class="text-center">No Requested Withdrawals</td>
                                 </tr>
                             @endforelse
 

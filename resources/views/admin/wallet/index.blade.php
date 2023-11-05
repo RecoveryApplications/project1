@@ -60,6 +60,7 @@
                                 <th><i class="mdi mdi-account"></i> Name EN</th>
                                 <th><i class="mdi mdi-email"></i> Email</th>
                                 <th><i class="mdi mdi-phone"></i> Phone</th>
+                                <th><i class="mdi mdi-phone"></i> Country</th>
                                 <th><i class="mdi mdi-account-question"></i> Wallet Ballance</th>
                                 <th><i class="mdi mdi-account-question"></i> Amount Withdrawn</th>
                                 <th>
@@ -79,6 +80,9 @@
                                     </td>
                                     <td>
                                         {{ $customer->phone }}
+                                    </td>
+                                    <td>
+                                        {{ $customer->country->name_en ?? '-' }}
                                     </td>
                                     <td>
                                         {{ $customer->wallet->ballance ?? 0 }} <small> JOD </small>

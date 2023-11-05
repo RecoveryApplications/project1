@@ -29,6 +29,7 @@ use App\Http\Requests\Frontend\Customers\CustomerLoginFormRequest;
 use App\Http\Requests\Frontend\Customers\ProductReviewFormRequest;
 use App\Http\Requests\Frontend\Customers\CustomerRegisterFormRequest;
 use App\Models\CartOperation;
+use App\Models\Country;
 use App\Models\PaymentWallet;
 use App\Models\PromoCode;
 use App\Models\UsedPromoCode;
@@ -52,7 +53,8 @@ class CustomerController extends Controller
             if ($type == 'login') {
                 return view('front_end_inners.customer.login');
             } else {
-                return view('front_end_inners.customer.register');
+                $countries = Country::where('is_active', 1)->get();
+                return view('front_end_inners.customer.register', compact('countries'));
             }
         } catch (\Throwable $th) {
             $function_name =  $route->getActionName();
@@ -154,16 +156,30 @@ class CustomerController extends Controller
 
     public function register(Request $request, Route $route)
     {
-        $request->validate([
+        $rules = [
             'name_en' => 'required | max:50',
             'username' => 'required|max:50',
             'email' => 'required|email|unique:customers,email',
             'phone' => 'required|unique:customers,phone',
             'password' => 'required|min:6|confirmed',
-        ]);
+            'country_id' => 'required|exists:countries,id',
+        ];
+        $messages = [
+            'name_en.required' => 'Name is required',
+            'username.required' => 'Username is required',
+            'email.required' => 'Email is required',
+            'phone.required' => 'Phone is required',
+            'password.required' => 'Password is required',
+            'country_id.required' => 'Country is required',
+            'country_id.exists' => 'Country is not exists',
+        ];
 
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->only('name_en', 'username', 'email', 'phone', 'country_id'))->withErrors($validator);
+        }
+        
         try {
-
             $data = $request->except(['_token', 'password', 'password_confirmation', 'country_key', 'submit']);
             $data['password'] = Hash::make($request->password);
             $data['user_status'] = 2;
@@ -264,12 +280,14 @@ class CustomerController extends Controller
     // ================================================================
     public function profile()
     {
+
         if (Auth::guard('customer')->check()) {
             $auth = Auth::guard('customer')->user()->profile_photo_path;
             $user_addresses = Auth::guard('customer')->user()->locations;
             $cartSales = CartSale::with(['cartOperations'])->where(['user_id' => auth('customer')->user()->id])->orderBy('created_at', 'desc')->paginate(10);
             $payment_wallets = PaymentWallet::where('status', 'active')->get();
-            return view('front_end_inners.customer.user-profile', compact('auth', 'cartSales', 'user_addresses', 'payment_wallets'));
+            $countries = Country::where('is_active', 1)->get();
+            return view('front_end_inners.customer.user-profile', compact('auth', 'cartSales', 'user_addresses', 'payment_wallets' , 'countries'));
         } else {
             return view('front_end_inners.customer.login_register');
         }

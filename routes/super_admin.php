@@ -22,6 +22,7 @@ use App\Http\Controllers\Backend\Admin\SuperCategoryController;
 use App\Http\Controllers\Backend\Admin\AdminDashboardController;
 use App\Http\Controllers\Backend\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Backend\Admin\BlogsController;
+use App\Http\Controllers\Backend\Admin\CountryController;
 use App\Http\Controllers\Backend\Admin\PaymentWalletsController;
 use App\Http\Controllers\Backend\Admin\PublicValuesController;
 use App\Http\Controllers\Backend\Admin\RequestedWalletOrders;
@@ -131,7 +132,8 @@ Route::prefix('super_admin')->name('super_admin.')->group(function () {
             Route::resource('payment_wallets', PaymentWalletsController::class);
             Route::post('payment_wallets/{id}/toggle-status', [PaymentWalletsController::class, 'toggleStatus'])->name('payment_wallets.toggle-status');
             // =========== Wallet Request Orders Controller ===========
-            Route::get('requested_orders/{status?}', [RequestedWalletOrders::class, 'index'])->name('requested_orders.index');
+            Route::get('wallet_requested_orders/{status?}', [RequestedWalletOrders::class, 'index'])->name('wallet_orders.index');
+            Route::get('western_requested_orders/{status?}', [RequestedWalletOrders::class, 'western'])->name('western_orders.index');
             Route::post('requested_orders/pay/{id}', [RequestedWalletOrders::class, 'pay'])->name('requested_orders.pay');
             Route::post('requested_orders/reject/{id}', [RequestedWalletOrders::class, 'reject'])->name('requested_orders.reject');
         });
@@ -394,5 +396,10 @@ Route::prefix('super_admin')->name('super_admin.')->group(function () {
             Route::get('softDeleteRestore/{id}', [PublicValuesController::class, 'softDeleteRestore'])->name('public_values-softDeleteRestore');
             Route::get('destroy/{id}', [PublicValuesController::class, 'destroy'])->name('public_values-destroy');
         });
+
+        // Countries Routes :
+        // ==============================================================================
+        Route::resource('countries', CountryController::class)->only(['index', 'edit', 'update']);
+        Route::get('countries/{id}/toggle-status', [CountryController::class, 'toggleStatus'])->name('countries.toggle-status');
     });
 });

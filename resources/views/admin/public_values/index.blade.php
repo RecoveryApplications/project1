@@ -51,8 +51,8 @@
             <div class="col-sm-12">
                 <div class="card">
                      <div class="card-header">
-                        {{-- <a href="{{ route('super_admin.public_values-create') }}" class="btn btn-primary add-row mt-md-0 mt-2">Add New</a>
-                        <a href="{{ route('super_admin.public_values-showSoftDelete') }}" class="btn btn-danger add-row mt-md-0 mt-2">Archive </a> --}}
+                        {{-- <a href="{{ route('super_admin.public_values-create') }}" class="mt-2 btn btn-primary add-row mt-md-0">Add New</a>
+                        <a href="{{ route('super_admin.public_values-showSoftDelete') }}" class="mt-2 btn btn-danger add-row mt-md-0">Archive </a> --}}
                         </div>
                     <div class="card-body order-datatable">
                         <table class="display" id="basic-1">
@@ -98,22 +98,22 @@
                                                 <i class="fa fa-eye" title="Show"></i>
                                             </a> --}}
 
-                                            <a  href="{{ route('super_admin.public_values-edit', [$public_value->id]) }}"class=" btn  btn-success">
+                                            <a  href="{{ route('super_admin.public_values-edit', [$public_value->id]) }}"class=" btn btn-success">
                                                 <i class="fa fa-edit" title="Edit"></i>
                                             </a>
                                             @if( $public_value->title=='Color' || $public_value->title=='Size' )
-                                            <a href="{{ route('super_admin.public_values-activeInactiveSingle', [$public_value->id]) }}" title="Active / Inactive" class=" btn  btn-warning"><i class="fa fa-stop" aria-hidden="true"></i></a>
+                                            <a href="{{ route('super_admin.public_values-activeInactiveSingle', [$public_value->id]) }}" title="Active / Inactive" class=" btn btn-warning"><i class="fa fa-stop" aria-hidden="true"></i></a>
                                             @else
                                             @endif
 
 
 {{--
-                                            <a href="{{ route('super_admin.public_values-softDelete', [$public_value->id]) }}"class=" btn  btn-danger">
+                                            <a href="{{ route('super_admin.public_values-softDelete', [$public_value->id]) }}"class=" btn btn-danger">
                                                 <i class="fa fa-close" title="soft Delete"></i>
                                             </a>
-                                            <a href="{{ route('super_admin.public_values-activeInactiveSingle', [$public_value->id]) }}" title="Active / Inactive" class=" btn  btn-warning"><i class="fa fa-stop" aria-hidden="true"></i></a>
+                                            <a href="{{ route('super_admin.public_values-activeInactiveSingle', [$public_value->id]) }}" title="Active / Inactive" class=" btn btn-warning"><i class="fa fa-stop" aria-hidden="true"></i></a>
 
-                                            <a href="{{ route('super_admin.public_values-destroy', [$public_value->id]) }}"class="btn  btn-primary">
+                                            <a href="{{ route('super_admin.public_values-destroy', [$public_value->id]) }}"class="btn btn-primary">
                                                 <i class="fa fa-trash" title="Destroy"></i>
                                             </a> --}}
                                         </td>

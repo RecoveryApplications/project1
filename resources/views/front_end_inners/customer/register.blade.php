@@ -47,6 +47,23 @@
                                                 value="{{ old('phone') }}">
                                         </div>
                                     </div>
+                                    <div class="mb-1 col-12">
+                                        <div class="mb-20 input-box select-dropdown">
+                                            <label for="country" class="form-label" style="font-size: 14px">
+                                                Country*
+                                            </label>
+                                            <fieldset>
+                                                <select id="country" class="option-drop" name="country_id"
+                                                    required>
+                                                    @foreach ($countries as $country)
+                                                        <option value="{{ $country->id }}">
+                                                            {{ $country->name_en }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
                                     <div class="col-12">
                                         <div class="input-box">
                                             <label for="login-pass">Password</label>
