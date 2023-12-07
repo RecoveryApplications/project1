@@ -103,38 +103,52 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     // ==================== Customer routes ===========================
     // ================================================================
     Route::prefix('customer')->name('customer.')->group(function () {
-        Route::get('/loginRegister/{type?}', [CustomerController::class, 'loginRegister'])->name('loginRegister');
-        Route::post('/login', [CustomerController::class, 'login'])->name('login');
-        Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');
-        Route::post('/register', [CustomerController::class, 'register'])->name('register');
+
+        // ------------ CustomerController Routes ----------------
+        Route::controller(CustomerController::class)->group(function () {
+            Route::get('/loginRegister/{type?}',  'loginRegister')->name('loginRegister');
+            Route::post('/login',  'login')->name('login');
+            Route::get('/logout',  'logout')->name('logout');
+            Route::post('/register',  'register')->name('register');
+        });
 
 
         Route::group(['middleware' => ['checkAuth']], function () {
             Route::get('/', [ProfileCustomerController::class, 'address'])->name('address');
-            Route::get('/profile', [CustomerController::class, 'profile'])->name('profile');
-            Route::post('/productReview', [CustomerController::class, 'productReview'])->name('productReview');
-            Route::post('/addToCart', [CustomerController::class, 'addToCart'])->name('add-to-cart');
-            Route::get('remove-from-cart/{id}', [CustomerController::class, 'removeItemFromCart'])->name('remove-from-cart');
-            Route::post('/checkout', [CustomerController::class, 'checkout'])->name('checkout');
 
-            Route::get('/wishlist/{id}', [CustomerController::class, 'wishlist'])->name('wishlist')->middleware('auth:customer');
-            Route::get('/get-wish-list', [CustomerController::class, 'getWishList'])->name('getWishList')->middleware('auth:customer');
-            Route::get('/checkoutPage', [CustomerController::class, 'checkoutPage'])->name('checkoutPage');
+            // ------------ CustomerController Routes ----------------
+            Route::controller(CustomerController::class)->group(function () {
+                // =========== Profile Pages ===========
+                Route::get('/profile',  'profile')->name('profile');
+                Route::get('/wallet',  'userWallet')->name('wallet');
+                Route::get('/orders',  'userOrders')->name('orders');
+
+
+                Route::post('/productReview',  'productReview')->name('productReview');
+                Route::post('/addToCart',  'addToCart')->name('add-to-cart');
+                Route::get('remove-from-cart/{id}',  'removeItemFromCart')->name('remove-from-cart');
+                Route::post('/checkout',  'checkout')->name('checkout');
+                Route::get('/wishlist/{id}',  'wishlist')->name('wishlist')->middleware('auth:customer');
+                Route::get('/get-wish-list',  'getWishList')->name('getWishList')->middleware('auth:customer');
+                Route::get('/checkoutPage',  'checkoutPage')->name('checkoutPage');
+                Route::post('/updateCart',  'updateCart')->name('updateCart');
+                Route::post('/getOrderDetails',  'getOrderDetails')->name('getOrderDetails');
+            });
             Route::get('/orderOverview', [CheckoutController::class, 'index'])->name('orderOverview');
             Route::post('/orderOverview', [CheckoutController::class, 'store'])->name('orderOverview.store');
 
-
-            Route::post('/deleteItemToCart', [FrontEndController::class, 'deleteItemToCart'])->name('deleteItemToCart');
-            Route::get('/getCartPageAjax', [FrontEndController::class, 'getCartPageAjax'])->name('getCartPageAjax');
-            Route::post('/updateCart', [CustomerController::class, 'updateCart'])->name('updateCart');
+            // ------------ FrontEnd Routes ----------------
+            Route::controller(FrontEndController::class)->group(function () {
+                Route::post('/deleteItemToCart',  'deleteItemToCart')->name('deleteItemToCart');
+                Route::get('/getCartPageAjax',  'getCartPageAjax')->name('getCartPageAjax');
+                Route::post('/addToCartAjax',  'addToCartAjax')->name('addToCartAjax');
+                Route::get('/getCartAjax',  'getCartAjax')->name('getCartAjax');
+            });
             Route::post('/checkpromoCode', [CartController::class, 'promoCode'])->name('checkpromoCode');
-            Route::post('/addToCartAjax', [FrontEndController::class, 'addToCartAjax'])->name('addToCartAjax');
-            Route::get('/getCartAjax', [FrontEndController::class, 'getCartAjax'])->name('getCartAjax');
-            Route::post('/getOrderDetails', [CustomerController::class, 'getOrderDetails'])->name('getOrderDetails');
 
             Route::group(['prefix' => 'wallet'], function () {
                 // =========== Wallet Request Orders Controller ===========
-                Route::post('request_order/{type}', [WalletRequestOrdersController::class , 'store'])->name('request_order.store');
+                Route::post('request_order/{type}', [WalletRequestOrdersController::class, 'store'])->name('request_order.store');
             });
         });
 

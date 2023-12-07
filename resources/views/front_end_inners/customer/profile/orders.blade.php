@@ -2,8 +2,8 @@
 
 
 
-@section('content')
-    <div id="data-step3" class="account-content" data-temp="tabdata" style="display:none">
+@section('user-content')
+    <div>
         <div id="form-print" class="admission-form-wrapper">
             <div class="row">
                 <div class="col-12">
@@ -26,6 +26,7 @@
                                         <th>Status</th>
                                         <th>Payment</th>
                                         <th>Delivery</th>
+                                        <th>Sub Total</th>
                                         <th>Total</th>
                                         <th>Show</th>
                                     </tr>
@@ -52,6 +53,9 @@
                                                 {{ $cartSale->delivery_status }}
                                             </td>
                                             <td>
+                                                {{ $cartSale->sub_total }}
+                                            </td>
+                                            <td>
                                                 {{ $cartSale->total }}
                                             </td>
                                             <td><button class="p-1 btn btn-sm btn-secondary show_order" data-toggle="modal"
@@ -73,7 +77,7 @@
             </div>
         </div>
     </div>
-    {{-- modal section --}}
+
     @foreach ($cartSales as $cartSale)
         <div class="modal fade" id="exampleModalCenter{{ $cartSale->id }}" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -93,9 +97,9 @@
                             {{-- ================================================= --}}
                             <div class="mt-3 media profile-timeline-media">
                                 <div class="media-body">
-                                    <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Main
-                                        Order
-                                        Information :
+                                    <h3 class="py-3 text-dark">
+                                        <i class="mdi mdi-information"></i>
+                                        Main Order Information :
                                     </h3>
                                     <table class="table table-hover table-striped">
                                         <thead>
@@ -103,28 +107,8 @@
                                                 <th><i class="mdi mdi-account"></i> Order ID: <span
                                                         style="color:blue;">{!! isset($cartSale->id) ? $cartSale->id : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
-                                                <th><i class="mdi mdi-account"></i> Number Of Product :
-                                                    <span style="color:blue;">{!! isset($cartSale->product_count) ? $cartSale->product_count : '<span style="color:red;">Undefined</span>' !!}</span>
-                                                </th>
+
                                             </tr>
-                                            <tr>
-                                                <th><i class="mdi mdi-account"></i> Sub Total : <span
-                                                        style="color:blue;">{!! isset($cartSale->sub_total)
-                                                            ? $cartSale->sub_total . '<small> $</small>'
-                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
-                                                </th>
-                                                <th><i class="mdi mdi-account"></i> Total : <span
-                                                        style="color:blue;">{!! isset($cartSale->total)
-                                                            ? $cartSale->total . '<small> $</small>'
-                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
-                                                </th>
-                                            </tr>
-                                            {{-- <tr>
-                                        <th><i class="mdi mdi-email"></i> Promo Code : <span
-                                                style="color:blue;">{!! isset($cartSale->promoCode->promo_code) ? $cartSale->promoCode->promo_code : '------' !!}</span></th>
-                                        <th><i class="mdi mdi-email"></i> Discount : <span
-                                                style="color:blue;">{!! isset($cartSale->discount) ? $cartSale->discount . '<small> $</small>' : '------' !!}</span></th>
-                                    </tr> --}}
                                             <tr>
                                                 <th><i class="mdi mdi-phone"></i> Order Status :
                                                     @if (isset($cartSale->status))
@@ -156,26 +140,74 @@
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <th><i class="mdi mdi-phone"></i> Customer Name : <span
-                                                        style="color:blue;">{!! isset($cartSale->customer->name_en)
-                                                            ? $cartSale->customer->name_en
-                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
-                                                </th>
-                                            </tr>
-                                            <tr>
                                                 <th><i class="mdi mdi-phone"></i> Delivery Status :
                                                     @if (isset($cartSale->delivery_status))
                                                         @if ($cartSale->delivery_status == 'Pendding')
                                                             <span
                                                                 style="color:rgba(182, 121, 7, 0.87);">{!! $cartSale->delivery_status !!}</span>
-                                                        @elseif($cartSale->payment_status == 'In Progress')
+                                                        @elseif($cartSale->delivery_status == 'Received')
                                                             <span style="color:green;">{!! $cartSale->delivery_status !!}</span>
-                                                        @else
+                                                        @elseif($cartSale->delivery_status == 'Not Received')
                                                             <span style="color:red;">{!! $cartSale->delivery_status !!}</span>
                                                         @endif
                                                     @else
-                                                        <span>------</span>
+                                                        <span style="color:red;">Undefined</span>
                                                     @endif
+                                                </th>
+                                            </tr>
+                                            <hr>
+                                            <tr>
+                                                <th><i class="mdi mdi-account"></i> Number Of Products :
+                                                    <span style="color:blue;">{!! isset($cartSale->product_count) ? $cartSale->product_count : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th><i class="mdi mdi-account"></i> Shipping : <span
+                                                        style="color:blue;">{!! isset($cartSale->shipping)
+                                                            ? $cartSale->shipping . '<small> JOD</small>'
+                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                </th>
+                                                <th><i class="mdi mdi-account"></i> Tax : <span
+                                                        style="color:blue;">{!! isset($cartSale->tax) ? $cartSale->tax . '<small> JOD</small>' : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th><i class="mdi mdi-account"></i> Website percentage :
+                                                    <span style="color:blue;">{!! isset($cartSale->sale_percentage)
+                                                        ? $cartSale->sale_percentage . '<small> JOD</small>'
+                                                        : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                </th>
+                                                <th><i class="mdi mdi-account"></i> Redeem : <span
+                                                        style="color:blue;">{!! isset($cartSale->redeem)
+                                                            ? $cartSale->redeem . '<small> JOD</small>'
+                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                </th>
+                                            </tr>
+
+                                            <tr>
+                                                <th><i class="mdi mdi-account"></i> Sub Total : <span
+                                                        style="color:blue;">{!! isset($cartSale->sub_total)
+                                                            ? $cartSale->sub_total . '<small> JOD</small>'
+                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                </th>
+                                                <th><i class="mdi mdi-account"></i> Total : <span
+                                                        style="color:blue;">{!! isset($cartSale->total)
+                                                            ? $cartSale->total . '<small> JOD</small>'
+                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                </th>
+                                            </tr>
+                                            {{-- <tr>
+                                        <th><i class="mdi mdi-email"></i> Promo Code : <span
+                                                style="color:blue;">{!! isset($cartSale->promoCode->promo_code) ? $cartSale->promoCode->promo_code : '------' !!}</span></th>
+                                        <th><i class="mdi mdi-email"></i> Discount : <span
+                                                style="color:blue;">{!! isset($cartSale->discount) ? $cartSale->discount . '<small> JOD</small>' : '------' !!}</span></th>
+                                    </tr> --}}
+
+                                            <tr>
+                                                <th><i class="mdi mdi-phone"></i> Customer Name : <span
+                                                        style="color:blue;">{!! isset($cartSale->customer->name_en)
+                                                            ? $cartSale->customer->name_en
+                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
                                                 <th><i class="mdi mdi-phone"></i> Shipment Num. :
                                                     @if (isset($cartSale->track_number))
@@ -241,30 +273,21 @@
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <th><i class="mdi mdi-email"></i> Address : <span
-                                                        style="color:blue;">{!! isset($cartSale->location->address) ? $cartSale->location->address : '------' !!}</span>
-                                                </th>
-                                                <th><i class="mdi mdi-email"></i> Apt/Unit/Suite/etc. :
-                                                    <span style="color:blue;">{!! isset($cartSale->location->apartment) ? $cartSale->location->apartment : '------' !!}</span>
-                                                </th>
-                                            </tr>
-                                            <tr>
                                                 <th><i class="mdi mdi-email"></i> City : <span
                                                         style="color:blue;">{!! isset($cartSale->location->city) ? $cartSale->location->city : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
-                                                <th><i class="mdi mdi-phone"></i>State :<span
-                                                        style="color:blue;">{!! isset($cartSale->location->state) ? $cartSale->location->state : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-email"></i> Address : <span
+                                                        style="color:blue;">{!! isset($cartSale->location->address) ? $cartSale->location->address : '------' !!}</span>
                                                 </th>
+
                                             </tr>
                                             <tr>
+                                                <th><i class="mdi mdi-email"></i> Apt/Unit/Suite/etc. :
+                                                    <span style="color:blue;">{!! isset($cartSale->location->apartment) ? $cartSale->location->apartment : '------' !!}</span>
+                                                </th>
                                                 <th><i class="mdi mdi-phone"></i> ZipCode : <span
                                                         style="color:blue;">{!! isset($cartSale->location->zipcode)
                                                             ? $cartSale->location->zipcode
-                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
-                                                </th>
-                                                <th><i class="mdi mdi-phone"></i> Country : <span
-                                                        style="color:blue;">{!! isset($cartSale->location->country)
-                                                            ? $cartSale->location->country
                                                             : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
                                             </tr>
@@ -290,56 +313,66 @@
                                     <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Order
                                         Details :
                                     </h3>
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th><span style="color:blue;">Image</th>
-                                                <th><span style="color:blue;">Product</th>
-                                                <th><span style="color:blue;">Quantity</th>
-                                                <th><span style="color:blue;">Unit Price</th>
-                                                <th><span style="color:blue;">Sub Total</th>
-                                                {{-- <th><span style="color:blue;">Total</th> --}}
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($cartSale->cartOperations as $cartOperation)
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
                                                 <tr>
-                                                    <td>
-                                                        @if (isset($cartOperation->product->image) &&
-                                                                $cartOperation->product->image &&
-                                                                file_exists($cartOperation->product->image))
-                                                            <img src="{{ asset($cartOperation->product->image) }}"
-                                                                alt="" width="90">
-                                                        @elseif (isset($cartOperation->product->image_url) && $cartOperation->product->image_url != null)
-                                                            <img src="{{ $cartOperation->product->image_url }}"
-                                                                alt="" width="90">
-                                                        @else
-                                                            <img src="{{ asset('front_end_style/assets/images/logo.png') }}"
-                                                                alt="" width="100">
-                                                        @endif
-                                                    </td>
-                                                    <td><a
-                                                            href="{{ route('super_admin.products-show', $cartOperation->product_id) }}">{!! isset($cartOperation->product->name_en)
-                                                                ? $cartOperation->product->name_en
-                                                                : '<span style="color: red;">Undefined</span>' !!}</a>
-                                                    </td>
-                                                    <td>{{ isset($cartOperation->quantity) ? $cartOperation->quantity : 0 }}
-                                                    </td>
-                                                    <td>{!! isset($cartOperation->unit_price)
-                                                        ? $cartOperation->unit_price . '<small> $</small>'
-                                                        : '<span style="color: red;">Undefined</span>' !!}</td>
-                                                    <td>{!! isset($cartOperation->quantity) && isset($cartOperation->unit_price)
-                                                        ? $cartOperation->quantity * $cartOperation->unit_price . '<small> $</small>'
-                                                        : '<span style="color: red;">Undefined</span>' !!}</td>
-                                                    {{-- <td>{!! isset($cartOperation->quantity) && isset($cartOperation->unit_price)
-                                                    ? $cartOperation->quantity * $cartOperation->unit_price +
-                                                        ($cartOperation->quantity * $cartOperation->unit_price * 15) / 100 .
-                                                        '<small> $</small>'
-                                                    : '<span style="color: red;">Undefined</span>' !!}</td> --}}
+                                                    <th><span style="color:blue;">Image</th>
+                                                    <th><span style="color:blue;">Product</th>
+                                                    <th><span style="color:blue;">Quantity</th>
+                                                    <th><span style="color:blue;">Unit Price</th>
+                                                    <th><span style="color:blue;">Out Sale Price</th>
+                                                    <th><span style="color:blue;">Sub Total</th>
+                                                    <th><span style="color:blue;">Total</th>
                                                 </tr>
-                                            @endforeach
-                                        <tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($cartSale->cartOperations as $cartOperation)
+                                                    <tr>
+                                                        <td>
+                                                            @if (isset($cartOperation->product->image) &&
+                                                                    $cartOperation->product->image &&
+                                                                    file_exists($cartOperation->product->image))
+                                                                <img src="{{ asset($cartOperation->product->image) }}"
+                                                                    alt="" width="90">
+                                                            @elseif (isset($cartOperation->product->image_url) && $cartOperation->product->image_url != null)
+                                                                <img src="{{ $cartOperation->product->image_url }}"
+                                                                    alt="" width="90">
+                                                            @else
+                                                                <img src="{{ asset('front_end_style/assets/images/logo.png') }}"
+                                                                    alt="" width="100">
+                                                            @endif
+                                                        </td>
+                                                        <td><a
+                                                                href="{{ route('super_admin.products-show', $cartOperation->product_id) }}">{!! isset($cartOperation->product->name_en)
+                                                                    ? $cartOperation->product->name_en
+                                                                    : '<span style="color: red;">Undefined</span>' !!}</a>
+                                                        </td>
+                                                        <td>{{ isset($cartOperation->quantity) ? $cartOperation->quantity : 0 }}
+                                                        </td>
+                                                        <td>{!! isset($cartOperation->unit_price)
+                                                            ? $cartOperation->unit_price . '<small> JOD</small>'
+                                                            : '<span style="color: red;">Undefined</span>' !!}</td>
+                                                        <td>{!! isset($cartOperation->out_sale_price)
+                                                            ? $cartOperation->out_sale_price . '<small> JOD</small>'
+                                                            : '<span style="color: red;">Undefined</span>' !!}</td>
+                                                        <td>
+                                                            {{ $cartOperation->sub_total ?? '<span style="color: red;">Undefined</span>' }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $cartOperation->total ?? '<span style="color: red;">Undefined</span>' }}
+                                                        </td>
+
+                                                        {{-- <td>{!! isset($cartOperation->quantity) && isset($cartOperation->unit_price)
+                                                        ? $cartOperation->quantity * $cartOperation->unit_price +
+                                                            ($cartOperation->quantity * $cartOperation->unit_price * 15) / 100 .
+                                                            '<small> JOD</small>'
+                                                        : '<span style="color: red;">Undefined</span>' !!}</td> --}}
+                                                    </tr>
+                                                @endforeach
+                                            <tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

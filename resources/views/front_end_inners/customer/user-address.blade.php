@@ -10,7 +10,7 @@
 
 @section('content')
     <!-- Ec breadcrumb start -->
-    <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+    <div class="sticky-header-next-sec ec-breadcrumb section-space-mb">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -72,7 +72,7 @@
                         @foreach ($user_addresses as $address)
                             <div class="my-4">
 
-                                <div class="ec-vendor-dashboard-card ec-vendor-setting-card  p-3">
+                                <div class="p-3 ec-vendor-dashboard-card ec-vendor-setting-card">
                                     <div class="row">
                                         <div class="col-md-10">
                                             <p class="fs-5 col-md-4">
@@ -87,10 +87,6 @@
                                                 {{-- <a href="#"  data-toggle="modal" data-target="#address-modal-{{$address->id}}"> Edit</a> --}}
                                                 <a href="#" data-toggle="modal"
                                                     data-target="#address-modal-delete-{{ $address->id }}"> Delete</a>
-
-
-
-
                                                 <div class="modal fade" id="address-modal-delete-{{ $address->id }}"
                                                     tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                                     aria-hidden="true">
@@ -114,7 +110,7 @@
                                                                     </svg>
 
                                                                     <p
-                                                                        class="h-100 d-flex align-items-center justify-content-center m-3">
+                                                                        class="m-3 h-100 d-flex align-items-center justify-content-center">
                                                                         Are you sure to delete the item!!
                                                                     </p>
                                                                 </div>
@@ -152,9 +148,9 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6 ">
                                                                             <label for="city"
-                                                                                class="small mb-1">{{ trans('front_end.city') }}
+                                                                                class="mb-1 small">{{ trans('front_end.city') }}
                                                                             </label>
-                                                                            <div class="input-group mb-3">
+                                                                            <div class="mb-3 input-group">
                                                                                 <select name="city" data-live-search="true"
                                                                                     class="form-select" required>
                                                                                     <option value=""> Choose the state ...
@@ -185,9 +181,9 @@
                                                                         </div>
                                                                         <div class="col-md-6 ">
                                                                             <label for="retail"
-                                                                                class="small mb-1">{{ trans('front_end.retail') }}
+                                                                                class="mb-1 small">{{ trans('front_end.retail') }}
                                                                             </label>
-                                                                            <div class="input-group mb-3">
+                                                                            <div class="mb-3 input-group">
                                                                                 <input id="retail" type="text"
                                                                                     placeholder="Enter your the retail"
                                                                                     class="form-control @error('retail') is-invalid @enderror"
@@ -207,9 +203,9 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6 ">
                                                                             <label for="phone"
-                                                                                class="small mb-1">{{ trans('front_end.phone') }}
+                                                                                class="mb-1 small">{{ trans('front_end.phone') }}
                                                                             </label>
-                                                                            <div class="input-group mb-3">
+                                                                            <div class="mb-3 input-group">
 
                                                                                 <input id="phone" type="text"
                                                                                     placeholder="Enter your the phone"
@@ -227,9 +223,9 @@
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <label for="extra_phone_number"
-                                                                                class="small mb-1">{{ trans('front_end.extra_phone_number') }}
+                                                                                class="mb-1 small">{{ trans('front_end.extra_phone_number') }}
                                                                             </label>
-                                                                            <div class="input-group mb-3">
+                                                                            <div class="mb-3 input-group">
                                                                                 <input id="phone_extra" type="text"
                                                                                     placeholder="Enter your phone extra"
                                                                                     class="form-control @error('phone_extra') is-invalid @enderror"
@@ -247,7 +243,7 @@
 
                                                                     <div class="mb-3">
                                                                         <label for="address_2"
-                                                                            class="small mb-1">{{ trans('front_end.address') }}
+                                                                            class="mb-1 small">{{ trans('front_end.address') }}
                                                                         </label>
                                                                         <div class="form-outline ">
                                                                             <input id="address_2" type="text"
@@ -294,7 +290,7 @@
         <div class="modal fade" id="address-modal-add" tabindex="-1" role="dialog" aria-labelledby="AddressTitle"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="m    odal-content">
+                <div class="m odal-content">
                     <div class="modal-header h-100 d-flex align-items-center justify-content-center">
                         <h5 class="modal-title h-100 d-flex align-items-center justify-content-center">Add address</h5>
                     </div>
@@ -305,9 +301,9 @@
                             @csrf
                             <div class="row">
                                 {{-- <div class="col-md-6 ">
-                                    <label for="city" class="small mb-1">{{ trans('front_end.city') }}
+                                    <label for="city" class="mb-1 small">{{ trans('front_end.city') }}
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <select name="city" data-live-search="true" class="form-select" required>
                                             <option value=""> Choose the state ...</option>
                                             @if (isset($states) && $states->count() > 0)
@@ -330,9 +326,9 @@
                                     </div>
                                 </div> --}}
                                 <div class="col-md-6 ">
-                                    <label for="email" class="small mb-1">Email (optional)
+                                    <label for="email" class="mb-1 small">Email (optional)
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input id="email" type="text" placeholder="Enter your email"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
                                             value="" autocomplete="email" autofocus>
@@ -345,9 +341,9 @@
                                 </div>
 
                                 <div class="col-md-6 ">
-                                    <label for="phone" class="small mb-1">Phone (optional)
+                                    <label for="phone" class="mb-1 small">Phone (optional)
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
 
                                         <input id="phone" type="text" placeholder="Enter your the phone"
                                             class="form-control @error('phone') is-invalid @enderror" name="phone"
@@ -362,9 +358,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="name"
-                                        class="small mb-1">Name *
+                                        class="mb-1 small">Name *
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input id="name" type="text" placeholder="Enter your name"
                                             class="form-control @error('name') is-invalid @enderror"
                                             name="name" value="" autocomplete="name" autofocus>
@@ -377,9 +373,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="company"
-                                        class="small mb-1">Company (optional)
+                                        class="mb-1 small">Company (optional)
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input id="company" type="text" placeholder="Enter your company"
                                             class="form-control @error('company') is-invalid @enderror"
                                             name="company" value="" autocomplete="company" autofocus>
@@ -392,9 +388,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="address"
-                                        class="small mb-1">Address
+                                        class="mb-1 small">Address
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input id="address" type="text" placeholder="Enter your address"
                                             class="form-control @error('address') is-invalid @enderror"
                                             name="address" value="" autocomplete="address" autofocus>
@@ -407,9 +403,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="apartment"
-                                        class="small mb-1">Apt/Unit/Suite/etc. (Optional)
+                                        class="mb-1 small">Apt/Unit/Suite/etc. (Optional)
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input id="apartment" type="text" placeholder="Enter your Apt/Unit/Suite/etc."
                                             class="form-control @error('apartment') is-invalid @enderror"
                                             name="apartment" value="" autocomplete="apartment" autofocus>
@@ -422,9 +418,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="city"
-                                        class="small mb-1">City
+                                        class="mb-1 small">City
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input id="city" type="text" placeholder="Enter your city"
                                             class="form-control @error('city') is-invalid @enderror"
                                             name="city" value="" autocomplete="city" autofocus>
@@ -437,9 +433,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="state"
-                                        class="small mb-1">State
+                                        class="mb-1 small">State
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input id="state" type="text" placeholder="Enter your state"
                                             class="form-control @error('state') is-invalid @enderror"
                                             name="state" value="" autocomplete="state" autofocus>
@@ -452,9 +448,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="zipcode"
-                                        class="small mb-1">Zipcode
+                                        class="mb-1 small">Zipcode
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <input id="zipcode" type="text" placeholder="Enter your zipcode"
                                             class="form-control @error('zipcode') is-invalid @enderror"
                                             name="zipcode" value="" autocomplete="zipcode" autofocus>
@@ -467,9 +463,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="country"
-                                        class="small mb-1">Country
+                                        class="mb-1 small">Country
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <select name="country" data-live-search="true" class="form-select" required>
                                             <option value="United States">United States</option>
                                         </select>
@@ -482,9 +478,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label for="more_info"
-                                        class="small mb-1">More Info (optional)
+                                        class="mb-1 small">More Info (optional)
                                     </label>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3 input-group">
                                         <textarea id="more_info" type="text" placeholder="Enter More Info"
                                             class="form-control @error('more_info') is-invalid @enderror"
                                             name="more_info" value="" autocomplete="more_info" autofocus></textarea>

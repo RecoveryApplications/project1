@@ -35,9 +35,7 @@
         </div>
     </div>
     <!-- Bread Crumb END -->
-    {{-- @php
-        dd(auth('customer')->user()->cartSales);
-    @endphp --}}
+
     <!-- CONTAIN START -->
     <section class="checkout-section ptb-70">
         <div class="container">
@@ -46,16 +44,23 @@
                     <div class="account-sidebar account-tab mb-sm-30">
                         <div class="dark-bg tab-title-bg">
                             <div class="heading-part">
-                                <div class="sub-title"><span></span> My Account</div>
+                                <div class="sub-title"><span></span> My Dashboard</div>
                             </div>
                         </div>
                         <div class="account-tab-inner">
                             <ul class="account-tab-stap">
-                                <li id="step1" class="active"> <a href="javascript:void(0)">My Dashboard<i
-                                            class="fa fa-angle-right"></i> </a> </li>
-                                <li id="step3"> <a href="javascript:void(0)">My Order List<i
-                                            class="fa fa-angle-right"></i> </a> </li>
-
+                                <li id="step1" class="active"> 
+                                    <a href="javascript:void(0)">
+                                        My Dashboard
+                                        <i class="fa fa-angle-right"></i> 
+                                    </a> 
+                                </li>
+                                <li id="step3"> 
+                                    <a href="javascript:void(0)">
+                                        My Order List
+                                        <i class="fa fa-angle-right"></i> 
+                                    </a> 
+                                </li>
                             </ul>
                         </div>
                     </div>

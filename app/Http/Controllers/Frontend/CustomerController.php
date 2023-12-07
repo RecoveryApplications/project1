@@ -178,7 +178,7 @@ class CustomerController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->only('name_en', 'username', 'email', 'phone', 'country_id'))->withErrors($validator);
         }
-        
+
         try {
             $data = $request->except(['_token', 'password', 'password_confirmation', 'country_key', 'submit']);
             $data['password'] = Hash::make($request->password);
@@ -283,11 +283,30 @@ class CustomerController extends Controller
 
         if (Auth::guard('customer')->check()) {
             $auth = Auth::guard('customer')->user()->profile_photo_path;
-            $user_addresses = Auth::guard('customer')->user()->locations;
-            $cartSales = CartSale::with(['cartOperations'])->where(['user_id' => auth('customer')->user()->id])->orderBy('created_at', 'desc')->paginate(10);
-            $payment_wallets = PaymentWallet::where('status', 'active')->get();
             $countries = Country::where('is_active', 1)->get();
-            return view('front_end_inners.customer.user-profile', compact('auth', 'cartSales', 'user_addresses', 'payment_wallets' , 'countries'));
+            return view('front_end_inners.customer.profile.index', compact('auth',  'countries'));
+        } else {
+            return view('front_end_inners.customer.login_register');
+        }
+    }
+
+    public function userWallet()
+    {
+        if (Auth::guard('customer')->check()) {
+            $auth = Auth::guard('customer')->user()->profile_photo_path;
+            $payment_wallets = PaymentWallet::where('status', 'active')->get();
+            return view('front_end_inners.customer.profile.wallet', compact('auth',  'payment_wallets'));
+        } else {
+            return view('front_end_inners.customer.login_register');
+        }
+    }
+    
+    public function userOrders()
+    {
+        if (Auth::guard('customer')->check()) {
+            $auth = Auth::guard('customer')->user()->profile_photo_path;
+            $cartSales = CartSale::with(['cartOperations'])->where(['user_id' => auth('customer')->user()->id])->orderBy('created_at', 'desc')->paginate(10);
+            return view('front_end_inners.customer.profile.orders', compact('auth', 'cartSales'));
         } else {
             return view('front_end_inners.customer.login_register');
         }
