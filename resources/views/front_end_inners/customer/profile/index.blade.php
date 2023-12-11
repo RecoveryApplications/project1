@@ -1,11 +1,11 @@
-@extends('front_end_inners.customer.profile.layout', ['title' => 'الصفحة الرئيسية'])
+@extends('front_end_inners.customer.profile.layout', ['title' => __('front_end.profile_My_Dashboard')])
 
 @section('user-content')
-    <div >
+    <div>
         <div class="row">
             <div class="col-12">
                 <div class="heading-part heading-bg mb-30">
-                    <h2 class="m-0 heading">Account Dashboard</h2>
+                    <h2 class="m-0 heading">{{ __('front_end.profile_Account_Dashboard') }}</h2>
                 </div>
             </div>
         </div>
@@ -13,12 +13,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="heading-part">
-                        <h3 class="sub-heading">Hello, {{ auth('customer')->user()->name_en }}</h3>
+                        <h3 class="sub-heading">{{ __('front_end.profile_Hello') }}, {{ auth('customer')->user()->name_en }}
+                        </h3>
                     </div>
                     <p>
-                        From your account dashboard. you can easily check &amp; view your recent orders and
-                        edit your password and account
-                        details.
+                        {{ __('front_end.profile_Short_Description') }}
                     </p>
                 </div>
             </div>
@@ -45,8 +44,7 @@
                                             name*
                                         </label>
                                         <input type="text" name="name" value="{{ old('name') }}"
-                                            class="form-control form-control-sm" placeholder="name" id="name"
-                                            required>
+                                            class="form-control form-control-sm" placeholder="name" id="name" required>
                                     </div>
                                     <div class="mb-1 col-6">
                                         <label for="email" class="form-label" style="font-size: 14px">
@@ -91,8 +89,7 @@
                                             city*
                                         </label>
                                         <input type="text" name="city" value="{{ old('city') }}"
-                                            class="form-control form-control-sm" placeholder="city" id="city"
-                                            required>
+                                            class="form-control form-control-sm" placeholder="city" id="city" required>
                                     </div>
                                     <div class="mb-1 col-6">
                                         <label for="state" class="form-label" style="font-size: 14px">
@@ -185,7 +182,7 @@
             <div class="my-4 row">
                 <div class="mb-20 col-12">
                     <div class="gap-3 heading-part d-flex align-items-center">
-                        <h3 class="m-0 sub-heading">Account Inforamtion</h3>
+                        <h3 class="m-0 sub-heading">{{ __('front_end.profile_Account_Information') }}</h3>
                     </div>
                     <hr>
                 </div>
@@ -197,7 +194,7 @@
                             <div class="row">
                                 <div class="mb-1 col-6">
                                     <label for="name" class="form-label" style="font-size: 14px">
-                                        Full Name*
+                                        {{ __('front_end.register_Full_Name') }}*
                                     </label>
                                     <input type="text" name="name_en"
                                         value="{{ old('name_en', auth('customer')->user()->name_en) }}"
@@ -206,7 +203,7 @@
 
                                 <div class="mb-1 col-6">
                                     <label for="username" class="form-label" style="font-size: 14px">
-                                        User Name*
+                                        {{ __('front_end.register_User_Name') }}*
                                     </label>
                                     <input type="text" name="username"
                                         value="{{ old('username', auth('customer')->user()->username) }}"
@@ -215,7 +212,7 @@
 
                                 <div class="mb-1 col-6">
                                     <label for="company_name" class="form-label" style="font-size: 14px">
-                                        Company Name
+                                        {{ __('front_end.register_Company_Name') }}
                                     </label>
                                     <input type="text" name="company_name"
                                         value="{{ old('company_name', auth('customer')->user()->company_name) }}"
@@ -224,7 +221,7 @@
 
                                 <div class="mb-1 col-6">
                                     <label for="email" class="form-label" style="font-size: 14px">
-                                        Email*
+                                        {{ __('front_end.login_Email_Address') }}*
                                     </label>
                                     <input type="email" name="email"
                                         value="{{ old('email', auth('customer')->user()->email) }}"
@@ -233,7 +230,7 @@
 
                                 <div class="mb-1 col-6">
                                     <label for="phone" class="form-label" style="font-size: 14px">
-                                        Phone*
+                                        {{ __('front_end.register_Phone_Number') }}*
                                     </label>
                                     <input type="text" name="phone"
                                         value="{{ old('phone', auth('customer')->user()->phone) }}"
@@ -242,7 +239,7 @@
                                 <div class="mb-1 col-6">
                                     <div class="mb-20 input-box select-dropdown">
                                         <label for="country" class="form-label" style="font-size: 14px">
-                                            Country*
+                                            {{ __('front_end.register_Country') }}*
                                         </label>
                                         <fieldset>
                                             <select id="country" class="option-drop" name="country_id" required>
@@ -259,7 +256,7 @@
                             <div class="row">
                                 <div class="mb-1 col-6">
                                     <label for="password" class="form-label" style="font-size: 14px">
-                                        Password
+                                        {{ __("front_end.login_Password") }}
                                     </label>
                                     <input type="password" name="password" class="form-control form-control-sm"
                                         id="password">
@@ -267,7 +264,7 @@
 
                                 <div class="mb-1 col-6">
                                     <label for="password_confirmation" class="form-label" style="font-size: 14px">
-                                        Confirm Password
+                                        {{ __("front_end.register_Confirm_Password") }}
                                     </label>
                                     <input type="password" name="password_confirmation"
                                         class="form-control form-control-sm" id="password_confirmation">
@@ -276,7 +273,7 @@
 
 
                             <div class="mt-3 text-center">
-                                <button type="submit" class="p-2 btn btn-sm btn-success">Update</button>
+                                <button type="submit" class="p-2 btn btn-sm btn-success">{{ __("front_end.profile_Update_Account") }}</button>
                             </div>
                         </form>
 

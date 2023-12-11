@@ -1,7 +1,7 @@
 @extends('front_end_inners.app_front_end')
 
 @php
-    $image_url = asset('images/Wishlist.png')
+    $image_url = asset('images/Wishlist.png');
 @endphp
 @push('styles')
     <style>
@@ -16,11 +16,11 @@
     <div class="banner inner-banner1">
         <div class="container">
             <section class="banner-detail center-xs">
-                <h1 class="banner-title">Wishlist</h1>
+                <h1 class="banner-title">{{ __('front_end.BreadCrump_Wishlist') }}</h1>
                 <div class="bread-crumb right-side float-none-xs">
                     <ul>
-                        <li><a href="{{ route('welcome') }}">Home</a>/</li>
-                        <li><span>Wishlist</span></li>
+                        <li><a href="{{ route('welcome') }}">{{ __('front_end.BreadCrump_Home') }}</a>/</li>
+                        <li><span>{{ __('front_end.BreadCrump_Wishlist') }}</span></li>
                     </ul>
                 </div>
             </section>
@@ -38,10 +38,10 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Product</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Action</th>
+                                        <th>{{ __('front_end.product_product') }}</th>
+                                        <th>{{ __('front_end.profile_Name') }}</th>
+                                        <th>{{ __('front_end.shop_price') }}</th>
+                                        <th>{{ __('front_end.profile_Action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -103,7 +103,7 @@
                                         <tr>
                                             <td colspan="4">
                                                 <div class="text-center alert alert-danger">
-                                                    <h4 class="py-0 my-0">No Products Found</h4>
+                                                    <h4 class="py-0 my-0">{{ __("front_end.home_No_Items_In_Wishlist") }}</h4>
                                                 </div>
                                             </td>
                                         </tr>
@@ -120,7 +120,8 @@
                     <div class="col-md-6">
                         <div class="mt-30">
                             <a href="{{ route('shop') }}" class="btn btn-color">
-                                <span><i class="fa fa-angle-left"></i></span>Continue Shopping
+                                <span><i class="fa fa-angle-left"></i></span>
+                                {{ __("front_end.home_Continue_Shopping") }}
                             </a>
                         </div>
                     </div>

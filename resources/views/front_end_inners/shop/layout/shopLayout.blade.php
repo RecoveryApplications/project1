@@ -16,11 +16,11 @@
     <div class="banner inner-banner1 ">
         <div class="container">
             <section class="banner-detail center-xs">
-                <h1 class="banner-title">Shop</h1>
+                <h1 class="banner-title">{{ __('front_end.BreadCrump_Shop') }}</h1>
                 <div class="bread-crumb right-side float-none-xs">
                     <ul>
-                        <li><a href="{{ route('welcome') }}">Home</a>/</li>
-                        <li><span>Shop</span></li>
+                        <li><a href="{{ route('welcome') }}">{{ __('front_end.BreadCrump_Home') }}</a>/</li>
+                        <li><span>{{ __('front_end.BreadCrump_Shop') }}</span></li>
                     </ul>
                 </div>
             </section>
@@ -38,12 +38,12 @@
                         @if ($categories->count())
                             <div class="mb-40 sidebar-box listing-box"> <span class="opener plus"></span>
                                 <div class="sidebar-title">
-                                    <h3><span>Categories</span></h3>
+                                    <h3><span>{{ __('front_end.home_Categories') }}</span></h3>
                                 </div>
                                 <div class="sidebar-contant">
                                     <ul>
                                         @foreach ($categories as $category)
-                                            <li>
+                                            <li class="text-black">
                                                 @php
                                                     $queryParams = request()->query();
                                                     unset($queryParams['search']);
@@ -52,13 +52,15 @@
 
                                                     $url = route('shop') . '?' . http_build_query($queryParams);
                                                 @endphp
-                                                <a href="{{ $url }}"
-                                                    class="{{ request()->query('category') == $category->id ? 'text-danger font-bold' : '' }}">
-                                                    {{ $category->name_en }}
+                                                <a href="{{ $url }}" @class([
+                                                    'text-secondary',
+                                                    'text-danger font-bold' => request()->query('category') == $category->id,
+                                                ])>
+                                                    {{ $category->name }}
                                                 </a>
                                             </li>
                                         @endforeach
-                                        <li>
+                                        <li class="text-black">
                                             @php
                                                 $queryParams = request()->query();
                                                 unset($queryParams['search']);
@@ -66,9 +68,11 @@
                                                 unset($queryParams['category']);
                                                 $url = route('shop') . '?' . http_build_query($queryParams);
                                             @endphp
-                                            <a href="{{ $url }}"
-                                                class="{{ !request()->has('category') ? 'text-danger font-bold' : '' }} ">
-                                                All Categories
+                                            <a href="{{ $url }}" @class([
+                                                'text-secondary',
+                                                'text-danger font-bold' => !request()->has('category'),
+                                            ])>
+                                                {{ __('front_end.shop_All_Categories') }}
                                             </a>
                                         </li>
                                     </ul>
@@ -79,7 +83,7 @@
                         @if ($brands->count())
                             <div class="mb-40 sidebar-box listing-box"> <span class="opener plus"></span>
                                 <div class="sidebar-title">
-                                    <h3><span>Brands</span></h3>
+                                    <h3><span>{{ __('front_end.shop_Brands') }}</span></h3>
                                 </div>
                                 <div class="sidebar-contant">
                                     <ul>
@@ -92,8 +96,10 @@
                                                     $queryParams['brand'] = $brand->id;
                                                     $url = route('shop') . '?' . http_build_query($queryParams);
                                                 @endphp
-                                                <a href="{{ $url }}"
-                                                    class="{{ request()->query('brand') == $brand->id ? 'text-danger font-bold' : '' }}">
+                                                <a href="{{ $url }}" @class([
+                                                    'text-secondary',
+                                                    'text-danger font-bold' => request()->query('brand') == $brand->id,
+                                                ])>
                                                     {{ $brand->name_en }}
                                                 </a>
                                             </li>
@@ -108,9 +114,11 @@
                                                 unset($queryParams['_token']);
                                                 $url = route('shop') . '?' . http_build_query($queryParams);
                                             @endphp
-                                            <a href="{{ $url }}"
-                                                class="{{ !request()->has('brand') ? 'text-danger font-bold' : '' }}">
-                                                All Brands
+                                            <a href="{{ $url }}" @class([
+                                                'text-secondary',
+                                                'text-danger font-bold' => !request()->has('brand'),
+                                            ])>
+                                                {{ __('front_end.shop_All_Brands') }}
                                             </a>
                                         </li>
                                     </ul>
@@ -119,7 +127,7 @@
                         @endif
                         <div class="mb-40 sidebar-box"> <span class="opener plus"></span>
                             <div class="sidebar-title">
-                                <h3><span>Price range</span></h3>
+                                <h3><span>{{ __('front_end.shop_Price_range') }}</span></h3>
                             </div>
                             @php
                                 $queryParams = request()->query();
@@ -133,7 +141,8 @@
                                         <input class="price-txt" name="price_range" type="text" id="amount">
                                         <div id="slider-range"></div>
                                     </div>
-                                    <button href="#" class="btn btn-danger">Refine</button>
+                                    <button href="#"
+                                        class="btn btn-danger">{{ __('front_end.shop_Refine') }}</button>
                                 </div>
                             </form>
                         </div>

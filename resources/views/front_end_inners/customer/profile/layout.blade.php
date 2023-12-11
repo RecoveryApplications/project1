@@ -24,11 +24,11 @@
     <div class="banner inner-banner1 ">
         <div class="container">
             <section class="banner-detail center-xs">
-                <h1 class="banner-title">Account</h1>
+                <h1 class="banner-title">{{ __('front_end.BreadCrump_Account') }}</h1>
                 <div class="bread-crumb right-side float-none-xs">
                     <ul>
-                        <li><a href="{{ route('welcome') }}">Home</a>/</li>
-                        <li><span>Account</span></li>
+                        <li><a href="{{ route('welcome') }}">{{ __('front_end.BreadCrump_Home') }}</a>/</li>
+                        <li><span>{{ __('front_end.BreadCrump_Account') }}</span></li>
                     </ul>
                 </div>
             </section>
@@ -44,26 +44,35 @@
                     <div class="account-sidebar account-tab mb-sm-30">
                         <div class="dark-bg tab-title-bg">
                             <div class="heading-part">
-                                <div class="sub-title"><span></span>My Dashboard</div>
+                                <div class="sub-title"><span></span>{{ __('front_end.profile_My_Dashboard') }}</div>
                             </div>
                         </div>
                         <div class="account-tab-inner">
                             <ul class="">
-                                <li @class(['active' => request()->routeIs('customer.profile')])  >
-                                    <a href="{{ route('customer.profile') }}">
-                                        My Dashboard
+                                <li @class(['active' => request()->routeIs('customer.profile')])>
+                                    <a href="{{ route('customer.profile') }}" @class([
+                                        'text-secondary' => !request()->routeIs('customer.profile'),
+                                        'text-white' => request()->routeIs('customer.profile'),
+                                    ])>
+                                        {{ __('front_end.profile_My_Dashboard') }}
                                         <i class="fa fa-angle-right"></i>
                                     </a>
                                 </li>
-                                <li @class(['active' => request()->routeIs('customer.wallet')]) >
-                                    <a href="{{ route('customer.wallet') }}">
-                                        My Wallet
+                                <li @class(['active' => request()->routeIs('customer.wallet')])>
+                                    <a href="{{ route('customer.wallet') }}" @class([
+                                        'text-secondary' => !request()->routeIs('customer.wallet'),
+                                        'text-white' => request()->routeIs('customer.wallet'),
+                                    ])>
+                                        {{ __('front_end.profile_My_Wallet') }}
                                         <i class="fa fa-angle-right"></i>
                                     </a>
                                 </li>
                                 <li @class(['active' => request()->routeIs('customer.orders')])>
-                                    <a href="{{ route('customer.orders') }}">
-                                        My Order List
+                                    <a href="{{ route('customer.orders') }}" @class([
+                                        'text-secondary' => !request()->routeIs('customer.orders'),
+                                        'text-white' => request()->routeIs('customer.orders'),
+                                    ])>
+                                        {{ __('front_end.profile_My_Order_List') }}
                                         <i class="fa fa-angle-right"></i>
                                     </a>
                                 </li>

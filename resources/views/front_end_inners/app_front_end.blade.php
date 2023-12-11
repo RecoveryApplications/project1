@@ -30,6 +30,12 @@
     <link rel="apple-touch-icon" sizes="114x114"
         href="{{ asset('front_end_style/assets/images/apple-touch-icon-114x114.png') }}">
 
+    @if (LaravelLocalization::setLocale() == 'ar')
+        <link rel="stylesheet" type="text/css" href="{{ asset('front_end_style/assets/css/bootstrap-rtl.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('front_end_style/assets/css/custom-rtl.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('front_end_style/assets/css/responsive-rtl.css') }}">
+    @endif
+
     <style>
         /* alertify styles */
         .alertify-notifier .ajs-message.ajs-success {
@@ -48,9 +54,11 @@
         }
     </style>
     @stack('styles')
+    @vite(['resources/js/app.js'])
 </head>
 
 <body class="homepage">
+
     <div class="se-pre-con"></div>
     <!-- newslatter-popup Start -->
     {{-- //TODO - Remove Comment On This Popup --}}

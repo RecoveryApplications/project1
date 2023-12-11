@@ -1,7 +1,6 @@
 <header class="navbar navbar-custom container-full-sm" id="header">
     <div class="header-middle">
         <div class="container">
-            <hr>
             <div class="row align-items-center">
                 <div class="col-xl-3 col-md-3 col-6 col-lgmd-20per order-md-1">
                     <div class="header-middle-left">
@@ -16,16 +15,26 @@
                 <div class="col-xl-3 col-md-3 col-6 col-lgmd-20per order-md-3">
                     <div class="right-side header-right-link">
                         <ul class="d-flex align-items-center">
+                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                @if (LaravelLocalization::setLocale() != $localeCode)
+                                    <li style="font-size: 12px">
+                                        <a class="text-secondary" rel="alternate" hreflang="{{ $localeCode }}"
+                                            href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                            {{ $properties['native'] }}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
                             @auth('customer')
                                 <li class="d-none d-lg-block">
-                                    <a href="{{ route('customer.logout') }}">
+                                    <a href="{{ route('customer.logout') }}" class="text-secondary">
                                         <div class="account-inner">
                                             <i class="pt-2 fa fa-share-square-o" style="font-size: 25px"></i>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="wishlist-icon d-none d-lg-block">
-                                    <a href="{{ route('customer.profile') }}">
+                                    <a href="{{ route('customer.profile') }}" class="text-secondary">
                                         <i class="pt-2 fa fa-user" style="font-size: 25px" aria-hidden="true"></i>
                                     </a>
                                 </li>
@@ -123,7 +132,7 @@
                                     method="GET">
                                     <div class="search-box">
                                         <input class="input-text" name="search" value="{{ old('search') }}"
-                                            type="text" placeholder="Search store products here...">
+                                            type="text" placeholder="{{ __('front_end.home_Search_placeholder') }}">
                                         <button class="search-btn"></button>
                                     </div>
                                 </form>
@@ -139,7 +148,7 @@
             <div class="row position-r">
                 <div class="col-xl-2 col-lg-3 col-lgmd-20per position-s">
                     <div class="sidebar-menu-dropdown home">
-                        <a class="btn-sidebar-menu-dropdown"><span></span> Categories </a>
+                        <a class="btn-sidebar-menu-dropdown"><span></span> {{ __('front_end.home_Categories') }} </a>
                         <div id="cat" class="cat-dropdown">
                             <div class="sidebar-contant">
                                 <div id="menu" class="navbar-collapse collapse">
@@ -149,15 +158,17 @@
                                                 <a class="content-link">
                                                     <span class="content-icon"></span>
                                                 </a>
-                                                <a href="login.html" title="Login">Login</a> or
-                                                <a href="register.html" title="Register">Register</a>
+                                                <a href="login.html"
+                                                    title="Login">{{ __('front_end.home_Login') }}</a> or
+                                                <a href="register.html"
+                                                    title="Register">{{ __('front_end.home_register') }}</a>
                                                 <div class="content-dropdown">
                                                     <ul>
                                                         @auth('customer')
                                                             <li class="login-icon">
                                                                 <a href="{{ route('customer.profile') }}"
                                                                     title="Login"><i class="fa fa-user"></i>
-                                                                    Profile
+                                                                    {{ __('front_end.profile_profile') }}
                                                                 </a>
                                                             </li>
                                                         @endauth
@@ -165,14 +176,14 @@
                                                             <li class="login-icon">
                                                                 <a href="{{ route('customer.login') }}" title="Login"><i
                                                                         class="fa fa-user"></i>
-                                                                    Login
+                                                                    {{ __('front_end.home_Login') }}
                                                                 </a>
                                                             </li>
                                                             <li class="register-icon">
                                                                 <a href="{{ route('customer.register') }}"
                                                                     title="Register">
                                                                     <i class="fa fa-user-plus"></i>
-                                                                    Register
+                                                                    {{ __('front_end.home_register') }}
                                                                 </a>
                                                             </li>
                                                         @endguest
@@ -232,16 +243,18 @@
                                             <li class="wishlist-icon d-block d-lg-none">
                                                 <a href="{{ route('customer.loginRegister') }}">
                                                     <i class="fa fa-user"></i>
-                                                    login
+                                                    {{ __('front_end.home_Login') }}
                                                 </a>
                                             </li>
                                             <li class="wishlist-icon d-block d-lg-none">
                                                 <a href="{{ route('customer.loginRegister', 'register') }}">
                                                     <i class="fa fa-user"></i>
-                                                    register
+                                                    {{ __('front_end.home_register') }}
                                                 </a>
                                             </li>
                                         @endguest
+
+
                                     </ul>
                                     <div class="header-top mobile">
                                         <div class="">
@@ -259,7 +272,7 @@
                                                 </div> --}}
                                                 <div class="col-12">
                                                     <div class="top-link right-side">
-                                                        <div class="help-num">Need Help? :
+                                                        <div class="help-num">{{ __('front_end.home_Needhelp') }} :
                                                             {{ $public_contact_us['phone'] }}</div>
                                                     </div>
                                                 </div>
@@ -276,25 +289,30 @@
                         <div class="position-r">
                             <div class="nav_sec position-r">
                                 <div class="mobilemenu-title mobilemenu">
-                                    <span>Menu</span>
+                                    <span>{{ __("front_end.home_menu") }}</span>
                                     <i class="fa fa-bars pull-right"></i>
                                 </div>
                                 <div class="mobilemenu-content">
                                     <ul class="nav navbar-nav" id="menu-main">
                                         <li @class(['active' => request()->routeIs('welcome')]) class="active">
-                                            <a href="{{ route('welcome') }}"><span>Home</span></a>
+                                            <a
+                                                href="{{ route('welcome') }}"><span>{{ __('front_end.home_home') }}</span></a>
                                         </li>
                                         <li @class(['active' => request()->routeIs('shop')])>
-                                            <a href="{{ route('shop') }}"><span>Shop</span></a>
+                                            <a
+                                                href="{{ route('shop') }}"><span>{{ __('front_end.home_shop') }}</span></a>
                                         </li>
                                         <li @class(['active' => request()->routeIs('Blogs')])>
-                                            <a href="{{ route('Blogs') }}"><span>Blogs</span></a>
+                                            <a
+                                                href="{{ route('Blogs') }}"><span>{{ __('front_end.home_Blogs') }}</span></a>
                                         </li>
-                                        <li @class(['active' => request()->routeIs('aboutUs')])>
-                                            <a href="{{ route('aboutUs') }}"><span>About Us</span></a>
-                                        </li>
+                                        {{-- <li @class(['active' => request()->routeIs('aboutUs')])>
+                                            <a
+                                                href="{{ route('aboutUs') }}"><span>{{ __('front_end.home_about') }}</span></a>
+                                        </li> --}}
                                         <li @class(['active' => request()->routeIs('contactUs')])>
-                                            <a href="{{ route('contactUs') }}"><span>Contact</span></a>
+                                            <a
+                                                href="{{ route('contactUs') }}"><span>{{ __('front_end.home_Contact') }}</span></a>
                                         </li>
 
                                     </ul>
@@ -306,7 +324,8 @@
                 <div class="col-xl-4 col-lg-3 col-lgmd-20per">
                     <div class="right-side float-left-xs header-right-link">
                         <div class="right-side">
-                            <div class="help-num">Need Help? : {{ $public_contact_us['phone'] }}</div>
+                            <div class="help-num">{{ __('front_end.home_Needhelp') }} :
+                                {{ $public_contact_us['phone'] }}</div>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-@extends('front_end_inners.customer.profile.layout')
+@extends('front_end_inners.customer.profile.layout', ['title' => __('front_end.profile_My_Order_List')])
 
 
 
@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="heading-part heading-bg mb-30">
-                        <h2 class="m-0 heading">My Orders</h2>
+                        <h2 class="m-0 heading">{{ __('front_end.profile_My_Orders') }}</h2>
                     </div>
                 </div>
             </div>
@@ -21,14 +21,14 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Date/Time</th>
-                                        <th>Items</th>
-                                        <th>Status</th>
-                                        <th>Payment</th>
-                                        <th>Delivery</th>
-                                        <th>Sub Total</th>
-                                        <th>Total</th>
-                                        <th>Show</th>
+                                        <th>{{ __('front_end.profile_Date_Time') }}</th>
+                                        <th>{{ __('front_end.profile_Items') }}</th>
+                                        <th>{{ __('front_end.profile_Status') }}</th>
+                                        <th>{{ __('front_end.profile_Payment_Status') }}</th>
+                                        <th>{{ __('front_end.profile_Delivery_Status') }}</th>
+                                        <th>{{ __('front_end.profile_Sub_Total') }}</th>
+                                        <th>{{ __('front_end.profile_Total') }}</th>
+                                        <th>{{ __('front_end.profile_Show') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -44,13 +44,37 @@
                                                 {{ $cartSale->product_count }}
                                             </td>
                                             <td>
-                                                {{ $cartSale->status }}
+                                                @if (isset($cartSale->status))
+                                                    @if ($cartSale->status == 'Pendding')
+                                                        <span class="badge badge-warning">{!! $cartSale->status !!}</span>
+                                                    @elseif($cartSale->status == 'Accepted')
+                                                        <span class="badge badge-success">{!! $cartSale->status !!}</span>
+                                                    @elseif($cartSale->status == 'Rejected')
+                                                        <span class="badge badge-danger">{!! $cartSale->status !!}</span>
+                                                    @endif
+                                                @endif
                                             </td>
                                             <td>
-                                                {{ $cartSale->payment_status }}
+                                                @if (isset($cartSale->payment_status))
+                                                    @if ($cartSale->payment_status == 'Pendding')
+                                                        <span class="badge badge-warning">{!! $cartSale->payment_status !!}</span>
+                                                    @elseif($cartSale->payment_status == 'Accepted')
+                                                        <span class="badge badge-success">{!! $cartSale->payment_status !!}</span>
+                                                    @elseif($cartSale->payment_status == 'Rejected')
+                                                        <span class="badge badge-danger">{!! $cartSale->payment_status !!}</span>
+                                                    @endif
+                                                @endif
                                             </td>
                                             <td>
-                                                {{ $cartSale->delivery_status }}
+                                                @if (isset($cartSale->delivery_status))
+                                                    @if ($cartSale->delivery_status == 'Pendding')
+                                                        <span class="badge badge-warning">{!! $cartSale->delivery_status !!}</span>
+                                                    @elseif($cartSale->delivery_status == 'Received')
+                                                        <span class="badge badge-success">{!! $cartSale->delivery_status !!}</span>
+                                                    @elseif($cartSale->delivery_status == 'Not Received')
+                                                        <span class="badge badge-danger">{!! $cartSale->delivery_status !!}</span>
+                                                    @endif
+                                                @endif
                                             </td>
                                             <td>
                                                 {{ $cartSale->sub_total }}
@@ -58,14 +82,19 @@
                                             <td>
                                                 {{ $cartSale->total }}
                                             </td>
-                                            <td><button class="p-1 btn btn-sm btn-secondary show_order" data-toggle="modal"
+                                            <td>
+                                                <button class="p-1 btn btn-sm btn-secondary show_order" data-toggle="modal"
                                                     data-target="#exampleModalCenter{{ $cartSale->id }}"
-                                                    data-id="{{ encrypt($cartSale->id) }}"><i
-                                                        class="ecicon eci-info"></i>show</button></td>
+                                                    data-id="{{ encrypt($cartSale->id) }}">
+                                                    <i class="ecicon eci-info"></i>
+                                                    {{ __('front_end.profile_Show') }}
+                                                </button>
+                                            </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="8" class="text-center">No Orders</td>
+                                            <td colspan="8" class="text-center">{{ __('front_end.profile_No_Orders') }}
+                                            </td>
                                         </tr>
                                     @endforelse
                                 </tbody>
@@ -84,7 +113,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content" style="height: 100% !important; overflow: auto !important;">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Order Details</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{ __('front_end.profile_Order_Details') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -99,18 +128,18 @@
                                 <div class="media-body">
                                     <h3 class="py-3 text-dark">
                                         <i class="mdi mdi-information"></i>
-                                        Main Order Information :
+                                        {{ __('front_end.profile_Main_Order_Information') }} :
                                     </h3>
                                     <table class="table table-hover table-striped">
                                         <thead>
                                             <tr>
-                                                <th><i class="mdi mdi-account"></i> Order ID: <span
-                                                        style="color:blue;">{!! isset($cartSale->id) ? $cartSale->id : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-account"></i> {{ __('front_end.profile_Order_Id') }}:
+                                                    <span style="color:blue;">{!! isset($cartSale->id) ? $cartSale->id : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
 
                                             </tr>
                                             <tr>
-                                                <th><i class="mdi mdi-phone"></i> Order Status :
+                                                <th><i class="mdi mdi-phone"></i> {{ __('front_end.profile_Status') }} :
                                                     @if (isset($cartSale->status))
                                                         @if ($cartSale->status == 'Pendding')
                                                             <span
@@ -124,7 +153,8 @@
                                                         <span style="color:red;">Undefined</span>
                                                     @endif
                                                 </th>
-                                                <th><i class="mdi mdi-phone"></i> Payment Status :
+                                                <th><i class="mdi mdi-phone"></i>
+                                                    {{ __('front_end.profile_Payment_Status') }} :
                                                     @if (isset($cartSale->payment_status))
                                                         @if ($cartSale->payment_status == 'Pendding')
                                                             <span
@@ -140,7 +170,8 @@
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <th><i class="mdi mdi-phone"></i> Delivery Status :
+                                                <th><i class="mdi mdi-phone"></i>
+                                                    {{ __('front_end.profile_Delivery_Status') }} :
                                                     @if (isset($cartSale->delivery_status))
                                                         @if ($cartSale->delivery_status == 'Pendding')
                                                             <span
@@ -157,43 +188,44 @@
                                             </tr>
                                             <hr>
                                             <tr>
-                                                <th><i class="mdi mdi-account"></i> Number Of Products :
+                                                <th><i class="mdi mdi-account"></i> {{ __('front_end.profile_Items') }} :
                                                     <span style="color:blue;">{!! isset($cartSale->product_count) ? $cartSale->product_count : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <th><i class="mdi mdi-account"></i> Shipping : <span
-                                                        style="color:blue;">{!! isset($cartSale->shipping)
-                                                            ? $cartSale->shipping . '<small> JOD</small>'
-                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-account"></i> {{ __('front_end.profile_Shipping') }}
+                                                    : <span style="color:blue;">{!! isset($cartSale->shipping)
+                                                        ? $cartSale->shipping . '<small> JOD</small>'
+                                                        : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
-                                                <th><i class="mdi mdi-account"></i> Tax : <span
-                                                        style="color:blue;">{!! isset($cartSale->tax) ? $cartSale->tax . '<small> JOD</small>' : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-account"></i> {{ __('front_end.profile_Tax') }} :
+                                                    <span style="color:blue;">{!! isset($cartSale->tax) ? $cartSale->tax . '<small> JOD</small>' : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <th><i class="mdi mdi-account"></i> Website percentage :
+                                                <th><i class="mdi mdi-account"></i>
+                                                    {{ __('front_end.profile_Website_percentage') }} :
                                                     <span style="color:blue;">{!! isset($cartSale->sale_percentage)
                                                         ? $cartSale->sale_percentage . '<small> JOD</small>'
                                                         : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
-                                                <th><i class="mdi mdi-account"></i> Redeem : <span
-                                                        style="color:blue;">{!! isset($cartSale->redeem)
-                                                            ? $cartSale->redeem . '<small> JOD</small>'
-                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-account"></i> {{ __('front_end.profile_Redeem') }} :
+                                                    <span style="color:blue;">{!! isset($cartSale->redeem)
+                                                        ? $cartSale->redeem . '<small> JOD</small>'
+                                                        : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
                                             </tr>
 
                                             <tr>
-                                                <th><i class="mdi mdi-account"></i> Sub Total : <span
-                                                        style="color:blue;">{!! isset($cartSale->sub_total)
-                                                            ? $cartSale->sub_total . '<small> JOD</small>'
-                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-account"></i> {{ __('front_end.profile_Sub_Total') }}
+                                                    : <span style="color:blue;">{!! isset($cartSale->sub_total)
+                                                        ? $cartSale->sub_total . '<small> JOD</small>'
+                                                        : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
-                                                <th><i class="mdi mdi-account"></i> Total : <span
-                                                        style="color:blue;">{!! isset($cartSale->total)
-                                                            ? $cartSale->total . '<small> JOD</small>'
-                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-account"></i> {{ __('front_end.profile_Total') }} :
+                                                    <span style="color:blue;">{!! isset($cartSale->total)
+                                                        ? $cartSale->total . '<small> JOD</small>'
+                                                        : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
                                             </tr>
                                             {{-- <tr>
@@ -204,39 +236,35 @@
                                     </tr> --}}
 
                                             <tr>
-                                                <th><i class="mdi mdi-phone"></i> Customer Name : <span
+                                                <th><i class="mdi mdi-phone"></i>
+                                                    {{ __('front_end.profile_Customer_Name') }} : <span
                                                         style="color:blue;">{!! isset($cartSale->customer->name_en)
                                                             ? $cartSale->customer->name_en
                                                             : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
-                                                <th><i class="mdi mdi-phone"></i> Shipment Num. :
-                                                    @if (isset($cartSale->track_number))
-                                                        <span style="color:blue;">{!! $cartSale->track_number !!}</span>
-                                                    @else
-                                                        <span>------</span>
-                                                    @endif
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th><i class="mdi mdi-account-multiple"></i> Customer Email
+                                                <th><i class="mdi mdi-account-multiple"></i>
+                                                    {{ __('front_end.profile_Customer_Email') }}
                                                     :
                                                     <span style="color:blue;">{!! isset($cartSale->customer->email) ? $cartSale->customer->email : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
-                                                <th><i class="mdi mdi-phone"></i> Customer Phone : <span
+
+                                            </tr>
+                                            <tr>
+                                                <th><i class="mdi mdi-phone"></i>
+                                                    {{ __('front_end.profile_Customer_Phone') }} : <span
                                                         style="color:blue;">{!! isset($cartSale->customer->phone) ? $cartSale->customer->phone : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <th><i class="mdi mdi-clock-outline mdi-spin"></i> Order
-                                                    Added
-                                                    Since : <span style="color:blue;">{!! isset($cartSale->created_at)
+                                                <th><i class="mdi mdi-clock-outline mdi-spin"></i>
+                                                    {{ __('front_end.profile_Order_Added_Since') }} :
+                                                    <span style="color:blue;">{!! isset($cartSale->created_at)
                                                         ? $cartSale->created_at->diffForHumans()
-                                                        : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                        : '<span style="color:red;">Undefined</span>' !!}
+                                                    </span>
                                                 </th>
-                                                <th><i class="mdi mdi-clock-outline mdi-spin"></i> Date &
-                                                    Time
-                                                    of
-                                                    Addtion :
+                                                <th><i class="mdi mdi-clock-outline mdi-spin"></i>
+                                                    {{ __('front_end.profile_Date_Time_of_Addtion') }} :
                                                     <span style="color:blue;">{!! isset($cartSale->created_at)
                                                         ? date('Y.d.m / h:i A', strtotime($cartSale->created_at))
                                                         : '<span style="color:red;">Undefined</span>' !!}</span>
@@ -249,54 +277,51 @@
                             <div class="mt-3 media profile-timeline-media">
                                 <div class="media-body">
                                     <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i>
-                                        Delivery
-                                        Information :
+                                        {{ __('front_end.profile_Delivery_Information') }} :
                                     </h3>
                                     <table class="table table-hover table-striped">
                                         <thead>
                                             <tr>
-                                                <th><i class="mdi mdi-account"></i> Name : <span
-                                                        style="color:blue;">{!! isset($cartSale->location->name) ? $cartSale->location->name : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-account"></i> {{ __('front_end.profile_Name') }} :
+                                                    <span style="color:blue;">{!! isset($cartSale->location->name) ? $cartSale->location->name : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
-                                                <th><i class="mdi mdi-account"></i> Email : <span
-                                                        style="color:blue;">{!! isset($cartSale->location->email) ? $cartSale->location->email : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-account"></i> {{ __('front_end.contact_Email') }} :
+                                                    <span style="color:blue;">{!! isset($cartSale->location->email) ? $cartSale->location->email : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <th><i class="mdi mdi-account"></i> Phone : <span
-                                                        style="color:blue;">{!! isset($cartSale->location->phone) ? $cartSale->location->phone : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-account"></i> {{ __('front_end.profile_Phone') }} :
+                                                    <span style="color:blue;">{!! isset($cartSale->location->phone) ? $cartSale->location->phone : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
-                                                <th><i class="mdi mdi-account"></i> Company : <span
+                                                <th><i class="mdi mdi-account"></i>
+                                                    {{ __('front_end.register_Company_Name') }} : <span
                                                         style="color:blue;">{!! isset($cartSale->location->company)
                                                             ? $cartSale->location->company
                                                             : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <th><i class="mdi mdi-email"></i> City : <span
-                                                        style="color:blue;">{!! isset($cartSale->location->city) ? $cartSale->location->city : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-email"></i> {{ __('front_end.profile_city') }} :
+                                                    <span style="color:blue;">{!! isset($cartSale->location->city) ? $cartSale->location->city : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
-                                                <th><i class="mdi mdi-email"></i> Address : <span
-                                                        style="color:blue;">{!! isset($cartSale->location->address) ? $cartSale->location->address : '------' !!}</span>
+                                                <th><i class="mdi mdi-email"></i> {{ __('front_end.home_Address') }} :
+                                                    <span style="color:blue;">{!! isset($cartSale->location->address) ? $cartSale->location->address : '------' !!}</span>
                                                 </th>
 
                                             </tr>
                                             <tr>
-                                                <th><i class="mdi mdi-email"></i> Apt/Unit/Suite/etc. :
-                                                    <span style="color:blue;">{!! isset($cartSale->location->apartment) ? $cartSale->location->apartment : '------' !!}</span>
-                                                </th>
-                                                <th><i class="mdi mdi-phone"></i> ZipCode : <span
-                                                        style="color:blue;">{!! isset($cartSale->location->zipcode)
-                                                            ? $cartSale->location->zipcode
-                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                <th><i class="mdi mdi-phone"></i> {{ __('front_end.profile_Zip_Code') }} :
+                                                    <span style="color:blue;">{!! isset($cartSale->location->zipcode)
+                                                        ? $cartSale->location->zipcode
+                                                        : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
                                             </tr>
                                             <tr>
                                                 <th colspan="2"><i class="mdi mdi-account-multiple"></i>
-                                                    More
-                                                    Info : <span style="color:blue;">{!! isset($cartSale->location->more_info)
-                                                        ? $cartSale->location->more_info
-                                                        : '<span style="color:red;">Undefined</span>' !!}</span>
+                                                    {{ __('front_end.home_More_Info') }} : <span
+                                                        style="color:blue;">{!! isset($cartSale->location->more_info)
+                                                            ? $cartSale->location->more_info
+                                                            : '<span style="color:red;">Undefined</span>' !!}</span>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -310,20 +335,25 @@
                                     {{-- ================================================= --}}
                                     {{-- ================== Order Details ================ --}}
                                     {{-- ================================================= --}}
-                                    <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i> Order
-                                        Details :
+                                    <h3 class="py-3 text-dark"><i class="mdi mdi-information"></i>
+                                        {{ __('front_end.profile_Order_Details') }} :
                                     </h3>
                                     <div class="table-responsive">
                                         <table class="table table-hover table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th><span style="color:blue;">Image</th>
-                                                    <th><span style="color:blue;">Product</th>
-                                                    <th><span style="color:blue;">Quantity</th>
-                                                    <th><span style="color:blue;">Unit Price</th>
-                                                    <th><span style="color:blue;">Out Sale Price</th>
-                                                    <th><span style="color:blue;">Sub Total</th>
-                                                    <th><span style="color:blue;">Total</th>
+                                                    <th><span style="color:blue;">{{ __("front_end.profile_image") }}</th>
+                                                    <th><span style="color:blue;">{{ __('front_end.product_product') }}
+                                                    </th>
+                                                    <th><span style="color:blue;">{{ __('front_end.profile_Items') }}</th>
+                                                    <th><span style="color:blue;">{{ __('front_end.profile_unit_price') }}
+                                                    </th>
+                                                    <th><span
+                                                            style="color:blue;">{{ __('front_end.profile_Out_Sale_Price') }}
+                                                    </th>
+                                                    <th><span style="color:blue;">{{ __('front_end.profile_Sub_Total') }}
+                                                    </th>
+                                                    <th><span style="color:blue;">{{ __('front_end.profile_Total') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -378,7 +408,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __("front_end.prodile_close") }}</button>
                     </div>
                 </div>
             </div>

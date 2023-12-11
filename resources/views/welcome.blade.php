@@ -26,7 +26,8 @@
                                                     <p class="offer">
                                                         {!! $slider->description !!}
                                                     </p>
-                                                    <a class="btn btn-color" href="{{ route('shop') }}">Shop Now!</a>
+                                                    <a class="btn btn-color" href="{{ route('shop') }}">
+                                                        {{ __('front_end.home_shop_now') }}!</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -51,7 +52,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="heading-part mb-30">
-                                <h2 class="main_title heading"><span>New Arrivals</span></h2>
+                                <h2 class="main_title heading"><span>
+                                    {{ __('front_end.home_New_arrivals') }}</span></h2>
                             </div>
                         </div>
                     </div>
@@ -79,7 +81,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="heading-part mb-30">
-                            <h2 class="main_title heading"><span>Top Categories</span></h2>
+                            <h2 class="main_title heading"><span>
+                                {{ __('front_end.home_Top_Categories') }}</span></h2>
                         </div>
                     </div>
                 </div>
@@ -97,7 +100,7 @@
                                                 style="height: 220px ; object-fit: cover">
                                             <div class="effect"></div>
                                             <div class="cate-detail">
-                                                <span>{{ $category->name_en }}</span>
+                                                <span>{{ $category->name }}</span>
                                             </div>
                                         </div>
                                     </a>
@@ -114,7 +117,7 @@
 
 
     <!--  Site Services Features Block Start  -->
-    <div class="ser-feature-block">
+    {{-- <div class="ser-feature-block">
         <div class="container">
             <div class="center-xs">
                 <div class="row">
@@ -157,7 +160,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!--  Site Services Features Block End  -->
 
 
@@ -172,7 +175,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="heading-part mb-30">
-                                            <h2 class="main_title heading"><span>Best seller</span></h2>
+                                            <h2 class="main_title heading"><span>{{ __('front_end.home_Best_seller') }}</span></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +202,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="heading-part mb-30">
-                                            <h2 class="main_title heading"><span>New products </span></h2>
+                                            <h2 class="main_title heading"><span>{{ __('front_end.home_New_products') }} </span></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -234,7 +237,7 @@
                 <div class="row">
                     <div class="col-12 ">
                         <div class="heading-part mb-30">
-                            <h2 class="main_title heading"><span>Latest News</span></h2>
+                            <h2 class="main_title heading"><span>{{ __('front_end.home_Latest_News') }}</span></h2>
                         </div>
                     </div>
                 </div>
@@ -302,7 +305,7 @@
                 <div class="row">
                     <div class="col-12 ">
                         <div class="heading-part mb-30">
-                            <h2 class="main_title heading"><span>Our Brands</span></h2>
+                            <h2 class="main_title heading"><span>{{ __('front_end.home_Our_Brands') }}</span></h2>
                         </div>
                     </div>
                 </div>

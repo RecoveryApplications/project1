@@ -4,15 +4,16 @@
             <ul class="ps-0">
                 <li class="cart-icon">
                     <a class="popup-with-form" href="#cart_popup" data-toggle="modal"><span class="icon"></span><span
-                            class="icon-text">Cart</span></a>
+                            class="icon-text">{{ __('front_end.home_Cart') }}</span></a>
                 </li>
                 <li class="account">
                     <a class="popup-with-form" href="#account_popup" data-toggle="modal"><span
-                            class="icon"></span><span class="icon-text">Account</span></a>
+                            class="icon"></span><span
+                            class="icon-text">{{ __('front_end.BreadCrump_Account') }}</span></a>
                 </li>
                 <li class="search">
                     <a class="popup-with-form" href="#search_popup" data-toggle="modal"><span
-                            class="icon"></span><span class="icon-text">Search</span></a>
+                            class="icon"></span><span class="icon-text">{{ __('front_end.home_Search') }}</span></a>
                 </li>
                 <li class="scroll scrollup">
                     <a href="#"><span class="icon"></span></a>
@@ -26,7 +27,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="popup-title">
-                            <h2 class="m-0 main_title heading"><span>cart</span></h2>
+                            <h2 class="m-0 main_title heading"><span>{{ __('front_end.home_Cart') }}</span></h2>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -40,9 +41,9 @@
                                         @forelse ($public_customer_carts as $item)
                                             @php
                                                 if ($item->property_type == 2) {
-                                                    $product_name = $item->cart_product->name_en;
+                                                    $product_name = $item->cart_product->name;
                                                 } else {
-                                                    $product_name = $item->cart_product->product->name_en;
+                                                    $product_name = $item->cart_product->product->name;
                                                 }
                                             @endphp
                                             <li>
@@ -52,9 +53,12 @@
                                                 </a>
                                                 <div class="media"> <a class="pull-left"> <img alt="Stylexpo"
                                                             src="{{ asset($item->cart_product->image) }}"></a>
-                                                    <div class="media-body"> <span><a href="#">
+                                                    <div class="media-body">
+                                                        <span>
+                                                            <a href="#">
                                                                 {{ $product_name }}
-                                                            </a></span>
+                                                            </a>
+                                                        </span>
                                                         <p class="cart-price">
                                                             <small>JOD
                                                             </small>{{ $item->cart_product->on_sale_price_status == 'Active' ? $item->cart_product->on_sale_price : $item->cart_product->sale_price }}
@@ -73,24 +77,27 @@
                                         @empty
                                             <li>
                                                 <h5 class="text-center alert alert-danger">
-                                                    No items in the cart <br>
-                                                    <a href="{{ route('shop') }}" style="text-decoration: underline"> >>
-                                                        Go to shopping << </a>
+                                                    {{ __('front_end.home_No_Items_In_Cart') }} <br>
+                                                    <a href="{{ route('shop') }}" style="text-decoration: underline">
+                                                        >> {{ __('front_end.home_Continue_Shopping') }} << </a>
                                                 </h5>
                                             </li>
                                         @endforelse
                                     </ul>
                                 </div>
                                 <p class="cart-sub-totle">
-                                    <span class="pull-left">Cart Subtotal</span>
+                                    <span class="pull-left">
+                                        {{ __('front_end.profile_Sub_Total') }}
+                                    </span>
                                     <span class="pull-right"><strong class="price-box"><small>JOD
                                             </small>{{ $endTotal }}</strong></span>
                                 </p>
                                 <div class="clearfix"></div>
                                 <div class="mt-20">
-                                    <a href="{{ route('cart') }}" class="btn-color btn left-side">Cart</a>
+                                    <a href="{{ route('cart') }}"
+                                        class="btn-color btn left-side">{{ __('front_end.home_Cart') }}</a>
                                     <a href="{{ route('customer.orderOverview') }}"
-                                        class="btn-color btn right-side">Checkout</a>
+                                        class="btn-color btn right-side">{{ __('front_end.home_Checkout') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +110,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="popup-title">
-                            <h2 class="m-0 main_title heading"><span>Account</span></h2>
+                            <h2 class="m-0 main_title heading"><span>{{ __('front_end.BreadCrump_Account') }}</span>
+                            </h2>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -117,7 +125,7 @@
                                         <a href="{{ route('customer.profile') }}">
                                             <div class="account-inner mb-30">
                                                 <i class="fa fa-user"></i><br />
-                                                <span>Account</span>
+                                                <span>{{ __('front_end.BreadCrump_Account') }}</span>
                                             </div>
                                         </a>
                                     </div>
@@ -126,7 +134,7 @@
                                         <a href="{{ route('shop') }}">
                                             <div class="account-inner mb-30">
                                                 <i class="fa fa-shopping-bag"></i><br />
-                                                <span>Shopping</span>
+                                                <span>{{ __('front_end.home_Shopping') }}</span>
                                             </div>
                                         </a>
                                     </div>
@@ -134,7 +142,7 @@
                                         <a href="{{ route('customer.logout') }}">
                                             <div class="account-inner">
                                                 <i class="fa fa-share-square-o"></i><br />
-                                                <span>log out</span>
+                                                <span>{{ __('front_end.home_LogOut') }}</span>
                                             </div>
                                         </a>
                                     </div>
@@ -145,7 +153,7 @@
                                         <a href="{{ route('customer.loginRegister', 'login') }}">
                                             <div class="account-inner mb-30">
                                                 <i class="fa fa-sign-in"></i><br />
-                                                <span>Login</span>
+                                                <span>{{ __('front_end.login_Login') }}</span>
                                             </div>
                                         </a>
                                     </div>
@@ -153,7 +161,7 @@
                                         <a href="{{ route('customer.loginRegister', 'register') }}">
                                             <div class="account-inner mb-30">
                                                 <i class="fa fa-user-plus"></i><br />
-                                                <span>Register</span>
+                                                <span>{{ __('front_end.register_Register') }}</span>
                                             </div>
                                         </a>
                                     </div>
@@ -170,7 +178,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="popup-title">
-                            <h2 class="m-0 main_title heading"><span>Search</span></h2>
+                            <h2 class="m-0 main_title heading"><span>{{ __('front_end.home_Search') }}</span></h2>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -180,12 +188,11 @@
                         <div class="pr-0 popup-detail">
                             <div class="main-search">
                                 <div class="header_search_toggle desktop-view">
-                                    <form
-                                        action="{{ route('shop') }}"
-                                        method="GET">
+                                    <form action="{{ route('shop') }}" method="GET">
                                         <div class="search-box">
                                             <input class="input-text" name="search" value="{{ old('search') }}"
-                                                type="text" placeholder="Search store products here...">
+                                                type="text"
+                                                placeholder="{{ __('front_end.home_Search_placeholder') }}">
                                             <button class="search-btn"></button>
                                         </div>
                                     </form>

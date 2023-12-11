@@ -70,7 +70,7 @@ class MainCategory extends Model
             return "{$this->name_en}";
         }
         else{
-            return "{$this->name_ar}";
+            return $this->name_ar ?? $this->name_en;
         }
     }
 }

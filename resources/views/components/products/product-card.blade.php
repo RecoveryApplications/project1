@@ -1,10 +1,10 @@
 <div @class(['product-item product-card', 'mb-30' => $isInHomeView])>
-    {{-- <div class="main-label sale-label"><span>Sale</span></div> --}}
     @if ($status == 'sale')
-        <div class="main-label sale-label"><span>Sale</span></div>
+        <div class="main-label sale-label"><span>{{ __('front_end.home_Sale') }}</span></div>
     @endif
     @if ($status == 'new')
-        <div class="main-label new-label"><span>New</span></div>
+        <div class="main-label new-label"><span>
+            {{ __('front_end.home_New') }}</span></div>
     @endif
     @php
         $defaultImage = 'front_end_style/assets/images/product/product_2_md.jpg';
@@ -25,8 +25,8 @@
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="hidden" name="quantity" value="1">
-                                <button title="Add to Cart"><span></span>
-                                    Add to Cart
+                                <button title="{{ __('front_end.product_add_to_cart') }}"><span></span>
+                                    {{ __('front_end.product_add_to_cart') }}
                                 </button>
                             </form>
                         </li>

@@ -11,19 +11,19 @@
                         <div class="row">
                             <div class="mb-20 col-12">
                                 <div class="heading-part heading-bg">
-                                    <h2 class="heading">Customer Login</h2>
+                                    <h2 class="heading">{{ __('front_end.login_customers_login') }}</h2>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-box">
-                                    <label for="login-email">Email address</label>
+                                    <label for="login-email">{{ __('front_end.login_Email_Address') }}</label>
                                     <input id="login-email" name="email_login" type="email" required
                                         placeholder="Email Address">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="input-box">
-                                    <label for="login-pass">Password</label>
+                                    <label for="login-pass">{{ __('front_end.login_Password') }}</label>
                                     <input id="login-pass" name="password_login" type="password" required
                                         placeholder="Enter your Password">
                                 </div>
@@ -32,17 +32,17 @@
                                 <div class="check-box left-side">
                                     <span>
                                         <input type="checkbox" name="remember_me" id="remember_me" class="checkbox">
-                                        <label for="remember_me">Remember Me</label>
+                                        <label for="remember_me">{{ __('front_end.login_Remeber_Me') }}</label>
                                     </span>
                                 </div>
-                                <button name="submit" type="submit" class="btn-color right-side">Log In</button>
+                                <button name="submit" type="submit" class="btn-color right-side">{{ __('front_end.login_Login') }}</button>
                             </div>
                             <div class="col-12">
                                 <hr>
                                 <div class="mt-20 new-account align-center">
-                                    <span>Don't have an account ?</span>
+                                    <span>{{ __('front_end.login_Dont_have_an_account') }}</span>
                                     <a class="link" title="Register with FamilyDrop"
-                                        href="{{ route('customer.loginRegister', 'register') }}">Register Here</a>
+                                        href="{{ route('customer.loginRegister', 'register') }}">{{ __('front_end.login_Register') }}</a>
                                 </div>
                             </div>
                             {{-- <div class="col-12"> 
