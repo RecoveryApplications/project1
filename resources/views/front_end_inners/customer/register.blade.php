@@ -47,9 +47,9 @@
                                     <div class="col-12">
                                         <div class="input-box">
                                             <label for="login-email">{{ __('front_end.register_Phone_Number') }}</label>
-                                            <input id="login-email" name="phone" type="text"
-                                                placeholder="{{ __('front_end.register_Phone_Number') }}"
-                                                value="{{ old('phone') }}">
+                                            <input id="login-email" name="phone" type="tel" 
+                                                placeholder="07********"
+                                                value="{{ old('phone') }}" pattern="[0-9]{8,12}">
                                         </div>
                                     </div>
                                     <div class="mb-1 col-12">

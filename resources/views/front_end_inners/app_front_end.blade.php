@@ -54,7 +54,6 @@
         }
     </style>
     @stack('styles')
-    @vite(['resources/js/app.js'])
 </head>
 
 <body class="homepage">

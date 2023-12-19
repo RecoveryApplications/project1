@@ -130,6 +130,7 @@ return [
    //################################### product #####################################################//
 
    'product_product' => 'منتجات',
+   'product_productName' => 'اسم المنتج',
    'product_ratings' => 'التقييمات',
    'product_Select_Size' => 'أختر الحجم',
    'product_Quantity' => 'كمية',
@@ -183,6 +184,20 @@ return [
    'shop_All_Brands' => 'جميع العلامات التجارية',
    'shop_Price_range' => 'نطاق السعر',
    'shop_Refine' => 'بحث',
+   'shop_UpdateCart' => 'تحديث السلة',
+   'shop_AmountPayable' => 'المبلغ المستحق',
+   'shop_CartTotal' => 'مجموع السلة',
+   'shop_Items' => 'العناصر',
+   'shop_WebsitePercentage' => 'نسبة الموقع',
+   'shop_Redeem' => 'الربح',
+   'shop_OutsaleAmount' => 'مبلغ البيع',
+   'shop_ItemsSubtotal' => 'المجموع الفرعي للعناصر',
+   'shop_OrderOverview' => 'نظرة عامة على الطلب',
+   'shop_OutsalePrice' => 'سعر البيع',
+   'shop_ShippingAddress' => 'عنوان الشحن',
+
+
+
 
 
 
@@ -223,6 +238,8 @@ return [
    'profile_View' => 'معاينة',
    'profile_Action' => 'الإجراء',
    'profile_Move_to_Cart' => 'انتقل الكرت',
+   'profile_Company' => 'الشركة',
+
 
 
    //################################### End profile #####################################################//
@@ -356,5 +373,23 @@ return [
    'BreadCrump_Home' => 'الصفحة الرئيسية',
    'BreadCrump_Shop' => 'متجر',
    'BreadCrump_Wishlist' => 'المفضلة',
+   'BreadCrump_Cart' => 'السلة',
+
+   //################################### Start Ctities #####################################################//
+   //################################### Cities #####################################################//
+   //################################### Cities #####################################################//
+   "city_Amman" => "عمان",
+   "city_Zarqaa" => "الزرقاء",
+   "city_Irbid" => "اربد",
+   "city_Salt" => "السلط",
+   "city_Maddaba" => "مادبا",
+   "city_Karak" => "الكرك",
+   "city_Tafilah" => "الطفيلة",
+   "city_Maan" => "معان",
+   "city_Jerash" => "جرش",
+   "city_Ajloun" => "عجلون",
+   "city_Mafraq" => "المفرق",
+   "city_Aqaba" => "العقبة",
+
 
 ];

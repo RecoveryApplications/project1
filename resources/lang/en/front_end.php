@@ -128,6 +128,7 @@ return [
    //################################### product #####################################################//
 
    'product_product' => 'product',
+   'product_productName' => 'product name',
    'product_ratings' => 'ratings',
    'product_Select_Size' => 'Select Size',
    'product_Quantity' => 'Quantity',
@@ -183,6 +184,18 @@ return [
    'shop_All_Brands' => 'All Brands',
    'shop_Price_range' => 'Price Range',
    'shop_Refine' => 'Refine',
+   'shop_UpdateCart' => 'Update Cart',
+   'shop_AmountPayable' => 'Amount Payable',
+   'shop_CartTotal' => 'Cart Total',
+   'shop_Items' => 'Item(s)',
+   'shop_WebsitePercentage' => 'Website Percentage',
+   'shop_Redeem' => 'Redeem',
+   'shop_OutsaleAmount' => 'Outsale Amount',
+   'shop_ItemsSubtotal' => 'Item(s) Subtotal',
+   'shop_OrderOverview' => 'Order Overview',
+   'shop_OutsalePrice' => 'Outsale Price',
+   'shop_ShippingAddress' => 'Shipping Address',
+
 
 
 
@@ -226,6 +239,7 @@ return [
    'profile_unit_price' => 'Unit Price',
    'profile_Out_Sale_Price' => 'Out Sale Price',
    'prodile_close' => 'Close',
+   'profile_Company' => 'Company',
 
 
    //################################### End profile #####################################################//
@@ -352,4 +366,22 @@ return [
    'BreadCrump_Home' => 'Home',
    'BreadCrump_Shop' => 'Shop',
    'BreadCrump_Wishlist' => 'Wishlist',
+   'BreadCrump_Cart' => 'Shopping Cart',
+
+   //################################### Start Ctities #####################################################//
+   //################################### Cities #####################################################//
+   //################################### Cities #####################################################//
+   "city_Amman" => "Amman",
+   "city_Zarqaa" => "Zarqaa",
+   "city_Irbid" => "Irbid",
+   "city_Salt" => "Salt",
+   "city_Maddaba" => "Maddaba",
+   "city_Karak" => "Karak",
+   "city_Tafilah" => "Tafilah",
+   "city_Maan" => "Ma'an",
+   "city_Jerash" => "Jerash",
+   "city_Ajloun" => "Ajloun",
+   "city_Mafraq" => "Mafraq",
+   "city_Aqaba" => "Aqaba",
+
 ];

@@ -42,12 +42,12 @@
     <div class="banner inner-banner1 ">
         <div class="container">
             <section class="banner-detail center-xs">
-                <h1 class="p-1 rounded-lg banner-title bg-danger">Checkout</h1>
+                <h1 class="p-1 rounded-lg banner-title bg-danger">{{ __('front_end.home_Checkout') }}</h1>
                 <div class="bread-crumb right-side float-none-xs">
                     <ul>
-                        <li><a href="index.html">Home</a>/</li>
-                        <li><a href="cart.html">Cart</a>/</li>
-                        <li><span>Checkout</span></li>
+                        <li><a href="index.html">{{ __('front_end.BreadCrump_Home') }}</a>/</li>
+                        <li><a href="cart.html">{{ __('front_end.BreadCrump_Cart') }}</a>/</li>
+                        <li><span>{{ __('front_end.home_Checkout') }}</span></li>
                     </ul>
                 </div>
             </section>
@@ -64,7 +64,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="heading-part align-center">
-                                    <h2 class="heading">Order Overview</h2>
+                                    <h2 class="heading">{{ __('front_end.shop_OrderOverview') }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -81,11 +81,12 @@
                                                 <input type="hidden" name="tax" value="{{ $public_prices['tax'] }}">
                                                 <thead>
                                                     <tr>
-                                                        <th>Product</th>
-                                                        <th>Product Detail</th>
-                                                        <th>Sub Total</th>
-                                                        <th>Outsale Price</th>
-                                                        <th>Action</th>
+                                                        <th>{{ __('front_end.product_product') }}</th>
+
+                                                        <th>{{ __('front_end.profile_Order_Details') }}</th>
+                                                        <th>{{ __('front_end.home_Subtotal') }}</th>
+                                                        <th>{{ __('front_end.shop_OutsalePrice') }}</th>
+                                                        <th>{{ __('front_end.profile_Action') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -93,11 +94,11 @@
                                                         @php
                                                             // dd($public_customer_carts);
                                                             if ($item->property_type == 2) {
-                                                                $product_name = $item->cart_product->name_en;
-                                                                $product_slug = $item->product->slug_en;
+                                                                $product_name = $item->cart_product->name;
+                                                                $product_slug = $item->product->slug;
                                                             } else {
-                                                                $product_name = $item->cart_product->product->name_en;
-                                                                $product_slug = $item->cart_product->product->slug_en;
+                                                                $product_name = $item->cart_product->product->name;
+                                                                $product_slug = $item->cart_product->product->slug;
                                                             }
                                                             $product_price = $item->cart_product->on_sale_price_status == 'Active' ? $item->cart_product->on_sale_price : $item->cart_product->sale_price;
                                                         @endphp
@@ -122,13 +123,13 @@
                                                                             :</span>gray</div>
                                                                     <div class="size"><span class="mr-2 text-muted">Size
                                                                             :</span>XL</div> --}}
-                                                                    <strong class="price">${{ $product_price }} *
+                                                                    <strong class="price">JOD {{ $product_price }} *
                                                                         {{ $item->quantity }}</strong>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div data-id="100" class="total-price price-box">
-                                                                    <span class="price">$
+                                                                    <span class="price">JOD
                                                                         {{ $product_price * $item->quantity }}
                                                                     </span>
                                                                 </div>
@@ -167,12 +168,14 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th colspan="2">Cart Total</th>
+                                                        <th colspan="2">{{ __('front_end.shop_CartTotal') }}l</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>Item(s) Subtotal</td>
+                                                        <td>
+                                                            {{ __('front_end.shop_ItemsSubtotal') }}
+                                                        </td>
                                                         <td>
                                                             <div class="price-box">
                                                                 <span class="price"><small>JOD
@@ -181,7 +184,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Shipping</td>
+                                                        <td>{{ __('front_end.profile_Shipping') }}</td>
                                                         <td>
                                                             <div class="price-box">
                                                                 <span class="price">
@@ -192,7 +195,8 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Tax [{{ $public_prices['taxPercentage'] . '%' }}]</td>
+                                                        <td>{{ __('front_end.profile_Tax') }}
+                                                            [{{ $public_prices['taxPercentage'] . '%' }}]</td>
                                                         <td>
                                                             <div class="price-box">
                                                                 <span class="price"><small>JOD
@@ -205,7 +209,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Website Percentage
+                                                        <td>{{ __('front_end.shop_WebsitePercentage') }}
                                                             [{{ $public_prices['salePercentage'] . '%' }}]</td>
                                                         <td>
                                                             <div class="price-box">
@@ -215,7 +219,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Amount Payable</b></td>
+                                                        <td><b>{{ __('front_end.shop_AmountPayable') }}</b></td>
                                                         <td>
                                                             <div class="price-box">
                                                                 <span class="price"><small>JOD
@@ -224,7 +228,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Redeem</b></td>
+                                                        <td><b>{{ __('front_end.shop_Redeem') }}</b></td>
                                                         <td>
                                                             <div class="price-box">
                                                                 <span class="price"><small>JOD </small><b
@@ -233,7 +237,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><b>Outsale Amount</b></td>
+                                                        <td><b>{{ __('front_end.shop_OutsaleAmount') }}</b></td>
                                                         <td>
                                                             <div class="price-box">
                                                                 <span class="price"><small>JOD </small><b
@@ -252,7 +256,7 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Shipping Address</th>
+                                                        <th>{{ __('front_end.shop_ShippingAddress') }}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -264,66 +268,91 @@
                                                                 <div class="mb-2 col-12">
                                                                     <label for="name" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        Name*
+                                                                        {{ __('front_end.profile_Name') }}*
                                                                     </label>
                                                                     <input type="text" name="name"
                                                                         value="{{ old('name') }}"
                                                                         class="form-control form-control-sm"
-                                                                        placeholder="name" id="name" required>
+                                                                        placeholder="{{ __('front_end.profile_Name') }}"
+                                                                        id="name" required>
                                                                 </div>
                                                                 <div class="mb-2 col-12">
                                                                     <label for="phone" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        Phone*
+                                                                        {{ __('front_end.profile_Phone') }}*
                                                                     </label>
-                                                                    <input type="text" name="phone"
+                                                                    <input type="tel" name="phone"
                                                                         value="{{ old('phone') }}"
                                                                         class="form-control form-control-sm"
-                                                                        placeholder="phone" id="phone" required>
+                                                                        placeholder="{{ __('front_end.profile_Phone') }}"
+                                                                        id="phone" required>
                                                                 </div>
 
                                                                 <div class="mb-2 col-12">
                                                                     <label for="email" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        Email
+                                                                        {{ __('front_end.profile_Email') }}
                                                                     </label>
                                                                     <input type="email" name="email"
                                                                         value="{{ old('email') }}"
                                                                         class="form-control form-control-sm"
-                                                                        placeholder="email" id="email">
+                                                                        placeholder="{{ __('front_end.profile_Email') }}" id="email">
                                                                 </div>
                                                                 <div class="mb-2 col-12">
                                                                     <label for="company" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        Company
+                                                                        {{ __("front_end.profile_Company") }}
                                                                     </label>
                                                                     <input type="text" name="company"
                                                                         value="{{ old('company') }}"
                                                                         class="form-control form-control-sm"
-                                                                        placeholder="company" id="company">
+                                                                        placeholder="{{ __("front_end.profile_Company") }}" id="company">
                                                                 </div>
                                                                 <div class="mb-2 col-12">
                                                                     <div class="mb-0 input-box select-dropdown">
                                                                         <label for="city" class="form-label"
                                                                             style="font-size: 14px">
-                                                                            City*
+                                                                            {{ __("front_end.profile_city") }}*
                                                                         </label>
                                                                         <fieldset>
                                                                             <select id="city" class="option-drop"
                                                                                 name="city" required>
-                                                                                <option value="amman" selected>Amman
+                                                                                <option value="amman" selected>
+                                                                                    {{ __("front_end.city_Amman") }}
                                                                                 </option>
-                                                                                <option value="zarqaa">Zarqaa</option>
-                                                                                <option value="irbid">Irbid</option>
-                                                                                <option value="salt">Salt</option>
-                                                                                <option value="madaba">Madaba</option>
-                                                                                <option value="karak">Karak</option>
-                                                                                <option value="Tafilah">Tafilah</option>
-                                                                                <option value="ma'an">Ma'an</option>
-                                                                                <option value="jerash">Jerash</option>
-                                                                                <option value="ajloun">Ajloun</option>
-                                                                                <option value="mafraq">Mafraq</option>
-                                                                                <option value="aqaba">Aqaba</option>
+                                                                                <option value="zarqaa">
+                                                                                    {{ __("front_end.city_Zarqaa") }}
+                                                                                </option>
+                                                                                <option value="irbid">
+                                                                                    {{ __("front_end.city_Irbid") }}
+                                                                                </option>
+                                                                                <option value="salt">
+                                                                                    {{ __("front_end.city_Salt") }}
+                                                                                </option>
+                                                                                <option value="madaba">
+                                                                                    {{ __("front_end.city_Maddaba") }}
+                                                                                </option>
+                                                                                <option value="karak">
+                                                                                    {{ __("front_end.city_Karak") }}
+                                                                                </option>
+                                                                                <option value="Tafilah">
+                                                                                    {{ __("front_end.city_Tafilah") }}
+                                                                                </option>
+                                                                                <option value="ma'an">
+                                                                                    {{ __("front_end.city_Maan") }}
+                                                                                </option>
+                                                                                <option value="jerash">
+                                                                                    {{ __("front_end.city_Jerash") }}
+                                                                                </option>
+                                                                                <option value="ajloun">
+                                                                                    {{ __("front_end.city_Ajloun") }}
+                                                                                </option>
+                                                                                <option value="mafraq">
+                                                                                    {{ __("front_end.city_Mafraq") }}
+                                                                                </option>
+                                                                                <option value="aqaba">
+                                                                                    {{ __("front_end.city_Aqaba") }}
+                                                                                </option>
                                                                             </select>
                                                                         </fieldset>
                                                                     </div>
@@ -331,40 +360,40 @@
                                                                 <div class="mb-2 col-12">
                                                                     <label for="address" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        Address*
+                                                                        {{ __("front_end.home_Address") }}*
                                                                     </label>
                                                                     <input type="text" name="address"
                                                                         value="{{ old('address') }}"
                                                                         class="form-control form-control-sm"
-                                                                        placeholder="address" id="address" required>
+                                                                        placeholder="{{ __("front_end.home_Address") }}" id="address" required>
                                                                 </div>
                                                                 <div class="mb-2 col-12">
                                                                     <label for="apartment" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        Apartment
+                                                                        {{ __("front_end.home_Apartment") }}
                                                                     </label>
                                                                     <input type="text" name="apartment"
                                                                         value="{{ old('apartment') }}"
                                                                         class="form-control form-control-sm"
-                                                                        placeholder="apartment" id="apartment">
+                                                                        placeholder="{{ __("front_end.home_Apartment") }}" id="apartment">
                                                                 </div>
                                                                 <div class="mb-2 col-12">
                                                                     <label for="zipcode" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        Zipcode
+                                                                        {{ __("front_end.profile_Zip_Code") }}
                                                                     </label>
                                                                     <input type="text" name="zipcode"
                                                                         value="{{ old('zipcode') }}"
                                                                         class="form-control form-control-sm"
-                                                                        placeholder="zipcode" id="zipcode">
+                                                                        placeholder="{{ __("front_end.profile_Zip_Code") }}" id="zipcode">
                                                                 </div>
                                                                 <div class="mb-2 col-12">
                                                                     <label for="zipcode" class="form-label"
                                                                         style="font-size: 14px">
-                                                                        More info
+                                                                        {{ __("front_end.home_More_Info") }}
                                                                     </label>
                                                                     <textarea name="more_info" id="more_info" cols="30" rows="3" class="form-control form-control-sm"
-                                                                        placeholder="more info">{{ old('more_info') }}</textarea>
+                                                                        placeholder="{{ __("front_end.home_More_Info") }}">{{ old('more_info') }}</textarea>
                                                                 </div>
                                                             </div>
                                                         </td>

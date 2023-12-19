@@ -50,9 +50,9 @@
             <!-- Container-fluid Ends-->
             <div class="col-sm-12">
                 <div class="card">
-                     {{-- <div class="card-header">
-                        <a href="{{ route('super_admin.blogs-create') }}" class="btn btn-primary add-row mt-md-0 mt-2">Add New</a>
-                        <a href="{{ route('super_admin.blogs-showSoftDelete') }}" class="btn btn-danger add-row mt-md-0 mt-2">Archive </a>
+                    {{-- <div class="card-header">
+                        <a href="{{ route('super_admin.blogs-create') }}" class="mt-2 btn btn-primary add-row mt-md-0">Add New</a>
+                        <a href="{{ route('super_admin.blogs-showSoftDelete') }}" class="mt-2 btn btn-danger add-row mt-md-0">Archive </a>
                         </div> --}}
                     <div class="card-body order-datatable">
                         <table class="display" id="basic-1">
@@ -68,51 +68,56 @@
                             <tbody>
                                 @if ($sliders->count() > 0)
                                     @foreach ($sliders as $index => $slider)
-                                    <tr>
-                                        <td>{!! isset($slider->title_en) ? $slider->title_en : "<span style='color:red;'>Undefined</span>" !!}</td>
-                                        <td>{!! isset($slider->description_en) ? $slider->description_en : "<span style='color:red;'>Undefined</span>" !!}</td>
+                                        <tr>
+                                            <td>{!! isset($slider->title_en) ? $slider->title_en : "<span style='color:red;'>Undefined</span>" !!}</td>
+                                            <td>{!! isset($slider->description_en) ? $slider->description_en : "<span style='color:red;'>Undefined</span>" !!}</td>
 
 
-                                        @if ($slider->image && file_exists($slider->image))
-                                            <td>
+                                            @if ($slider->image && file_exists($slider->image))
+                                                <td>
 
-                                                <div class="d-flex align-items-center">
-                                                    <img src="{{ asset($slider->image) }}"
-                                                        alt="" class="img-fluid img-60 me-2 blur-up lazyloaded">
-                                                </div>
-                                            </td>
-                                        @else
-                                            <td>
-
-                                                <div class="d-flex align-items-center">
-                                                    <img src="{{ asset('dashboard_files/assets/images/fashion/product/19.jpg') }}"
-                                                        alt="" class="img-fluid img-60 me-2 blur-up lazyloaded">
-                                                </div>
-                                            </td>
-                                        @endif
-                                        <td>
-                                            @if (isset($slider->status))
-                                            @if ($slider->status == 'Active')
-                                                <span class="badge badge-success">{{ isset($slider->status) ? $slider->status : "<span style='color:red;'>Undefined</span>" }}</span>
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="{{ asset($slider->image) }}" alt=""
+                                                            class="img-fluid img-60 me-2 blur-up lazyloaded">
+                                                    </div>
+                                                </td>
                                             @else
-                                                <span class="badge badge-primary" >{{ isset($slider->status) ? $slider->status : "<span style='color:red;'>Undefined</span>" }}</span>
-                                            @endif
-                                        @else
-                                            <span style='color:red;'>Undefined</span>
-                                        @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('super_admin.sliders-softDeleteRestore', $slider->id) }}"class="unarchive mb-1 btn btn-sm btn-success">
-                                                <i class="fa fa-solid fa-rotate-right"></i>
-                                            </a>
+                                                <td>
 
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="{{ asset('dashboard_files/assets/images/fashion/product/19.jpg') }}"
+                                                            alt="" class="img-fluid img-60 me-2 blur-up lazyloaded">
+                                                    </div>
+                                                </td>
+                                            @endif
+                                            <td>
+                                                @if (isset($slider->status))
+                                                    @if ($slider->status == 'Active')
+                                                        <span
+                                                            class="badge badge-success">{{ isset($slider->status) ? $slider->status : "<span style='color:red;'>Undefined</span>" }}</span>
+                                                    @else
+                                                        <span
+                                                            class="badge badge-primary">{{ isset($slider->status) ? $slider->status : "<span style='color:red;'>Undefined</span>" }}</span>
+                                                    @endif
+                                                @else
+                                                    <span style='color:red;'>Undefined</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a
+                                                    href="{{ route('super_admin.sliders-softDeleteRestore', $slider->id) }}"class="mb-1 unarchive btn btn-sm btn-success">
+                                                    <i class="fa fa-solid fa-rotate-right"></i>
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-        @endsection
+        </div>
+    </div>
+@endsection
